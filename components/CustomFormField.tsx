@@ -37,7 +37,7 @@ export default function CustomFormField( {control, fieldType,name, label}: Custo
     name="username"
     render={({ field }) => (
       <FormItem>
-        {fieldType === FormFieldType.CHECKBOX && label(
+        {fieldType === FormFieldType.CHECKBOX && label &&(
             <FormLabel>
                 {label}
             </FormLabel>
