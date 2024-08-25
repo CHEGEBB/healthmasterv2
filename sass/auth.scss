@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&family=Outfit:wght@300;400;500;700&family=Poppins:wght@300;400;500;700&family=Jost:wght@300;400;500;700&display=swap');
+
+@mixin button-style {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #24AE7C;
+  color: white;
+  cursor: pointer;
+  &:hover {
+    background-color: #2485AE;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  background-color: black;
+  color: white;
+  align-items: center;
+  font-family: 'Rubik', sans-serif;
+
+  .form-container {
+    margin: 1rem;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .form-title {
+      margin-bottom: 2rem;
+      h1 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+    }
+
+    .form-group {
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 1.5rem;
+      position: relative;
+
+      label {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.5rem;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .input-wrapper {
+        position: relative;
+
+        .input-icon {
+          position: absolute;
+          left: 0.5rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #888;
+          transition: all 0.3s ease;
+        }
+
+        input {
+          width: 400px;
+          padding: 0.5rem 0.5rem 0.5rem 2rem;
+          border-radius: 0.25rem;
+          border: 1px solid #444;
+          background-color: #333;
+          color: white;
+          font-family: 'Jost', sans-serif;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: #24AE7C;
+            background-color: #444;
+          }
+        }
+      }
+
+      &.focused {
+        label {
+          top: -1.5rem;
+          left: 0;
+          font-size: 0.8rem;
+          color: #24AE7C;
+        }
+
+        .input-icon {
+          opacity: 0;
+        }
+
+        input {
+          padding-left: 0.5rem;
+        }
+      }
+    }
+
+    button {
+      @include button-style;
+      width: 100%;
+      max-width: 300px;
+      padding: 0.75rem;
+      font-family: 'Rubik', sans-serif;
+      font-weight: 500;
+    }
+
+    p {
+      font-family: 'Poppins', sans-serif;
+      a {
+        color: #24AE7C;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .container-image {
+    width: 50%;
+    position: relative;
+
+    img {
+      object-fit: cover;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+
+    .form-container, .container-image {
+      width: 100%;
+    }
+
+    .container-image {
+      height: 300px;
+    }
+  }
+}
