@@ -65,6 +65,7 @@ export default function Home() {
               <PhoneInput
                 country="us"
                 value={phone}
+                required
                 onChange={(value) => setPhone(value)}
                 inputStyle={{
                   width: "100%",
@@ -100,8 +101,8 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="form-group">
-          <Checkbox />
+          <div className="flex-row form-group">
+            <input type="checkbox" id="terms" name="terms" required />
             <p>
               By signing up, you agree to our <a href="/terms">Terms and Conditions</a> and{" "}
               <a href="/privacy">Privacy Policy</a>.
@@ -109,7 +110,7 @@ export default function Home() {
           </div>
           <div className="form-group">
             <Button type="submit" className="btn btn-primary">
-              Sign Up
+             Get Started
             </Button>
           </div>
         </form>
