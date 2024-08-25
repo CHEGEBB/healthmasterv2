@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import CustomPhoneInput from "@/components/ui/PhoneInput";
+import { Skeleton } from "@/components/ui/skeleton";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import "../sass/auth.scss";
 
 export default function Home() {
@@ -22,9 +24,11 @@ export default function Home() {
           <div className={`form-group ${focusedInput === 'name' ? 'focused' : ''}`}>
             <label htmlFor="name">Full Name</label>
             <div className="input-wrapper">
+              <Skeleton className="w-[100px] h-[20px] rounded-full" />
               <FontAwesomeIcon icon={faUser} className="input-icon" />
               <Input
                 type="text"
+                placeholder="John Doe"
                 id="name"
                 required
                 onFocus={() => setFocusedInput('name')}
@@ -37,20 +41,43 @@ export default function Home() {
             <div className="input-wrapper">
               <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
               <Input
+              
                 type="email"
                 id="email"
                 required
                 onFocus={() => setFocusedInput('email')}
                 onBlur={() => setFocusedInput(null)}
+                placeholder="johndoe@gmail.com"
               />
             </div>
           </div>
           <div className="form-group">
             <label htmlFor="phone">Phone Number</label>
-            <CustomPhoneInput
-              value={phone}
-              onChange={(phone) => setPhone(phone)}
-            />
+            <div className="phone-input-wrapper">
+              <PhoneInput
+                country="us"
+                value={phone}
+                onChange={(value) => setPhone(value)}
+                inputStyle={{
+                  width: "100%",
+                  padding: "25px",
+                  marginLeft: "30px",
+                  borderRadius: "0.25rem",
+                  border: "1px solid #444",
+                  backgroundColor: "#333",
+                  color: "white",
+                  fontFamily: "Jost, sans-serif",
+                }}
+                buttonStyle={{
+                  backgroundColor: "#333",
+                  border: "1px solid #444",
+                }}
+                containerStyle={{
+                  width: "100%",
+                }}
+                inputClass="phone-input"
+              />
+            </div>
           </div>
           <div className="form-group">
             <Button type="submit" className="btn btn-primary">
