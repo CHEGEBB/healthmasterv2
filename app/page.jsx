@@ -2,10 +2,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Checkbox } from "@/components/ui/checkbox";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../sass/auth.scss";
@@ -15,12 +16,19 @@ export default function Home() {
   const [phone, setPhone] = useState("");
 
   return (
-    <div className="container">
-      <div className="form-container">
+    (<div className="container">
+      <div className="items-start justify-start mx-4 form-container">
+      <div className="flex-row form-logo">
+        <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
+        <h2 className="items-center text-xl font-bold">Health master</h2>
+      </div>
         <div className="form-title">
-          <h1>Sign Up</h1>
+          <h1 className="flex items-start">Hello there👋</h1>
+          <p>
+            Welcome to HealthMaster, the all-in-one platform to help you stay healthy.
+          </p>
         </div>
-        <form>
+        <form className="flex-col">
           <div className={`form-group ${focusedInput === 'name' ? 'focused' : ''}`}>
             <label htmlFor="name">Full Name</label>
             <div className="input-wrapper">
@@ -51,7 +59,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="form-group">
+          <div className={`form-group ${focusedInput === 'phone' ? 'focused' :''}`}>
             <label htmlFor="phone">Phone Number</label>
             <div className="phone-input-wrapper">
               <PhoneInput
@@ -79,6 +87,26 @@ export default function Home() {
               />
             </div>
           </div>
+          <div className={`form-group ${focusedInput === 'password' ? 'focused ':''}`}>
+            {/* password */}
+            <label html for="password">Password</label>
+            <div className="input-wrapper">
+            <FontAwesomeIcon icon={faLock} className="input-icon" />
+              <Input
+                type="text"
+                id="password"
+                required
+                placeholder="create your password"
+              />
+            </div>
+          </div>
+          <div className="form-group">
+          <Checkbox />
+            <p>
+              By signing up, you agree to our <a href="/terms">Terms and Conditions</a> and{" "}
+              <a href="/privacy">Privacy Policy</a>.
+            </p>
+          </div>
           <div className="form-group">
             <Button type="submit" className="btn btn-primary">
               Sign Up
@@ -94,6 +122,6 @@ export default function Home() {
       <div className="container-image">
         <Image src="/assets/images/background-1.webp" width={1000} height={1000} alt="Background" />
       </div>
-    </div>
+    </div>)
   );
 }

@@ -19,14 +19,33 @@
   color: white;
   align-items: center;
   font-family: 'Rubik', sans-serif;
+  .form-logo{
+    position: absolute;
+    top: 10%;
+    display: flex;
+    flex-direction: row;
+    h2{
+        font-family: 'Jost', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-right: 1rem;
+        vertical-align: middle;
+        margin-top: 0.5rem;
+    }
+    img{
+        width: 50px;
+        height: 50px;
+        margin-right: 1rem;
+        vertical-align: middle;
+        border-radius: 8px;
+    }
+  }
 
   .form-container {
-    margin: 1rem;
     width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 4rem;
 
     .form-title {
       margin-bottom: 2rem;
@@ -54,7 +73,6 @@
       #placeholder{
         display: inline-block;
         position: absolute;
-        left: 0;
         top: 50%;
         font-size: 1.2rem;
         color: #333;
@@ -74,7 +92,7 @@
         }
 
         input {
-          width: 400px;
+          width: 550px;
           padding: 0.5rem 0.5rem 0.5rem 2rem;
           border-radius: 0.25rem;
           border: 1px solid #444;
