@@ -119,6 +119,11 @@ export default function Home() {
             Already have an account? <a href="/login">Login</a>
           </p>
         </div>
+        <div className="form-group">
+          <p>
+          © 2024 HealthMaster. All rights reserved.
+          </p>
+        </div>
       </div>
       <div className="container-image">
         <Image src="/assets/images/background-1.webp" width={1000} height={1000} alt="Background" />

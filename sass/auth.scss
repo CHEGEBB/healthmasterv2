@@ -19,9 +19,10 @@
   color: white;
   align-items: center;
   font-family: 'Rubik', sans-serif;
+  overflow-y: hidden;
   .form-logo{
     position: absolute;
-    top: 10%;
+    top: 5%;
     display: flex;
     flex-direction: row;
     h2{
@@ -134,6 +135,20 @@
       padding: 0.75rem;
       font-family: 'Rubik', sans-serif;
       font-weight: 500;
+      animation: heartbeat 2s ease-in-out infinite;
+      @keyframes heartbeat {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+      &:hover {
+        transform: translateY(-2px);
+          transform: scale(1.05);
+      }
+
     }
 
     p {
@@ -151,7 +166,7 @@
   .container-image {
     width: 50%;
     position: relative;
-
+    animation: fadeIn 2s ease-in 0.5s forwards;
     img {
       object-fit: cover;
     }
@@ -196,3 +211,92 @@
     border: 1px solid #444;
   }
   
+@keyframes slideInLeft {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .container-image img {
+    animation: diagonalSlideIn 1.5s ease-in-out forwards;
+  }
+  
+  @keyframes diagonalSlideIn {
+    0% {
+      transform: translate(-100%, -100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
+  }
+  .form-group label {
+    position: absolute;
+    left: 0.5rem;
+    top: 0.5rem;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-family: 'Poppins', sans-serif;
+    animation: textGlow 3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes textGlow {
+    0%, 100% {
+      text-shadow: 0 0 5px #24AE7C, 0 0 10px #24AE7C, 0 0 15px #24AE7C;
+    }
+    50% {
+      text-shadow: 0 0 10px #2485AE, 0 0 20px #2485AE, 0 0 25px #2485AE;
+    }
+  }
+  input:focus {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  input:focus::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(36, 174, 124, 0.3);
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+  }
+  
+  @keyframes ripple {
+    to {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+    }
+  }
+  .container-image img {
+    animation: bounceOnScroll 3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes bounceOnScroll {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+        
