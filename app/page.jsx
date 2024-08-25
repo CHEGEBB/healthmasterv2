@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import "../sass/auth.scss";
+import { Button, Input } from "@/components/ui/button"
 
 export default function Home() {
   const [focusedInput, setFocusedInput] = useState(null);
@@ -69,9 +70,9 @@ export default function Home() {
             </div>
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              Sign Up
-            </button>
+          <Button type="submit" className="btn btn-primary">
+          sign up
+            </Button>
           </div>
         </form>
         <div className="form-group">
