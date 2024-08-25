@@ -5,10 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import "../sass/auth.scss";
 
 export default function Home() {
   const [focusedInput, setFocusedInput] = useState(null);
+  const [phone, setPhone] = useState(""); // State to store the phone number
 
   return (
     <div className="container">
@@ -45,30 +48,27 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={`form-group ${focusedInput === 'password' ? 'focused' : ''}`}>
-            <label htmlFor="password">Password</label>
+          <div className="form-group">
+            <label htmlFor="phone">Phone Number</label>
             <div className="input-wrapper">
-              <FontAwesomeIcon icon={faLock} className="input-icon" />
-              <Input
-                type="password"
-                id="password"
-                required
-                onFocus={() => setFocusedInput('password')}
-                onBlur={() => setFocusedInput(null)}
-              />
-            </div>
-          </div>
-
-          <div className={`form-group ${focusedInput === 'confirmPassword' ? 'focused' : ''}`}>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <div className="input-wrapper">
-              <FontAwesomeIcon icon={faLock} className="input-icon" />
-              <Input
-                type="password"
-                id="confirmPassword"
-                required
-                onFocus={() => setFocusedInput('confirmPassword')}
-                onBlur={() => setFocusedInput(null)}
+              <PhoneInput
+                country={"us"}
+                value={phone}
+                onChange={(phone) => setPhone(phone)}
+                inputStyle={{
+                  width: "400px",
+                  padding: "30px",
+                  borderRadius: "0.25rem",
+                  border: "1px solid #444",
+                  backgroundColor: "#333",
+                  color: "white",
+                  fontFamily: "Jost, sans-serif",
+                }}
+                buttonStyle={{
+                  backgroundColor: "#333",
+                  border: "1px solid #444",
+                }}
+                inputClass="phone-input"
               />
             </div>
           </div>
@@ -81,7 +81,9 @@ export default function Home() {
         </form>
 
         <div className="form-group">
-          <p>Already have an account? <a href="/login">Login</a></p>
+          <p>
+            Already have an account? <a href="/login">Login</a>
+          </p>
         </div>
       </div>
 
