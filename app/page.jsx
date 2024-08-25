@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -10,18 +8,19 @@ import { Checkbox } from "@/components/ui/checkbox";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../sass/auth.scss";
+import { User, Mail, Phone, Lock } from "lucide-react";
 
 export default function Home() {
   const [focusedInput, setFocusedInput] = useState(null);
   const [phone, setPhone] = useState("");
 
   return (
-    (<div className="container">
+    <div className="container">
       <div className="items-start justify-start mx-4 form-container">
-      <div className="flex-row form-logo">
-        <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
-        <h2 className="items-center text-xl font-bold">Health master</h2>
-      </div>
+        <div className="flex-row form-logo">
+          <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
+          <h2 className="items-center text-xl font-bold">Health master</h2>
+        </div>
         <div className="form-title">
           <h1 className="flex items-start">Hello there👋</h1>
           <p>
@@ -32,8 +31,7 @@ export default function Home() {
           <div className={`form-group ${focusedInput === 'name' ? 'focused' : ''}`}>
             <label htmlFor="name">Full Name</label>
             <div className="input-wrapper">
-              <Skeleton className="w-[100px] h-[20px] rounded-full" />
-              <FontAwesomeIcon icon={faUser} className="input-icon" />
+              <User className="input-icon" />
               <Input
                 type="text"
                 placeholder="John Doe"
@@ -47,9 +45,8 @@ export default function Home() {
           <div className={`form-group ${focusedInput === 'email' ? 'focused' : ''}`}>
             <label htmlFor="email">Email</label>
             <div className="input-wrapper">
-              <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
+              <Mail className="input-icon" />
               <Input
-              
                 type="email"
                 id="email"
                 required
@@ -59,7 +56,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className={`form-group ${focusedInput === 'phone' ? 'focused' :''}`}>
+          <div className={`form-group ${focusedInput === 'phone' ? 'focused' : ''}`}>
             <label htmlFor="phone">Phone Number</label>
             <div className="phone-input-wrapper">
               <PhoneInput
@@ -88,11 +85,10 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className={`form-group ${focusedInput === 'password' ? 'focused ':''}`}>
-            {/* password */}
-            <label html for="password">Password</label>
+          <div className={`form-group ${focusedInput === 'password' ? 'focused' : ''}`}>
+            <label htmlFor="password">Password</label>
             <div className="input-wrapper">
-            <FontAwesomeIcon icon={faLock} className="input-icon" />
+              <Lock className="input-icon" />
               <Input
                 type="text"
                 id="password"
@@ -110,7 +106,7 @@ export default function Home() {
           </div>
           <div className="form-group">
             <Button type="submit" className="btn btn-primary">
-             Get Started
+              Get Started
             </Button>
           </div>
         </form>
@@ -120,14 +116,14 @@ export default function Home() {
           </p>
         </div>
         <div className="form-group">
-          <p>
-          © 2024 HealthMaster. All rights reserved.
+          <p className="text-[#24AE7C] copyright">
+            © 2024 HealthMaster. All rights reserved.
           </p>
         </div>
       </div>
-      <div className="container-image">
+      <div className="container-image blur-sm">
         <Image src="/assets/images/background-1.webp" width={1000} height={1000} alt="Background" />
       </div>
-    </div>)
+    </div>
   );
 }

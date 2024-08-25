@@ -16,10 +16,11 @@
   display: flex;
   flex-direction: row;
   background-color: black;
-  color: white;
+  color: #ccc;
   align-items: center;
   font-family: 'Rubik', sans-serif;
   overflow-y: hidden;
+  min-height: 100vh;
   .form-logo{
     position: absolute;
     top: 5%;
@@ -62,6 +63,14 @@
       max-width: 300px;
       margin-bottom: 1.5rem;
       position: relative;
+      .copyright{
+        font-size: 1.2rem;
+        color: #888;
+        margin-bottom: 1rem;
+        position: absolute;
+        top: 55%;
+        font-family: 'Outfit', sans-serif;
+      }
 
       label {
         position: absolute;
@@ -70,14 +79,6 @@
         transition: all 0.3s ease;
         pointer-events: none;
         font-family: 'Poppins', sans-serif;
-      }
-      #placeholder{
-        display: inline-block;
-        position: absolute;
-        top: 50%;
-        font-size: 1.2rem;
-        color: #333;
-        transition: all 0.3s ease;
       }
 
       .input-wrapper {
