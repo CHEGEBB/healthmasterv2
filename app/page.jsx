@@ -4,7 +4,8 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import "../sass/auth.scss";
-import { Button, Input } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input";
 
 export default function Home() {
   const [focusedInput, setFocusedInput] = useState(null);
@@ -20,7 +21,7 @@ export default function Home() {
         <label html for="name">Full name</label>
         <div className="input-wrapper">
           <FontAwesomeIcon icon={faUser} className="input-icon" />
-          <input 
+          <Input 
             type="text" 
             id="name" 
             required 
@@ -34,7 +35,7 @@ export default function Home() {
             <label htmlFor="email">Email</label>
             <div className="input-wrapper">
               <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
-              <input 
+              <Input 
                 type="email" 
                 id="email" 
                 required 
@@ -47,7 +48,7 @@ export default function Home() {
             <label htmlFor="password">Password</label>
             <div className="input-wrapper">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
-              <input 
+              <Input 
                 type="password" 
                 id="password" 
                 required 
@@ -60,7 +61,7 @@ export default function Home() {
             <label htmlFor="confirmPassword">Confirm Password</label>
             <div className="input-wrapper">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
-              <input 
+              <Input
                 type="password" 
                 id="confirmPassword" 
                 required 
