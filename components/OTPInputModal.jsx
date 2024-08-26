@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import "../sass/otpInput.scss"
 
 const OTPInputModal = ({ isOpen, onClose, phoneNumber }) => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -32,8 +33,8 @@ const OTPInputModal = ({ isOpen, onClose, phoneNumber }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-full max-w-md p-8 bg-gray-800 rounded-lg">
+    <div className="absolute inset-0 z-50 flex items-center justify-center w-20 bg-black bg-opacity-50 ">
+      <div className="w-1/3 p-8 bg-gray-800 rounded-lg ma1 x-w-md">
         <h3 className="mb-4 text-lg font-medium text-white">Verify OTP</h3>
         <p className="mb-6 text-sm text-gray-300">
           Please enter the OTP sent to {phoneNumber}. It will expire in {timer} seconds.
