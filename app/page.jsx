@@ -3,16 +3,25 @@ import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Checkbox } from "@/components/ui/checkbox";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../sass/auth.scss";
 import { User, Mail, Phone, Lock } from "lucide-react";
+import OTPInputModal from "../components/OTPInputModal";
 
 export default function Home() {
   const [focusedInput, setFocusedInput] = useState(null);
   const [phone, setPhone] = useState("");
+  const [isOTPModalOpen, setIsOTPModalOpen] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you would typically send the form data to your backend
+    console.log("Form submitted");
+    // For demonstration, we're just opening the OTP modal
+    setIsOTPModalOpen(true);
+  };
 
   return (
     <div className="container">
@@ -27,7 +36,7 @@ export default function Home() {
             Welcome to HealthMaster, the all-in-one platform to help you stay healthy.
           </p>
         </div>
-        <form className="flex-col">
+        <form className="flex-col" onSubmit={handleSubmit}>
           <div className={`form-group ${focusedInput === 'name' ? 'focused' : ''}`}>
             <label htmlFor="name">Full Name</label>
             <div className="input-wrapper">
@@ -90,7 +99,7 @@ export default function Home() {
             <div className="input-wrapper">
               <Lock className="input-icon" />
               <Input
-                type="text"
+                type="password"
                 id="password"
                 required
                 placeholder="create your password"
@@ -98,7 +107,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-row form-group">
-            <input type="checkbox" id="terms" name="terms" required />
+            <Checkbox id="terms" name="terms" required />
             <p>
               By signing up, you agree to our <a href="/terms">Terms and Conditions</a> and{" "}
               <a href="/privacy">Privacy Policy</a>.
@@ -121,6 +130,11 @@ export default function Home() {
           </p>
         </div>
       </div>
+          <OTPInputModal
+        isOpen={isOTPModalOpen}
+        onClose={() => setIsOTPModalOpen(false)}
+        phoneNumber={phone}
+      />
       <div className="container-image blur-sm">
         <Image src="/assets/images/background-1.webp" width={1000} height={1000} alt="Background" />
       </div>

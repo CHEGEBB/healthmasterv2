@@ -1,11 +1,10 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import "../../sass/auth.scss";
+import { Mail, Lock } from "lucide-react";
 
 export default function Login() {
   const [focusedInput, setFocusedInput] = useState(null);
@@ -27,7 +26,7 @@ export default function Login() {
           <div className={`form-group ${focusedInput === 'email' ? 'focused' : ''}`}>
             <label htmlFor="email">Email</label>
             <div className="input-wrapper">
-              <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
+              <Mail className="input-icon" />
               <Input
                 type="email"
                 id="email"
@@ -41,7 +40,7 @@ export default function Login() {
           <div className={`form-group ${focusedInput === 'password' ? 'focused' : ''}`}>
             <label htmlFor="password">Password</label>
             <div className="input-wrapper">
-              <FontAwesomeIcon icon={faLock} className="input-icon" />
+              <Lock className="input-icon" />
               <Input
                 type="password"
                 id="password"
@@ -67,7 +66,7 @@ export default function Login() {
         </form>
         <div className="form-group">
           <p>
-             Have no account? <a href="/">Sign up</a>
+            Have no account? <a href="/">Sign up</a>
           </p>
         </div>
         <div className="form-group">
