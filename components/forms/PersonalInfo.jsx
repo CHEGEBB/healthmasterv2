@@ -1,23 +1,24 @@
-"use client"
-import React, { useState } from 'react'
-import { Briefcase, CalendarDays, Cross, Home, Mail, Phone, User2, AlertTriangle } from 'lucide-react'
-import { Button } from "../../components/ui/button"
-import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group"
-import { Label } from "../../components/ui/label"
-import "../../sass/PersonalInfo.scss"
+"use client";
+
+import React, { useState } from "react";
+import { Briefcase, CalendarDays, Cross, Home, Mail, Phone, User2, AlertTriangle } from "lucide-react";
+import { Button } from "../../components/ui/button";
+import { Label } from "../../components/ui/label";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../components/ui/select";
+import "../../sass/PersonalInfo.scss";
 
 export default function PersonalInfo() {
   const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    dob: '',
-    gender: '',
-    address: '',
-    occupation: '',
-    emergencyContact: '',
-    emergencyPhone: ''
-  })
+    name: "",
+    email: "",
+    phone: "",
+    dob: "",
+    gender: "",
+    address: "",
+    occupation: "",
+    emergencyContact: "",
+    emergencyPhone: ""
+  });
 
   const [validationState, setValidationState] = useState({
     name: null,
@@ -29,49 +30,54 @@ export default function PersonalInfo() {
     occupation: null,
     emergencyContact: null,
     emergencyPhone: null
-  })
+  });
 
   const handleInputChange = (e) => {
-    const { id, value } = e.target
-    setFormState(prev => ({ ...prev, [id]: value }))
-    validateField(id, value)
-  }
+    const { id, value } = e.target;
+    setFormState((prev) => ({ ...prev, [id]: value }));
+    validateField(id, value);
+  };
+
+  const handleGenderChange = (value) => {
+    setFormState((prev) => ({ ...prev, gender: value }));
+    validateField("gender", value);
+  };
 
   const validateField = (field, value) => {
-    let isValid = false
+    let isValid = false;
     switch (field) {
-      case 'name':
-        isValid = value.trim().length > 0
-        break
-      case 'email':
-        isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-        break
-      case 'phone':
-      case 'emergencyPhone':
-        isValid = /^\d{10}$/.test(value)
-        break
-      case 'dob':
-        isValid = value !== ''
-        break
-      case 'gender':
-        isValid = ['male', 'female', 'other'].includes(value)
-        break
-      case 'address':
-      case 'occupation':
-      case 'emergencyContact':
-        isValid = value.trim().length > 0
-        break
+      case "name":
+        isValid = value.trim().length > 0;
+        break;
+      case "email":
+        isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        break;
+      case "phone":
+      case "emergencyPhone":
+        isValid = /^\d{10}$/.test(value);
+        break;
+      case "dob":
+        isValid = value !== "";
+        break;
+      case "gender":
+        isValid = ["male", "female", "other"].includes(value);
+        break;
+      case "address":
+      case "occupation":
+      case "emergencyContact":
+        isValid = value.trim().length > 0;
+        break;
       default:
-        break
+        break;
     }
-    setValidationState(prev => ({ ...prev, [field]: isValid }))
-    
+    setValidationState((prev) => ({ ...prev, [field]: isValid }));
+
     if (isValid) {
       setTimeout(() => {
-        setValidationState(prev => ({ ...prev, [field]: null }))
-      }, 3000)
+        setValidationState((prev) => ({ ...prev, [field]: null }));
+      }, 3000);
     }
-  }
+  };
 
   return (
     <div className="p-6 bg-gray-800 rounded-lg shadow-lg personal-info">
@@ -139,34 +145,22 @@ export default function PersonalInfo() {
                 onChange={handleInputChange}
                 required
               />
-              <label htmlFor="dob" className={formState.dob ? 'active' : ''}>Date of birth</label>
               <CalendarDays className="form-icon" />
             </div>
             {validationState.dob === false && <p className="error-message">Please enter a valid date of birth.</p>}
           </div>
 
-          <div className="flex-1 form-item">
-            <label className="block mb-2 text-sm font-medium text-gray-300">Gender</label>
-            <RadioGroup
-              onValueChange={(value) => {
-                setFormState(prev => ({ ...prev, gender: value }))
-                validateField('gender', value)
-              }}
-              className="flex space-x-4"
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="male" id="male" />
-                <Label htmlFor="male">Male</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="female" id="female" />
-                <Label htmlFor="female">Female</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="other" id="other" />
-                <Label htmlFor="other">Other</Label>
-              </div>
-            </RadioGroup>
+          <div className="flex-1 border-gray-700 form-item select">
+            <Select onValueChange={handleGenderChange} value={formState.gender}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Gender" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="male">Male</SelectItem>
+                <SelectItem value="female">Female</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+              </SelectContent>
+            </Select>
             {validationState.gender === false && <p className="error-message">Please select your gender.</p>}
           </div>
         </div>

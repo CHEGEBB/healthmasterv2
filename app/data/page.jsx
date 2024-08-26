@@ -1,9 +1,10 @@
 import React from 'react'
 import PersonalInfo from '../../components/forms/PersonalInfo'
+import "../../sass/data.scss"
 
 export default function page() {
   return (
- <div className="flex-col bg-black info-container">
+ <div className="min-h-screen bg-black info-container">
   <h2>Welcome 👋</h2>
   <p>
   Hello and welcome to health master, help us know about you by filling out the form below
