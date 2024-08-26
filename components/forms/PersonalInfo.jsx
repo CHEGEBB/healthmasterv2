@@ -232,8 +232,6 @@ export default function PersonalInfo() {
             {validationState.emergencyPhone === false && <p className="error-message">Please enter a valid emergency contact phone number.</p>}
           </div>
         </div>
-
-        <Button type="submit" className="w-full bg-[#24AE7C] hover:bg-[#1e9d6f] text-white">Submit</Button>
       </form>
     </div>
   )
