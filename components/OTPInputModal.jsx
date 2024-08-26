@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import "../sass/otpInput.scss"
 
 const OTPInputModal = ({ isOpen, onClose, phoneNumber }) => {

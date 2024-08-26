@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Checkbox } from "../components/ui/checkbox";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../sass/auth.scss";
