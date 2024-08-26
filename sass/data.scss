@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&family=Outfit:wght@300;400;500;700&family=Poppins:wght@300;400;500;700&family=Jost:wght@300;400;500;700&display=swap');
+$font-rubik: 'Rubik', sans-serif;
 body {
   font-family: 'Rubik', sans-serif;
   margin: 0;
@@ -10,19 +10,22 @@ body {
 .container{
     display: flex;
     flex-direction: row;
+    font-family: $font-rubik;
     .side-pattern{
-        background-color: red;
+        background-color: #363A3D;
+        border-left: 4px solid #24AE7C;
     }
 }
 .info-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+//   justify-content: center;
+//   align-items: center;
+//   text-align: center;
   color: white;
   padding: 2rem;
   animation: fadeIn 1.5s ease-in-out;
+  width: 100%;
 
   h2 {
     font-size: 2.5rem;
@@ -40,7 +43,6 @@ body {
   .personal-info {
     width: 100%;
     max-width: 600px;
-    background-color: #1a1a1a;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
