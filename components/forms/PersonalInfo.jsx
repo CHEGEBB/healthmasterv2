@@ -80,7 +80,8 @@ export default function PersonalInfo() {
   };
 
   return (
-    <div className="p-6 bg-gray-800 rounded-lg shadow-lg personal-info">
+    <div className="container flex-row">
+    <div className="shadow-lg p-6rounded-lg personal-info">
       <form className="space-y-6">
         <div className="form-group">
           <div className="form-item">
@@ -233,6 +234,11 @@ export default function PersonalInfo() {
           </div>
         </div>
       </form>
+    </div>
+    <div className="w-1/3 side-pattern">
+    <h1>here</h1>
+    
+    </div>
     </div>
   )
 }
