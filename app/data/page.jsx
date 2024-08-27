@@ -53,6 +53,9 @@ export default function Page() {
         <div className="submit-button">
           <button type="submit" className="btn btn-primary">Submit</button>
           <p>By submitting this form, you agree to the HealthMaster Terms and Conditions and Privacy Policy.</p>
+          <p className="text-[#3db7e3] copyright">
+            © 2024 HealthMaster. All rights reserved.
+          </p>
           </div>
       </div>
       <div className="image-container">

@@ -152,16 +152,16 @@ export default function PersonalInfo() {
           </div>
 
           <div className="flex-1 border-gray-700 form-item select">
-            <Select onValueChange={handleGenderChange} value={formState.gender}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select Gender" />
-              </SelectTrigger>
-              <SelectContent className="options">
-                <SelectItem value="male">Male</SelectItem>
-                <SelectItem value="female">Female</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
-              </SelectContent>
-            </Select>
+          <select
+  class="custom-select"
+  onChange={(e) => handleGenderChange(e.target.value)}
+  value={formState.gender}
+>
+  <option value="" disabled>Select Gender</option>
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+  <option value="other">Other</option>
+</select>
             {validationState.gender === false && <p className="error-message">Please select your gender.</p>}
           </div>
         </div>
