@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
+"use client"
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { User, FileText, AlertCircle, Pill } from 'lucide-react';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../components/ui/select";
+import { User, FileText, AlertCircle, Pill, ChevronDown } from 'lucide-react';
 import "../../sass/MedicalInfo.scss";
 
-const doctors = [
-  { id: 1, name: "Dr. Adam Smith", specialty: "General Practice", image: "/images/doctors/adam-smith.jpg" },
-  { id: 2, name: "Dr. Emily Johnson", specialty: "Pediatrics", image: "/images/doctors/emily-johnson.jpg" },
-  { id: 3, name: "Dr. Michael Chen", specialty: "Cardiology", image: "/images/doctors/michael-chen.jpg" },
-  { id: 4, name: "Dr. Sarah Patel", specialty: "Neurology", image: "/images/doctors/sarah-patel.jpg" },
-  { id: 5, name: "Dr. David Kim", specialty: "Orthopedics", image: "/images/doctors/david-kim.jpg" },
-  { id: 6, name: "Dr. Lisa Rodriguez", specialty: "Dermatology", image: "/images/doctors/lisa-rodriguez.jpg" },
-  { id: 7, name: "Dr. James Wilson", specialty: "Oncology", image: "/images/doctors/james-wilson.jpg" },
-  { id: 8, name: "Dr. Anna Novak", specialty: "Gynecology", image: "/images/doctors/anna-novak.jpg" },
-  { id: 9, name: "Dr. Robert Lee", specialty: "Psychiatry", image: "/images/doctors/robert-lee.jpg" },
-  { id: 10, name: "Dr. Olivia Brown", specialty: "Endocrinology", image: "/images/doctors/olivia-brown.jpg" },
-];
-
 export default function MedicalForm() {
+  const [doctors, setDoctors] = useState([
+    { id: 1, name: "Dr. Adam Smith", specialty: "General Practice", image: "/images/doctors/adam-smith.jpg" },
+    { id: 2, name: "Dr. Emily Johnson", specialty: "Pediatrics", image: "/images/doctors/emily-johnson.jpg" },
+    { id: 3, name: "Dr. Michael Chen", specialty: "Cardiology", image: "/images/doctors/michael-chen.jpg" },
+    { id: 4, name: "Dr. Sarah Patel", specialty: "Neurology", image: "/images/doctors/sarah-patel.jpg" },
+    { id: 5, name: "Dr. David Kim", specialty: "Orthopedics", image: "/images/doctors/david-kim.jpg" },
+    { id: 6, name: "Dr. Lisa Rodriguez", specialty: "Dermatology", image: "/images/doctors/lisa-rodriguez.jpg" },
+    { id: 7, name: "Dr. James Wilson", specialty: "Oncology", image: "/images/doctors/james-wilson.jpg" },
+    { id: 8, name: "Dr. Anna Novak", specialty: "Gynecology", image: "/images/doctors/anna-novak.jpg" },
+    { id: 9, name: "Dr. Robert Lee", specialty: "Psychiatry", image: "/images/doctors/robert-lee.jpg" },
+    { id: 10, name: "Dr. Olivia Brown", specialty: "Endocrinology", image: "/images/doctors/olivia-brown.jpg" },
+  ]);
+
   const [formState, setFormState] = useState({
-    primaryPhysician: '',
+    primaryPhysician: null,
     insuranceProvider: '',
     policyNumber: '',
     allergies: '',
@@ -28,45 +28,83 @@ export default function MedicalForm() {
     pastMedicalHistory: ''
   });
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormState(prev => ({ ...prev, [id]: value }));
   };
 
-  const handlePhysicianChange = (value) => {
-    setFormState(prev => ({ ...prev, primaryPhysician: value }));
+  const handleDoctorSelect = (doctor) => {
+    setFormState(prev => ({ ...prev, primaryPhysician: doctor }));
+    setIsDropdownOpen(false);
   };
 
   return (
     <div className="medical-info">
       <form className="space-y-6">
         <div className="form-group">
-          <div className="form-item select">
-            <Select onValueChange={handlePhysicianChange} value={formState.primaryPhysician}>
-              <SelectTrigger>
-                <SelectValue placeholder="Primary care physician" />
-              </SelectTrigger>
-              <SelectContent>
+          <div className="form-item doctor-select" ref={dropdownRef}>
+            <div 
+              className="doctor-select-trigger" 
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              {formState.primaryPhysician ? (
+                <div className="selected-doctor">
+                  <Image
+                    src={formState.primaryPhysician.image}
+                    alt={formState.primaryPhysician.name}
+                    width={40}
+                    height={40}
+                    className="doctor-image"
+                  />
+                  <div className="doctor-info">
+                    <div className="doctor-name">{formState.primaryPhysician.name}</div>
+                    <div className="doctor-specialty">{formState.primaryPhysician.specialty}</div>
+                  </div>
+                </div>
+              ) : (
+                <span className="placeholder">Select primary care physician</span>
+              )}
+              <ChevronDown className="dropdown-icon" />
+            </div>
+            {isDropdownOpen && (
+              <div className="doctor-select-dropdown">
                 {doctors.map((doctor) => (
-                  <SelectItem key={doctor.id} value={doctor.id.toString()}>
-                    <div className="doctor-option">
-                      <Image
-                        src={doctor.image}
-                        alt={doctor.name}
-                        width={40}
-                        height={40}
-                        className="mr-3 rounded-full"
-                      />
-                      <div>
-                        <div>{doctor.name}</div>
-                        <div className="text-sm text-gray-500">{doctor.specialty}</div>
-                      </div>
+                  <div 
+                    key={doctor.id} 
+                    className="doctor-option" 
+                    onClick={() => handleDoctorSelect(doctor)}
+                  >
+                    <Image
+                      src={doctor.image}
+                      alt={doctor.name}
+                      width={40}
+                      height={40}
+                      className="doctor-image"
+                    />
+                    <div className="doctor-info">
+                      <div className="doctor-name">{doctor.name}</div>
+                      <div className="doctor-specialty">{doctor.specialty}</div>
                     </div>
-                  </SelectItem>
+                  </div>
                 ))}
-              </SelectContent>
-            </Select>
-            <User className="form-icon" />
+              </div>
+            )}
           </div>
         </div>
 
