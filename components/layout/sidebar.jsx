@@ -36,7 +36,7 @@ export default function Sidebar() {
         {menuItems.map((item) => (
           <Link key={item.href} href={item.href}>
             <div className="nav-item">
-              <item.icon size={24} />
+              <item.icon size={35} />
               <span className="nav-text">{item.label}</span>
             </div>
           </Link>
