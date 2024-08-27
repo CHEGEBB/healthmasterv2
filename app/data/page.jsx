@@ -4,15 +4,14 @@ import "../../sass/data.scss";
 import Image from 'next/image';
 import MedicalForm from '../../components/forms/MedicalForm';
 import IdentificationForm from '../../components/forms/IdentityForm';
+import { Button } from '../../components/ui/button';
 
 export default function Page() {
   return (
     <div className="container">
       <div className="info-container">
         <h2>Welcome 👋</h2>
-        <p>
-          Hello and welcome to health master, help us know about you by filling out the form below
-        </p>
+        <p>Hello and welcome to health master, help us know about you by filling out the form below</p>
         <div className="personal-info">
           <h2>Personal Information</h2>
           <p>Please fill out your personal information below</p>
@@ -36,21 +35,25 @@ export default function Page() {
         </div>
         <div className="terms-and-conditions">
           <h2>Consent and Privacy</h2>
-          <div className="consent-from">
-          <div className="consent-item">
-          <input type="checkbox" name='terms' id='terms' required />
-          <label htmlFor="terms">I agree to the Terms and Conditions</label>
-          </div>
-          <div className="consent-item">
-          <input type="checkbox" name='privacy' id='privacy' required />
-          <label htmlFor="privacy">I agree to the Privacy Policy</label>
-          </div>
-          <div className="consent-item">
-          <input type="checkbox" name='data-collection' id='data-collection' required />
-          <label htmlFor="data-collection">I consent to data collection and use</label>
-          </div>
+          <div className="consent-form">
+            <div className="consent-item">
+              <input type="checkbox" name='terms' id='terms' required />
+              <label htmlFor="terms">I agree to the Terms and Conditions</label>
+            </div>
+            <div className="consent-item">
+              <input type="checkbox" name='privacy' id='privacy' required />
+              <label htmlFor="privacy">I agree to the Privacy Policy</label>
+            </div>
+            <div className="consent-item">
+              <input type="checkbox" name='data-collection' id='data-collection' required />
+              <label htmlFor="data-collection">I consent to data collection and use</label>
+            </div>
           </div>
         </div>
+        <div className="submit-button">
+          <button type="submit" className="btn btn-primary">Submit</button>
+          <p>By submitting this form, you agree to the HealthMaster Terms and Conditions and Privacy Policy.</p>
+          </div>
       </div>
       <div className="image-container">
         <Image
