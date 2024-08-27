@@ -6,16 +6,16 @@ import "../../sass/MedicalInfo.scss";
 
 export default function MedicalForm() {
   const [doctors, setDoctors] = useState([
-    { id: 1, name: "Dr. Adam Smith", specialty: "General Practice", image: "/images/doctors/adam-smith.jpg" },
-    { id: 2, name: "Dr. Emily Johnson", specialty: "Pediatrics", image: "/images/doctors/emily-johnson.jpg" },
-    { id: 3, name: "Dr. Michael Chen", specialty: "Cardiology", image: "/images/doctors/michael-chen.jpg" },
-    { id: 4, name: "Dr. Sarah Patel", specialty: "Neurology", image: "/images/doctors/sarah-patel.jpg" },
-    { id: 5, name: "Dr. David Kim", specialty: "Orthopedics", image: "/images/doctors/david-kim.jpg" },
-    { id: 6, name: "Dr. Lisa Rodriguez", specialty: "Dermatology", image: "/images/doctors/lisa-rodriguez.jpg" },
-    { id: 7, name: "Dr. James Wilson", specialty: "Oncology", image: "/images/doctors/james-wilson.jpg" },
-    { id: 8, name: "Dr. Anna Novak", specialty: "Gynecology", image: "/images/doctors/anna-novak.jpg" },
-    { id: 9, name: "Dr. Robert Lee", specialty: "Psychiatry", image: "/images/doctors/robert-lee.jpg" },
-    { id: 10, name: "Dr. Olivia Brown", specialty: "Endocrinology", image: "/images/doctors/olivia-brown.jpg" },
+    { id: 1, name: "Dr. Adam Smith", specialty: "General Practice", image: "/assets/images/admin.png" },
+    { id: 2, name: "Dr. Emily Johnson", specialty: "Pediatrics", image: "/assets/images/1.png" },
+    { id: 3, name: "Dr. Michael Chen", specialty: "Cardiology", image: "/assets/images/8.png" },
+    { id: 4, name: "Dr. Sarah Patel", specialty: "Neurology", image: "/assets/images/7.png" },
+    { id: 5, name: "Dr. David Kim", specialty: "Orthopedics", image: "/assets/images/9.png" },
+    { id: 6, name: "Dr. Lisa Rodriguez", specialty: "Dermatology", image: "/assets/images/2.png" },
+    { id: 7, name: "Dr. James Wilson", specialty: "Oncology", image: "/assets/images/3.png" },
+    { id: 8, name: "Dr. Anna Novak", specialty: "Gynecology", image: "/assets/images/4.png" },
+    { id: 9, name: "Dr. Robert Lee", specialty: "Psychiatry", image: "/assets/images/6.png" },
+    { id: 10, name: "Dr. Olivia Brown", specialty: "Endocrinology", image: "/assets/images/2.png" },
   ]);
 
   const [formState, setFormState] = useState({
