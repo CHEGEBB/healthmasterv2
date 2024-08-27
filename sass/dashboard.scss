@@ -1,139 +1,24 @@
-// Variables
-$primary-bg: #1a202c;
+
+$primary-bg: #09090b;
 $secondary-bg: #2d3748;
 $accent-color: #48bb78;
 $font-color: #edf2f7;
 $card-bg: #4a5568;
-
-// Global Styles
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: $primary-bg;
+  background-color: #083A3C;
   color: $font-color;
 }
+.container{
+  .container-fluid{
+    background-color: $primary-bg;
+    padding: 1rem;
+    width: 90%;
+    margin:20px 180px auto;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    min-height: 100vh;
 
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-}
-
-.sidebar {
-  width: 20%;
-  background-color: $secondary-bg;
-  padding: 1rem;
-
-  .nav {
-    ul {
-      list-style: none;
-      padding: 0;
-
-      li {
-        margin: 1rem 0;
-        padding: 0.5rem 0;
-        cursor: pointer;
-        color: $font-color;
-        font-weight: bold;
-
-        &:hover {
-          color: $accent-color;
-        }
-      }
-    }
   }
-}
-
-.main-content {
-  width: 80%;
-  padding: 1rem;
-  background-color: $primary-bg;
-  display: flex;
-  flex-direction: column;
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: $accent-color;
-    }
-
-    .search-bar {
-      input {
-        padding: 0.5rem;
-        border-radius: 5px;
-        border: none;
-        width: 200px;
-      }
-    }
-
-    .header-icons {
-      span {
-        margin-left: 1rem;
-        cursor: pointer;
-
-        &:hover {
-          color: $accent-color;
-        }
-      }
-    }
-  }
-
-  .dashboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .canvas {
-      width: 900px;
-      height: 400px;
-      background-color: $secondary-bg;
-      border-radius: 10px;
-      margin-bottom: 2rem;
-    }
-
-    .overview-cards {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-      margin-bottom: 2rem;
-
-      .card {
-        background-color: $card-bg;
-        padding: 1rem;
-        border-radius: 10px;
-        width: 30%;
-        text-align: center;
-        font-weight: bold;
-      }
-    }
-
-    .graphs {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-
-      .graph {
-        background-color: $card-bg;
-        padding: 1rem;
-        border-radius: 10px;
-        width: 45%;
-        text-align: center;
-      }
-    }
-  }
-}
-
-// Tooltip
-.tooltip {
-  padding: 0.5rem 1rem;
-  background-color: $accent-color;
-  color: $font-color;
-  border-radius: 5px;
-  font-size: 0.875rem;
 }
