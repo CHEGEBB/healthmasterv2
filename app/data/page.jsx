@@ -10,8 +10,12 @@ export default function Page() {
   return (
     <div className="container">
       <div className="info-container">
+      <div className="flex-row form-logo">
+          <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
+          <h2 className="items-center text-xl font-bold">Health master</h2>
+        </div>
         <h2>Welcome 👋</h2>
-        <p>Hello and welcome to health master, help us know about you by filling out the form below</p>
+        <p>Help us know about you by filling out the form below</p>
         <div className="personal-info">
           <h2>Personal Information</h2>
           <p>Please fill out your personal information below</p>

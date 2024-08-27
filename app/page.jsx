@@ -107,7 +107,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-row form-group">
-            <Checkbox id="terms" name="terms" required />
+          <input type="checkbox" name='terms' id='terms' required />
             <p>
               By signing up, you agree to our <a href="/terms">Terms and Conditions</a> and{" "}
               <a href="/privacy">Privacy Policy</a>.

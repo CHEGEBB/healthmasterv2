@@ -54,9 +54,13 @@ export default function Login() {
           <div className="flex-row form-group remember-forgot">
             <div className="remember-me">
               <input type="checkbox" id="remember" name="remember" />
-              <label htmlFor="remember">Remember me</label>
+              <p>
+                Remember me
+                <span className="ml-2 text-sm text-[#878787]">
+                  (Stay signed in)
+                </span>
+              </p>
             </div>
-            <a href="/forgot-password" className="forgot-password">Forgot password?</a>
           </div>
           <div className="form-group">
             <Button type="submit" className="btn btn-primary">
@@ -67,6 +71,11 @@ export default function Login() {
         <div className="form-group">
           <p>
             Have no account? <a href="/">Sign up</a>
+          </p>
+        </div>
+        <div className="form-group">
+        <p className="text-sm text-center text-[#878787]">
+            Forgot your password? <a href="/forgot-password">Reset it</a>
           </p>
         </div>
         <div className="form-group">

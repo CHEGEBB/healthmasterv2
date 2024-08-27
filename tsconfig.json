@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "store/healthStore.js"  ],
   "exclude": [
     "node_modules"
   ]

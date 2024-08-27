@@ -71,6 +71,34 @@
         top: 55%;
         font-family: 'Outfit', sans-serif;
       }
+      input[type="checkbox"] {
+        display: block;
+        width: 20px;
+        height: 20px;
+        position: relative;
+        appearance: none;
+        border: 2px solid #24AE7C;
+        border-radius: 4px;
+        background-color: #000;
+        transition: background-color 0.3s, border-color 0.3s;
+      
+        &:checked {
+          background-color: #24AE7C;
+          border-color: #24AE7C;
+      
+          &::after {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 10%;
+            width: 8px;
+            height: 12px;
+            border: solid #000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+          }
+        }
+      }
 
       label {
         position: absolute;

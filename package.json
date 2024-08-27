@@ -17,6 +17,8 @@
     "@radix-ui/react-radio-group": "^1.2.0",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@react-three/drei": "^9.111.3",
+    "@react-three/fiber": "^8.17.6",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -28,9 +30,12 @@
     "react": "^18",
     "react-dom": "^18",
     "react-phone-input-2": "^2.15.1",
+    "recharts": "^2.12.7",
     "sass": "^1.77.8",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.167.1",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@types/node": "22.5.0",
