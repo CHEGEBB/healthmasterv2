@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "../components/ui/button";
-import "../sass/otpInput.scss"
+import "../sass/otpInput.scss";
 
 const OTPInputModal = ({ isOpen, onClose, phoneNumber }) => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(60);
+  const [canResend, setCanResend] = useState(false);
 
   useEffect(() => {
     let interval;
     if (isOpen && timer > 0) {
       interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1);
+        setTimer((prevTimer) => {
+          if (prevTimer === 1) {
+            setCanResend(true);
+            clearInterval(interval);
+          }
+          return prevTimer - 1;
+        });
       }, 1000);
     }
     return () => clearInterval(interval);
   }, [isOpen, timer]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.getElementById('otp-input-0')?.focus();
+    }
+  }, [isOpen]);
 
   const handleChange = (value, index) => {
     const newOtp = [...otp];
@@ -30,16 +42,22 @@ const OTPInputModal = ({ isOpen, onClose, phoneNumber }) => {
     onClose();
   };
 
+  const handleResend = () => {
+    console.log("Resending OTP");
+    setTimer(60);
+    setCanResend(false);
+    setOtp(["", "", "", "", "", ""]);
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center w-20 bg-black bg-opacity-50 ">
-      <div className="w-1/3 p-8 bg-gray-800 rounded-lg ma1 x-w-md">
-        <h3 className="mb-4 text-lg font-medium text-white">Verify OTP</h3>
-        <p className="mb-6 text-sm text-gray-300">
-          Please enter the OTP sent to {phoneNumber}. It will expire in {timer} seconds.
-        </p>
-        <div className="flex justify-center mb-4 space-x-2">
+    <div className="otp-modal-overlay">
+      <div className="otp-modal">
+        <button className="close-button" onClick={onClose}>×</button>
+        <h3>Verify OTP</h3>
+        <p>Please enter the OTP sent to your registered mobile number.</p>
+        <div className="otp-input-container">
           {otp.map((digit, index) => (
             <input
               key={index}
@@ -48,17 +66,24 @@ const OTPInputModal = ({ isOpen, onClose, phoneNumber }) => {
               maxLength={1}
               value={digit}
               onChange={(e) => handleChange(e.target.value, index)}
-              className="w-12 h-12 text-2xl text-center text-green-500 bg-gray-900 border border-gray-700 rounded-md focus:border-green-500 focus:outline-none"
+              className="otp-input"
             />
           ))}
         </div>
-        <Button
+        <div className="timer-container">
+          {canResend ? (
+            <button className="resend-button" onClick={handleResend}>Resend OTP</button>
+          ) : (
+            <p>Resend OTP in {timer} seconds</p>
+          )}
+        </div>
+        <button 
+          className="verify-button" 
           onClick={handleVerify}
-          className="w-full text-white bg-green-600 hover:bg-green-700"
           disabled={otp.some(digit => digit === "")}
         >
           Verify
-        </Button>
+        </button>
       </div>
     </div>
   );

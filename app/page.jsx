@@ -130,11 +130,13 @@ export default function Home() {
           </p>
         </div>
       </div>
+      <div className="otp">
           <OTPInputModal
         isOpen={isOTPModalOpen}
         onClose={() => setIsOTPModalOpen(false)}
         phoneNumber={phone}
       />
+      </div>
       <div className="container-image blur-sm">
         <Image src="/assets/images/background-1.webp" width={1000} height={1000} alt="Background" />
       </div>
