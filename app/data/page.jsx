@@ -3,6 +3,7 @@ import PersonalInfo from '../../components/forms/PersonalInfo';
 import "../../sass/data.scss";
 import Image from 'next/image';
 import MedicalForm from '../../components/forms/MedicalForm';
+import IdentificationForm from '../../components/forms/IdentityForm';
 
 export default function Page() {
   return (
@@ -24,6 +25,31 @@ export default function Page() {
             This information will be used to help you find the best healthcare providers and resources.
           </p>
           <MedicalForm />
+        </div>
+        <div className="identification-form">
+          <h2>Identification</h2>
+          <p>
+            Please provide your identification so we can verify your identity and access your healthcare records.
+            This information will be used to help you find the best healthcare providers and resources.
+          </p>
+          <IdentificationForm/>
+        </div>
+        <div className="terms-and-conditions">
+          <h2>Consent and Privacy</h2>
+          <div className="consent-from">
+          <div className="consent-item">
+          <input type="checkbox" name='terms' id='terms' required />
+          <label htmlFor="terms">I agree to the Terms and Conditions</label>
+          </div>
+          <div className="consent-item">
+          <input type="checkbox" name='privacy' id='privacy' required />
+          <label htmlFor="privacy">I agree to the Privacy Policy</label>
+          </div>
+          <div className="consent-item">
+          <input type="checkbox" name='data-collection' id='data-collection' required />
+          <label htmlFor="data-collection">I consent to data collection and use</label>
+          </div>
+          </div>
         </div>
       </div>
       <div className="image-container">
