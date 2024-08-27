@@ -1,40 +1,53 @@
-import { LayoutDashboard, NotepadText, Pill } from "lucide-react";
+"use client"
+import React, { useState } from "react";
 import Link from "next/link";
-import React from "react";
+import {
+  LayoutDashboard, NotepadText, Pill, ActivitySquare,
+  Bell, FileText, Ambulance, MapPin, Settings, User,
+  ChevronLeft, ChevronRight
+} from "lucide-react";
+import "../../sass/sidebar.scss";
 
-export default function sidebar() {
+const menuItems = [
+  { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/appointments", icon: NotepadText, label: "Appointments" },
+  { href: "/medication", icon: Pill, label: "Medication" },
+  { href: "/health-stats", icon: ActivitySquare, label: "My Health Stats" },
+  { href: "/reminders", icon: Bell, label: "Reminders" },
+  { href: "/prescriptions", icon: FileText, label: "Prescriptions" },
+  { href: "/emergency", icon: Ambulance, label: "Emergency Services" },
+  { href: "/nearby-hospitals", icon: MapPin, label: "Nearby Hospitals" },
+  { href: "/settings", icon: Settings, label: "Settings" },
+  { href: "/profile", icon: User, label: "Profile" },
+];
+
+export default function Sidebar() {
+  const [isExpanded, setIsExpanded] = useState(true);
+
   return (
-    <div className="sidebar-container">
-      <div className="side-item">
-        <Link href="/dashboard">
-          <div className="side-con">
-            <LayoutDashboard className="sidebar-icon" size={32} />
-          </div>
-          <div className="side-info">
-            <h1>Dashboard</h1>
-          </div>
-        </Link>
+    <div className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
+      <div className="sidebar-header">
+        <h2 className="logo">HM</h2>
+        <button className="toggle-btn" onClick={() => setIsExpanded(!isExpanded)}>
+          {isExpanded ? <ChevronLeft size={24} /> : <ChevronRight size={24} />}
+        </button>
       </div>
-      <div className="side-item">
-        {/* appointments */}
-        <Link href="/appointments">
-            <div className="side-con">
-              <NotepadText className="sidebar-icon" size={32} />
+      <nav className="sidebar-nav">
+        {menuItems.map((item) => (
+          <Link key={item.href} href={item.href}>
+            <div className="nav-item">
+              <item.icon size={24} />
+              <span className="nav-text">{item.label}</span>
             </div>
-            <div className="side-info">
-              <h1>Appointments</h1>
-            </div>
-        </Link>
-      </div>
-      <div className="side-item">
-        {/* medication management */}
-        <Link href="/medication">
-        <div className="side-con">
-            <Pill className="sidebar-icon" size={32} />
-        </div>
-        <div className="side-info">
-            <h1>Medication</h1>
-        </div>
+          </Link>
+        ))}
+      </nav>
+      <div className="sidebar-footer">
+        <Link href="/emergency">
+          <div className="emergency-btn">
+            <Ambulance size={24} />
+            <span className="emergency-text">Emergency</span>
+          </div>
         </Link>
       </div>
     </div>
