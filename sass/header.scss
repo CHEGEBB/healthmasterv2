@@ -1,5 +1,6 @@
-// styles/header.scss
-.container-header{
+// header.scss
+
+.container-header {
   display: flex;
   flex-direction: row;
   width: 96%;
@@ -9,34 +10,36 @@
   margin: 10px 26px auto;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-.header {
+
+  .header {
     display: flex;
-    // justify-content: space-between;
     gap: 8rem;
     align-items: center;
     padding: 1rem 2rem;
     background-color: #333;
     color: #ffffff;
-    margin: 10px 26px auto;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 90%;
-  
+
     .header-left {
       .header-title {
         font-size: 1.5rem;
         font-weight: bold;
       }
     }
-  
+
     .header-right {
       display: flex;
       align-items: center;
       gap: 1rem;
-  
+
       .search-bar {
         position: relative;
-  
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
         .search-input {
           background-color: #2e2e2e;
           border: none;
@@ -45,22 +48,33 @@
           color: #ffffff;
           width: 220px;
           transition: box-shadow 0.3s ease;
-  
+
           &:focus {
             outline: none;
             box-shadow: 0 0 5px rgba(59, 130, 246, 0.8);
           }
         }
-  
-        .search-icon {
+
+        .search-icon, .mic-icon {
           position: absolute;
-          left: 0.75rem;
-          top: 50%;
-          transform: translateY(-50%);
+          color: #6b7280;
+        }
+
+        .search-icon {
+          right: 0.75rem;
+        }
+
+        .mic-icon {
+          right: 2.25rem;
+        }
+
+        svg {
+          position: absolute;
+          right: 3.75rem;
           color: #6b7280;
         }
       }
-  
+
       .icon-btn {
         background: none;
         border: none;
@@ -71,11 +85,11 @@
         transition: background-color 0.3s ease;
         position: relative;
         overflow: hidden;
-  
+
         &:hover {
           background-color: #2e2e2e;
         }
-  
+
         &:after {
           content: "";
           position: absolute;
@@ -89,89 +103,59 @@
           transition: transform 0.3s, opacity 0.3s;
           border-radius: 50%;
         }
-  
+
         &:active:after {
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
           transition: transform 0s, opacity 0s;
         }
       }
-  
-        .profile-menu {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-  
-          .settings-btn,
-          .logout-btn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: background-color 0.3s ease;
-  
-            &:hover {
-              background-color: #2e2e2e;
-            }
-  
-            &:after {
-              content: "";
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              width: 100%;
-              height: 100%;
-              background: rgba(255, 255, 255, 0.1);
-              opacity: 0;
-              transform: translate(-50%, -50%) scale(0);
-              transition: transform 0.3s, opacity 0.3s;
-              border-radius: 50%;
-            }
-  
-            &:active:after {
-              transform: translate(-50%, -50%) scale(1);
-              opacity: 1;
-              transition: transform 0s, opacity 0s;
-            }
-          }
+
+      .profile-menu {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .settings-btn,
+        .logout-btn {
+          @extend .icon-btn;
         }
       }
     }
-    
-    .profile-section {
+  }
+
+  .profile-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    background-color: #030712;
+    padding: 15px;
+    transition: background-color 0.3s ease;
+    border-radius: 1rem;
+
+    .profile-avatar {
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        background-color: #3b82f6;
         display: flex;
-        flex-direction: row;
         align-items: center;
-        gap: 0.5rem;
-        position: relative;
-        background-color: #030712;
-        padding: 15px;
-        transition: background-color 0.3s ease;
-        border-radius: 1rem;
-  
-        .profile-avatar {
-            img{
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          border: 2px solid #ccc;
-          background-color: #3b82f6;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #ffffff;
-          cursor: pointer;
-            }
-        }
-  
-        .profile-details {
-            width: 200px;
-          .profile-name {
-            color: #ffffff;
-            font-weight: bold;
-          }
-        }
+        justify-content: center;
+        color: #ffffff;
+        cursor: pointer;
+      }
     }
+
+    .profile-details {
+      width: 200px;
+      .profile-name {
+        color: #ffffff;
+        font-weight: bold;
+      }
+    }
+  }
 }
