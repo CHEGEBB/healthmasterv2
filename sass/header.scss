@@ -163,9 +163,21 @@
 
     .profile-details {
       width: 200px;
+      display: flex;
+      flex-direction: row;
       .profile-name {
         color: #ffffff;
         font-weight: bold;
+      }
+      .down{
+        margin: 5px;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 16px;
+        transition: transform 0.3s ease;
+        &:hover{
+          transform: translateY(-100%) rotate(180deg);
+        }
       }
     }
   }

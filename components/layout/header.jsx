@@ -38,7 +38,7 @@ const Header = () => {
         </div>
         <div className="profile-details">
           <span className="profile-name">Sarah Ruth</span>
-          <ChevronDown size={16} />
+          <ChevronDown className="down" size={16} />
         </div>
       </div>
     </div>
