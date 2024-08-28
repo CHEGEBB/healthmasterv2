@@ -4,11 +4,12 @@
   display: flex;
   flex-direction: row;
   width: 96%;
-  padding: 1rem 2rem;
+  padding: 0.3rem 0.5rem;
   background-color: #1c1c1c;
   color: #ffffff;
   margin: 10px 26px auto;
   border-radius: 1rem;
+  gap: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   .header {
@@ -37,6 +38,7 @@
       .search-bar {
         position: relative;
         display: flex;
+        width: 300px;
         flex-direction: row;
         align-items: center;
 
@@ -46,7 +48,7 @@
           border-radius: 20px;
           padding: 0.5rem 1rem 0.5rem 2.5rem;
           color: #ffffff;
-          width: 220px;
+          width: 500px;
           transition: box-shadow 0.3s ease;
 
           &:focus {
