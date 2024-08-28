@@ -1,13 +1,14 @@
 // _sidebar.scss
 
 $black: #000000;
-$green-light: #059669;
-$green-dark: #15803d;
+$green-light: #022c22;
+$green-dark: #24AE7C;
 $border-radius: 0.5rem;
 
 .sidebar {
   width: 250px;
-  height: 100vh;
+  margin: 20px;
+  min-height: 100vh;
   background-color: $black;
   color: white;
   display: flex;
@@ -126,8 +127,6 @@ $border-radius: 0.5rem;
     }
   }
 }
-
-// Tooltip styling
 .tooltip {
   position: absolute;
   background-color: $green-dark;
