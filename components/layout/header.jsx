@@ -1,33 +1,54 @@
+
 import React from 'react';
-import { Search, Bell, User } from 'lucide-react';
-import "../../sass/header.scss";
+import { Search, Bell, User, Settings, LogOut, MessageSquare } from 'lucide-react';
+import '../../sass/header.scss';
 
 const Header = () => {
   return (
+    <div className="container">
     <header className="header">
-      <div className="header__left">
-        <h1 className="header__title">Overview Conditions</h1>
+      <div className="header-left">
+        <h1 className="header-title">Overview Conditions</h1>
       </div>
-      <div className="header__right">
-        <div className="header__search">
-          <input type="text" placeholder="Search..." className="header__search-input" />
-          <Search className="header__search-icon" />
+
+      <div className="header-right">
+        <div className="search-bar">
+          <input type="text" placeholder="Search..." className="search-input" />
+          <Search className="search-icon" />
         </div>
-        <button className="header__icon-btn">
+
+        <button className="icon-btn">
           <Bell />
         </button>
-        <div className="header__profile">
-          <button className="header__icon-btn header__user-btn">
-            <User />
-          </button>
-          <div className="header__profile-dropdown">
-            <a href="#">Profile</a>
-            <a href="#">Settings</a>
-            <a href="#">Logout</a>
-          </div>
-        </div>
+
+        {/* Reminder icon */}
+        <button className="icon-btn">
+          <Bell />
+        </button>
+
+        <button className="icon-btn">
+          <MessageSquare />
+        </button>
+    
       </div>
     </header>
+    <div className="profile-section">
+          <div className="profile-avatar">
+            <User />
+          </div>
+          <div className="profile-details">
+            <span className="profile-name">Sarah Ruth</span>
+          </div>
+          <div className="profile-menu">
+            <button className="icon-btn settings-btn">
+              <Settings />
+            </button>
+            <button className="icon-btn logout-btn">
+              <LogOut />
+            </button>
+          </div>
+        </div>
+        </div>
   );
 };
 

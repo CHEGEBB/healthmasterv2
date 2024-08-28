@@ -15,8 +15,6 @@ const menuItems = [
   { href: "/health-stats", icon: ActivitySquare, label: "My Health Stats" },
   { href: "/reminders", icon: Bell, label: "Reminders" },
   { href: "/prescriptions", icon: FileText, label: "Prescriptions" },
-  { href: "/emergency", icon: Ambulance, label: "Emergency Services" },
-  { href: "/nearby-hospitals", icon: MapPin, label: "Nearby Hospitals" },
   { href: "/settings", icon: Settings, label: "Settings" },
   { href: "/profile", icon: User, label: "Profile" },
 ];

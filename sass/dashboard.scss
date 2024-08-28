@@ -7,7 +7,7 @@ $card-bg: #4a5568;
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #131619;
+  background-color: #000000;
   color: $font-color;
 }
 .container{
@@ -16,10 +16,10 @@ body {
     flex-direction: column;
   }
   .container-fluid{
-    background-color: $primary-bg;
+    background-color: #171717;
     padding: 1rem;
-    width: 80%;
-    margin:80px 350px auto;
+    width: 82%;
+    margin:30px 300px auto;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
     min-height: 100vh;
