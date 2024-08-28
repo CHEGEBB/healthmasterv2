@@ -11,6 +11,10 @@ body {
   color: $font-color;
 }
 .container{
+  .content{
+    display: flex;
+    flex-direction: column;
+  }
   .container-fluid{
     background-color: $primary-bg;
     padding: 1rem;
