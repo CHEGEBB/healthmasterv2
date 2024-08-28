@@ -14,13 +14,13 @@ const Header = () => {
         
         <div className="header-right">
           <div className="search-bar">
+          <Mic className="mic-icon" />
             <input 
               type="text" 
               placeholder="Voice Search" 
               className="search-input"
             />
             <AudioLines className="audio-icon" />
-            <Mic className="mic-icon" />
             <Search className="search-icon" />
           </div>
         </div>
