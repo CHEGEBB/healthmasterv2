@@ -2,10 +2,11 @@
 import React from 'react';
 import { Search, Bell, User, Settings, LogOut, MessageSquare } from 'lucide-react';
 import '../../sass/header.scss';
+import Image from 'next/image';
 
 const Header = () => {
   return (
-    <div className="container">
+    <div className="container-header">
     <header className="header">
       <div className="header-left">
         <h1 className="header-title">Overview Conditions</h1>
@@ -17,10 +18,6 @@ const Header = () => {
           <Search className="search-icon" />
         </div>
 
-        <button className="icon-btn">
-          <Bell />
-        </button>
-
         {/* Reminder icon */}
         <button className="icon-btn">
           <Bell />
@@ -29,23 +26,27 @@ const Header = () => {
         <button className="icon-btn">
           <MessageSquare />
         </button>
-    
       </div>
-    </header>
-    <div className="profile-section">
-          <div className="profile-avatar">
-            <User />
-          </div>
-          <div className="profile-details">
-            <span className="profile-name">Sarah Ruth</span>
-          </div>
-          <div className="profile-menu">
+      <div className="profile-menu">
             <button className="icon-btn settings-btn">
               <Settings />
             </button>
             <button className="icon-btn logout-btn">
               <LogOut />
             </button>
+          </div>
+    </header>
+    <div className="profile-section">
+          <div className="profile-avatar">
+          <Image
+          src="/assets/images/3.jpg"
+          alt="User Avatar"
+          width={50}
+          height={50}
+          />
+          </div>
+          <div className="profile-details">
+            <span className="profile-name">Sarah Ruth</span>
           </div>
         </div>
         </div>

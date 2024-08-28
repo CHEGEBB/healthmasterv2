@@ -1,16 +1,26 @@
 // styles/header.scss
-
+.container-header{
+  display: flex;
+  flex-direction: row;
+  width: 96%;
+  padding: 1rem 2rem;
+  background-color: #1c1c1c;
+  color: #ffffff;
+  margin: 10px 26px auto;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 .header {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
+    gap: 8rem;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #1c1c1c;
+    background-color: #333;
     color: #ffffff;
     margin: 10px 26px auto;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 96%;
+    width: 90%;
   
     .header-left {
       .header-title {
@@ -87,31 +97,6 @@
         }
       }
   
-      .profile-section {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        position: relative;
-  
-        .profile-avatar {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background-color: #3b82f6;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #ffffff;
-          cursor: pointer;
-        }
-  
-        .profile-details {
-          .profile-name {
-            color: #ffffff;
-            font-weight: bold;
-          }
-        }
-  
         .profile-menu {
           display: flex;
           align-items: center;
@@ -154,5 +139,39 @@
         }
       }
     }
-  }
+    
+    .profile-section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        background-color: #030712;
+        padding: 15px;
+        transition: background-color 0.3s ease;
+        border-radius: 1rem;
   
+        .profile-avatar {
+            img{
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 2px solid #ccc;
+          background-color: #3b82f6;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #ffffff;
+          cursor: pointer;
+            }
+        }
+  
+        .profile-details {
+            width: 200px;
+          .profile-name {
+            color: #ffffff;
+            font-weight: bold;
+          }
+        }
+    }
+}
