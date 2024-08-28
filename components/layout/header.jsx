@@ -9,6 +9,7 @@ const Header = () => {
     <div className="container-header">
       <header className="header">
         <div className="header-left">
+        <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
           <h1 className="header-title">Health master</h1>
         </div>
         

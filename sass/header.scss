@@ -24,9 +24,18 @@
     width: 90%;
 
     .header-left {
+        display: flex;
+        flex-direction: row;
+        img{
+            width: 30px;
+            height: 30px;
+            margin-right: 1rem;
+            border-radius: 5px;
+        }
       .header-title {
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: bold;
+        margin: 2px;
       }
     }
 
