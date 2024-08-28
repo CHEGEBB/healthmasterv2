@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Search, Bell, User, Settings, LogOut, MessageSquare } from 'lucide-react';
+import { Search, Bell, User, Settings, LogOut, MessageSquare, Mic } from 'lucide-react';
 import '../../sass/header.scss';
 import Image from 'next/image';
 
@@ -15,6 +15,9 @@ const Header = () => {
       <div className="header-right">
         <div className="search-bar">
           <input type="text" placeholder="Search..." className="search-input" />
+          <div className="voice-search">
+            <Mic className='mic-icon'/>
+          </div>
           <Search className="search-icon" />
         </div>
 
