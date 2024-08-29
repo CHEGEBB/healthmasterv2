@@ -1,113 +1,90 @@
-"use client";
-
 import React, { useState, useEffect } from 'react';
-import { Activity, FileText, Clock } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import '../../sass/BloodPressureMonitor.scss';
+import { Line } from 'react-chartjs-2';
+import { Activity } from 'lucide-react';
+import 'chart.js/auto';
 
 const BloodPressureMonitor = () => {
   const [systolic, setSystolic] = useState(120);
   const [diastolic, setDiastolic] = useState(80);
-  const [pulse, setPulse] = useState(72);
-  const [time, setTime] = useState('');
+  const [data, setData] = useState({
+    labels: Array.from({ length: 20 }, (_, i) => i),
+    datasets: [
+      {
+        label: 'Systolic',
+        data: Array(20).fill(120),
+        borderColor: '#10b981',
+        pointRadius: 0,
+        pointHoverRadius: 0,
+        tension: 0.4,
+      },
+      {
+        label: 'Diastolic',
+        data: Array(20).fill(80),
+        borderColor: '#3b82f6',
+        pointRadius: 0,
+        pointHoverRadius: 0,
+        tension: 0.4,
+      },
+    ],
+  });
 
   useEffect(() => {
-    const updateValues = () => {
-      setSystolic(Math.floor(Math.random() * 40) + 100);
-      setDiastolic(Math.floor(Math.random() * 20) + 70);
-      setPulse(Math.floor(Math.random() * 20) + 60);
-      setTime(new Date().toLocaleTimeString('en-US', { hour12: false }));
-    };
+    const interval = setInterval(() => {
+      const newSystolic = Math.floor(Math.random() * 40) + 100;
+      const newDiastolic = Math.floor(Math.random() * 20) + 70;
+      setSystolic(newSystolic);
+      setDiastolic(newDiastolic);
+      setData((prevData) => ({
+        ...prevData,
+        datasets: [
+          {
+            ...prevData.datasets[0],
+            data: [...prevData.datasets[0].data.slice(1), newSystolic],
+          },
+          {
+            ...prevData.datasets[1],
+            data: [...prevData.datasets[1].data.slice(1), newDiastolic],
+          },
+        ],
+      }));
+    }, 1000);
 
-    updateValues();
-    const interval = setInterval(updateValues, 3000);
     return () => clearInterval(interval);
   }, []);
 
-  const getBloodPressureCategory = (systolic, diastolic) => {
-    if (systolic < 120 && diastolic < 80) return "normal";
-    if (systolic < 130 && diastolic < 80) return "elevated";
-    if (systolic < 140 || diastolic < 90) return "high-stage-1";
-    if (systolic >= 140 || diastolic >= 90) return "high-stage-2";
-    return "crisis";
+  const options = {
+    animation: false,
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: { display: false },
+      y: { display: false },
+    },
+    plugins: {
+      legend: { display: false },
+    },
   };
 
-  const category = getBloodPressureCategory(systolic, diastolic);
-
-  const gaugeData = [
-    { name: 'Low', value: 90, color: '#4ade80' },
-    { name: 'Normal', value: 30, color: '#facc15' },
-    { name: 'High', value: 30, color: '#fb923c' },
-    { name: 'Very High', value: 30, color: '#f87171' },
-    { name: 'Critical', value: 30, color: '#ef4444' },
-  ];
-
-  const systolicAngle = (systolic - 70) * 1.64; // Map 70-190 to 0-180 degrees
+  const getBloodPressureCategory = (systolic, diastolic) => {
+    if (systolic < 120 && diastolic < 80) return "Normal";
+    if (systolic < 130 && diastolic < 80) return "Elevated";
+    if (systolic < 140 || diastolic < 90) return "High (Stage 1)";
+    if (systolic >= 140 || diastolic >= 90) return "High (Stage 2)";
+    return "Hypertensive Crisis";
+  };
 
   return (
-    <div className="blood-pressure-monitor">
-      <h1>Blood Pressure Monitor</h1>
-      <div className="main-display">
-        <div className="bp-gauge">
-          <div className="gauge-chart">
-            <ResponsiveContainer width="100%" height={200}>
-              <PieChart>
-                <Pie
-                  data={gaugeData}
-                  cx="50%"
-                  cy="100%"
-                  startAngle={180}
-                  endAngle={0}
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={0}
-                  dataKey="value"
-                >
-                  {gaugeData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Pie
-                  data={[{ value: 1 }]}
-                  cx="50%"
-                  cy="100%"
-                  startAngle={180}
-                  endAngle={180 - systolicAngle}
-                  innerRadius={0}
-                  outerRadius={60}
-                  paddingAngle={0}
-                  dataKey="value"
-                >
-                  <Cell fill="#0a192f" />
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="bp-values">
-            <div className="pressure">{systolic}/{diastolic} mmHg</div>
-            <div className="pulse">{pulse} BPM</div>
-          </div>
-        </div>
-        <div className="bp-info">
-          <h3>Blood Pressure Category</h3>
-          <div className={`category ${category}`}>
-            {category.replace('-', ' ').toUpperCase()}
-          </div>
-        </div>
+    <div className="p-6 text-white bg-gray-900 rounded-lg shadow-lg">
+      <h1 className="mb-4 text-2xl font-bold">Blood Pressure Monitor</h1>
+      <div className="flex items-center mb-4">
+        <Activity className="mr-2 text-blue-500" size={24} />
+        <div className="text-3xl font-bold">{systolic}/{diastolic} mmHg</div>
       </div>
-      <div className="secondary-display">
-        <div className="time-card">
-          <Clock className="icon" />
-          <time>{time}</time>
-        </div>
-        <div className="history-card">
-          <h3>Recent Readings</h3>
-          <ul>
-            <li>08:00 - 118/78 mmHg</li>
-            <li>12:00 - 122/80 mmHg</li>
-            <li>16:00 - 120/79 mmHg</li>
-          </ul>
-        </div>
+      <div className="h-40 mb-4">
+        <Line data={data} options={options} />
+      </div>
+      <div className="text-lg">
+        Status: <span className="font-semibold">{getBloodPressureCategory(systolic, diastolic)}</span>
       </div>
     </div>
   );
