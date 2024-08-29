@@ -1,0 +1,173 @@
+// Blood Pressure Monitor Styles
+
+// Variables
+$background-color: #0a192f;
+$text-color: #e6f1ff;
+$primary-color: #64ffda;
+$secondary-color: #8892b0;
+$accent-color: #ffd700;
+$card-background: #172a45;
+$danger-color: #ff6b6b;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card-style {
+  background-color: $card-background;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Main Styles
+.blood-pressure-monitor {
+  background-color: #1e1e1e;
+  color: $text-color;
+  padding: 2rem;
+  border-radius: 2rem;
+  font-family: 'Roboto', sans-serif;
+  min-width: 400px;
+  max-width: 420px;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: $primary-color;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .main-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    .bp-gauge, .bp-info {
+      @include card-style;
+      padding: 1.5rem;
+    }
+
+    .bp-gauge {
+      .gauge-chart {
+        width: 100%;
+        height: 200px;
+      }
+
+      .bp-values {
+        @include flex-center;
+        flex-direction: column;
+        margin-top: 1rem;
+
+        .pressure {
+          font-size: 2.5rem;
+          font-weight: bold;
+          color: $primary-color;
+        }
+
+        .pulse {
+          font-size: 1.5rem;
+          color: $accent-color;
+        }
+      }
+    }
+
+    .bp-info {
+      @include flex-center;
+      flex-direction: column;
+
+      h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .category {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+
+        &.normal { color: #4ade80; }
+        &.elevated { color: #facc15; }
+        &.high-stage-1 { color: #fb923c; }
+        &.high-stage-2 { color: #f87171; }
+        &.crisis { color: $danger-color; }
+      }
+    }
+  }
+
+  .secondary-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    .time-card, .history-card {
+      @include card-style;
+      padding: 1.5rem;
+    }
+
+    .time-card {
+      @include flex-center;
+      flex-direction: column;
+
+      .icon {
+        font-size: 2rem;
+        color: $primary-color;
+        margin-bottom: 1rem;
+      }
+
+      time {
+        font-size: 1.5rem;
+        color: $accent-color;
+      }
+    }
+
+    .history-card {
+      h3 {
+        color: $primary-color;
+        margin-bottom: 1rem;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 0.8rem;
+          font-size: 1rem;
+          color: $secondary-color;
+
+          &:before {
+            content: '•';
+            color: $primary-color;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .blood-pressure-monitor {
+    padding: 1.5rem;
+
+    .main-display,
+    .secondary-display {
+      grid-template-columns: 1fr;
+    }
+  }
+}

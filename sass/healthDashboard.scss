@@ -47,13 +47,13 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   }
 
   .glass-card {
-    background: $glass-bg;
+    background: #0000;
+    border-radius: 2rem;
     backdrop-filter: blur(4px);
     border-radius: 10px;
-    border: $glass-border;
-    box-shadow: $glass-shadow;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
+    width: 100%;
 
     h2 {
       font-size: 1.2rem;

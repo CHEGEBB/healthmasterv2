@@ -4,9 +4,9 @@ import Image from 'next/image';
 import HeartModelComponent from '../../components/models/HeartModel';
 import HeartRateGraph from './HeartRateGraph';
 import BloodPressureGraph from './BloodPressureGraph';
-import AppointmentCalendar from './AppointmentCalendar';
 import WeeklyHeartRate from './WeeklyHeartRate';
 import "../../sass/healthDashboard.scss";
+import Bp from "../../components/cards/Bp"
 
 export default function HealthDashboard() {
   const [selectedOrgan, setSelectedOrgan] = useState('heart');
@@ -38,7 +38,6 @@ export default function HealthDashboard() {
       <div className="dashboard-content">
         <div className="left-panel">
           <div className="glass-card vital-signs">
-            <h2>Heart Rate</h2>
             <HeartRateGraph heartRate={heartRate} />
           </div>
           <div className="glass-card vital-signs">
@@ -52,13 +51,13 @@ export default function HealthDashboard() {
           </div>
         </div>
         <div className="right-panel">
-          <div className="glass-card organ-info">
+          {/* <div className="glass-card organ-info">
             <h2>{selectedOrgan.charAt(0).toUpperCase() + selectedOrgan.slice(1)} Information</h2>
             <p>Interactive 3D model. Hover over different parts to learn more.</p>
-          </div>
+          </div> */}
           <div className="glass-card appointment">
-            <h2>Appointments</h2>
-            <AppointmentCalendar nextCheckup={nextCheckup} />
+            <Bp/>
+            
           </div>
           <div className="glass-card weekly-stats">
             <h2>Weekly Heart Rate</h2>

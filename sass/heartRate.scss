@@ -2,8 +2,8 @@
 .heart-diagnosis-container {
   background-color: #1e1e1e;
   padding: 16px;
-  border-radius: 8px;
-  max-width: 450px;
+  border-radius: 2rem;
+  min-width: 430px;
   margin: 0 auto;
   color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -24,7 +24,7 @@
     width: 100%;
 
     .heart-rate-box {
-      background-color: #ff5722;
+      background-color: #24AE7C;
       border-radius: 2rem;
       height: 100%;
       display: flex;
@@ -44,57 +44,28 @@
         height: 150px;
       }
     }
-
-    .status-carousel {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #333;
-      padding: 16px;
-      border-radius: 8px;
-      width: 100%;
-      margin-bottom: 16px;
-
-      .icon {
-        margin-right: 16px;
-
-        .heart-pulse {
-          color: #ff5722;
-        }
-      }
-
-      .carousel-content {
-        display: flex;
-        gap: 8px;
-
-        .status-item {
-          background-color: #444;
-          color: #fff;
-          padding: 8px 16px;
-          border-radius: 8px;
-          cursor: pointer;
-
-          &:hover {
-            background-color: #555;
-          }
-        }
-      }
-
-      .carousel-prev,
-      .carousel-next {
-        background-color: #444;
-        color: #fff;
-        padding: 8px;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-
-        &:hover {
-          background-color: #555;
-        }
-      }
-    }
+.heartbeat-monitor{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .pulse{
+    background-color: #24AE7C;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
   }
+  h4{
+    font-size: 16px;
+    color: #24AE7C;
+    margin-bottom: 8px;
+    text-align: center;
+
+  }
+  
+  }
+}
   .reports-section {
     width: 100%;
     background-color: #222;

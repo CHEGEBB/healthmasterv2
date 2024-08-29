@@ -5,7 +5,6 @@ import { Line } from 'react-chartjs-2';
 import { HeartPulse } from 'lucide-react';
 import 'chart.js/auto';
 import '../../sass/heartRate.scss';
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '../../components/ui/carousel';
 import Image from 'next/image';
 
 export default function HeartRateGraph() {
@@ -17,12 +16,10 @@ export default function HeartRateGraph() {
         label: 'Heart Rate',
         data: Array(20).fill(80),
         fill: false,
-        borderColor: '#ff5722',
-        pointBackgroundColor: '#fff',
-        pointBorderColor: '#ff5722',
-        pointRadius: 4, // Add small circles
-        pointHoverRadius: 6, // Increase size on hover
-        tension: 0.4, // Curve line
+        borderColor: '#fff',
+        pointRadius: 0, 
+        pointHoverRadius: 0, 
+        tension: 0.4,
       },
     ],
   });
@@ -60,7 +57,7 @@ export default function HeartRateGraph() {
     },
     plugins: {
       legend: {
-        display: false, // Hide the legend
+        display: false, 
       },
     },
   };
@@ -76,18 +73,12 @@ export default function HeartRateGraph() {
           </div>
         </div>
         <div className="heartbeat-monitor">
-          <HeartPulse className="heart-pulse" size={30} />
+        <div className="pulse">
+        <HeartPulse className="heart-pulse" size={30} />
+        </div>
           <div className="monitor-info">
             <h3>Heartbeat Monitor</h3>
-            <Carousel>
-              <CarouselContent>
-                <CarouselItem className="status-item">Normal</CarouselItem>
-                <CarouselItem className="status-item">High</CarouselItem>
-                <CarouselItem className="status-item">Low</CarouselItem>
-              </CarouselContent>
-              <CarouselPrevious className="carousel-prev" />
-              <CarouselNext className="carousel-next" />
-            </Carousel>
+            <h4>Normal</h4>
           </div>
         </div>
       </div>
