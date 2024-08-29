@@ -17,7 +17,7 @@ export default function DashboardPage() {
         </div>
         <div className="min-h-screen container-fluid">
           <h1 className="text-2xl font-bold mb-4">Health Dashboard</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 cards">
             <div className="md:col-span-2">
             <HeartRateCard />
             </div>

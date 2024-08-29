@@ -23,6 +23,44 @@ body {
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
     min-height: 100vh;
+    .cards{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+      .card{
+        background-color: $card-bg;
+        padding: 1rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .card-header{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+          .card-title{
+            font-size: 1.5rem;
+            font-weight: bold;
+          }
+          .card-icon{
+            font-size: 1.5rem;
+            color: $accent-color;
+          }
+        }
+        .card-body{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .card-text{
+            font-size: 1.2rem;
+          }
+          .card-number{
+            font-size: 1.5rem;
+            font-weight: bold;
+          }
+        }
+      }
+    }
 
   }
 }
