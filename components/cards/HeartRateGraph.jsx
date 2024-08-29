@@ -6,6 +6,7 @@ import { HeartPulse } from 'lucide-react';
 import 'chart.js/auto';
 import '../../sass/heartRate.scss';
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '../../components/ui/carousel';
+import Image from 'next/image';
 
 export default function HeartRateGraph() {
   const [heartRate, setHeartRate] = useState(120);
@@ -16,8 +17,12 @@ export default function HeartRateGraph() {
         label: 'Heart Rate',
         data: Array(20).fill(80),
         fill: false,
-        borderColor: '#fff',
-        tension: 0.4,
+        borderColor: '#ff5722',
+        pointBackgroundColor: '#fff',
+        pointBorderColor: '#ff5722',
+        pointRadius: 4, // Add small circles
+        pointHoverRadius: 6, // Increase size on hover
+        tension: 0.4, // Curve line
       },
     ],
   });
@@ -36,10 +41,29 @@ export default function HeartRateGraph() {
           },
         ],
       }));
-    }, 1000); // Update every second
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
+
+  const options = {
+    animation: false,
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        display: false, // Hide X-axis
+      },
+      y: {
+        display: false, // Hide Y-axis
+      },
+    },
+    plugins: {
+      legend: {
+        display: false, // Hide the legend
+      },
+    },
+  };
 
   return (
     <div className="heart-diagnosis-container">
@@ -48,10 +72,9 @@ export default function HeartRateGraph() {
         <div className="heart-rate-box">
           <div className="heart-rate-value">{heartRate} bpm</div>
           <div className="heartbeat-chart">
-            <Line data={data} options={{ animation: false, responsive: true, maintainAspectRatio: false }} />
+            <Line data={data} options={options} />
           </div>
         </div>
-
         <div className="heartbeat-monitor">
           <HeartPulse className="heart-pulse" size={30} />
           <div className="monitor-info">
@@ -67,15 +90,23 @@ export default function HeartRateGraph() {
             </Carousel>
           </div>
         </div>
+      </div>
 
-        <div className="reports-section">
-          <h2>Reports</h2>
-          <div className="report-items">
-            {/* Placeholder for report items, which could be images or data entries */}
-            <div className="report-item">24 April 23</div>
-            <div className="report-item">Blood Pressure</div>
-            <div className="report-item">Cholesterol Levels</div>
+      <div className="reports-section">
+        <h2>Reports</h2>
+        <div className="report-items">
+          {/* Placeholder for report items, which could be images or data entries */}
+          <div className="report-item">
+            <Image
+              src="/assets/images/3.jpg"
+              alt="Blood Pressure Report"
+              width={100}
+              height={100}
+            />
+            <p>24 April 23</p>
           </div>
+          <div className="report-item">Blood Pressure</div>
+          <div className="report-item">Cholesterol Levels</div>
         </div>
       </div>
     </div>

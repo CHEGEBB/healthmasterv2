@@ -15,18 +15,22 @@
 
   .heart-diagnosis {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    background-color: #444;
+    height: 240px;
+    border-radius: 2rem;
+    margin-bottom: 16px;
+    width: 100%;
 
     .heart-rate-box {
       background-color: #ff5722;
-      padding: 16px;
-      border-radius: 8px;
+      border-radius: 2rem;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
-      margin-bottom: 16px;
+      width: 60%;
 
       .heart-rate-value {
         font-size: 32px;
