@@ -15,6 +15,7 @@
   .header {
     display: flex;
     gap: 8rem;
+    border-left: 3px solid #24AE7C;
     align-items: center;
     padding: 1rem 2rem;
     background-color: #333;
@@ -43,6 +44,49 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+      display: flex;
+      margin-left: 100px;
+      justify-content: flex-end;
+      flex: 1;
+      .header-info{
+        display: flex;
+        flex-direction: row;
+        background-color: #27272a;
+        border-radius: 2rem;
+        width: 100px;
+        height: 45px;
+        padding-top: 5px;
+        justify-content: space-around;
+        cursor: pointer;
+        .reminders, .notifications{
+          background-color: #24AE7C;
+          border-radius: 50%;
+          width: 35px;
+          height: 35px;
+          cursor: pointer;
+          padding: 5px;
+          .p-2 {
+            padding: 0.5rem;
+            background-color: #1f2937; 
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+            font-size: 0.875rem;
+            font-weight: 500; 
+            animation: fadeInUp 0.3s ease-in-out; 
+            &:before {
+              content: '';
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              transform: translateX(-50%);
+              border-width: 6px;
+              border-style: solid;
+              border-color: #1f2937 transparent transparent transparent; 
+            }
+          }
+        }
+      }
 
       .search-bar {
         position: relative;
@@ -139,9 +183,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    border: 2px solid #24AE7C;
     gap: 0.5rem;
     position: relative;
-    background-color: #030712;
+    background-color: #2e2e2e;
     padding: 15px;
     transition: background-color 0.3s ease;
     border-radius: 1rem;
@@ -151,7 +196,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        border: 2px solid #ccc;
+        border: 2px solid #24AE7C;
         background-color: #3b82f6;
         display: flex;
         align-items: center;
@@ -180,5 +225,15 @@
         }
       }
     }
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
