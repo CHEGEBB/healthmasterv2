@@ -1,0 +1,127 @@
+
+.heart-diagnosis-container {
+  background-color: #1e1e1e;
+  padding: 16px;
+  border-radius: 8px;
+  max-width: 450px;
+  margin: 0 auto;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .heart-diagnosis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .heart-rate-box {
+      background-color: #ff5722;
+      padding: 16px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 16px;
+
+      .heart-rate-value {
+        font-size: 32px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+
+      .heartbeat-chart {
+        width: 100%;
+        height: 150px;
+      }
+    }
+
+    .status-carousel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #333;
+      padding: 16px;
+      border-radius: 8px;
+      width: 100%;
+      margin-bottom: 16px;
+
+      .icon {
+        margin-right: 16px;
+
+        .heart-pulse {
+          color: #ff5722;
+        }
+      }
+
+      .carousel-content {
+        display: flex;
+        gap: 8px;
+
+        .status-item {
+          background-color: #444;
+          color: #fff;
+          padding: 8px 16px;
+          border-radius: 8px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #555;
+          }
+        }
+      }
+
+      .carousel-prev,
+      .carousel-next {
+        background-color: #444;
+        color: #fff;
+        padding: 8px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #555;
+        }
+      }
+    }
+  }
+  .reports-section {
+    width: 100%;
+    background-color: #222;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .report-items {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+
+      .report-item {
+        background-color: #333;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        color: #fff;
+        font-size: 12px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #444;
+        }
+      }
+    }
+  }
+}
