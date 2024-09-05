@@ -1,66 +1,429 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&family=Outfit:wght@300;400;500;700&family=Poppins:wght@300;400;500;700&family=Jost:wght@300;400;500;700&family=Open+Sans:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&family=Kanit:wght@300;400;500;700&display=swap');
 
-.medicine-container{
-    background-color: #1e1e1e;
-    border-radius: 2rem;
-    .medication-row-one{
-        display: flex;
-        flex-direction: row;
-        .med-1{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            justify-content: center;
-            align-items: center;
-            width: 50%;
-            padding: 1rem;
-            background-color: rgba(14, 164, 164, 0.2);
-            .med-image{
-                width: 80%;
-                height: 100px;
-                border-radius: 1rem;
-                background-color: #24AE7C;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 1rem;
-            }
-            .med-details{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-               .med-det1{
-                     display: flex;
-                     flex-direction: row;
-                     justify-content: space-between;
-                     width: 100%;
-                     margin-bottom: 1rem;
-                     .med-name{
-                         
-                     }
-                     .med-time{
+$font-rubik: 'Rubik', sans-serif;
+$font-outfit: 'Outfit', sans-serif;
+$font-poppins: 'Poppins', sans-serif;
+$font-jost: 'Jost', sans-serif;
+$font-open-sans: 'Open Sans', sans-serif;
+$font-roboto: 'Roboto', sans-serif;
+$font-kanit: 'Kanit', sans-serif;
 
-                     }
-                     .med-dose{
+$primary-color: #0080ff;
+$secondary-color: #f0f8ff;
+$text-color: #333;
+$glass-bg: rgba(255, 255, 255, 0.25);
+$glass-border: 1px solid rgba(255, 255, 255, 0.18);
+$glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 
-                     }
-               }
-                .med-det2{
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: space-between;
-                        width: 100%;
-                        .med-quantity{
+@mixin med-card {
+  background-color: #171717;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
 
-                        }
-                        .med-refill{
-
-                        }
-                        .med-notes{
-
-                        }
-                }
-            }
-        }
+  .med-image {
+    width: 80%;
+    height: 50%;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1rem;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 1rem;
     }
+  }
+
+  .med-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+
+    .med-det1 {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      .med-name {
+        font-family: $font-poppins;
+        font-size: 1rem;
+        font-weight: 500;
+        background-color: #333;
+        color: white;
+        border-radius: 7px;
+        padding: 0.2rem 0.5rem;
+        box-shadow: 0 8px 32px 0 #000;
+      }
+
+      .med-dose {
+        font-family: $font-rubik;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #24AE7C;
+      }
+    }
+
+    .med-det2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      .med-time {
+        font-family: $font-poppins;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #999;
+        border-radius: 4px;
+        padding: 0.2rem;
+        box-shadow: 0 8px 32px 0 #000;
+      }
+
+      .med-notes {
+        font-family: $font-rubik;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #24AE7C;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .med-icons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 1rem;
+
+      .day-dose, .night-dose {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #999;
+
+        svg {
+          font-size: 1.2rem;
+        }
+      }
+
+      .day-dose svg {
+        color: #ffd700;
+      }
+
+      .night-dose svg {
+        color: #87ceeb;
+      }
+    }
+  }
 }
+
+body {
+  font-family: $font-kanit;
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.medicine-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #1e1e1e;
+  border-radius: 2rem;
+  background-image: url('/assets/images/pattern.png');
+  background-repeat: repeat;
+  background-size: 200px;
+
+  .medicine-title {
+    font-size: 2.5rem;
+    color: #24AE7C;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: $font-rubik;
+  }
+
+  .doctors-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .doctor-bubble {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #24AE7C;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .medications-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  
+    .med-card {
+      @include med-card;
+    }
+  
+    .add-medicine {
+      @include med-card;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      color: #24AE7C;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  
+      &:hover {
+        background-color: #24AE7C;
+        color: #171717;
+      }
+    }
+  }
+  
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-content {
+    background-color: #171717;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 80%;
+    max-width: 500px;
+
+    h2 {
+      color: #24AE7C;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background-color: #24AE7C;
+      color: #171717;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #24AE7C;
+      }
+    }
+  }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  
+    .modal-content {
+      background-color: #1e1e1e;
+      padding: 2rem;
+      border-radius: 1rem;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+      position: relative;
+  
+      h2 {
+        color: #24AE7C;
+        margin-bottom: 1.5rem;
+        font-family: $font-rubik;
+        font-size: 1.8rem;
+      }
+  
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        color: #24AE7C;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+  
+        &:hover {
+          color: #24AE7C;
+        }
+      }
+    }
+  }
+  
+  .view-modal {
+    .modal-image {
+      text-align: center;
+      margin-bottom: 1.5rem;
+  
+      img {
+        max-width: 100%;
+        border-radius: 0.5rem;
+      }
+    }
+  
+    .modal-info {
+      h3 {
+        color: #24AE7C;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        font-family: $font-poppins;
+      }
+  
+      ul {
+        list-style-type: none;
+        padding-left: 1rem;
+        color: #cccccc;
+        font-family: $font-rubik;
+  
+        li {
+          margin-bottom: 0.5rem;
+          
+          &:before {
+            content: "•";
+            color: #24AE7C;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+          }
+        }
+      }
+    }
+  }
+  
+  .add-modal {
+    form {
+      display: grid;
+      gap: 1rem;
+  
+      .form-group {
+        display: flex;
+        flex-direction: column;
+  
+        label {
+          color: #24AE7C;
+          margin-bottom: 0.5rem;
+          font-family: $font-poppins;
+        }
+  
+        input, textarea {
+          background-color: #2a2a2a;
+          border: 1px solid #24AE7C;
+          border-radius: 0.25rem;
+          padding: 0.5rem;
+          color: #ffffff;
+          font-family: $font-rubik;
+  
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 255, 0, 0.5);
+          }
+        }
+  
+        textarea {
+          resize: vertical;
+          min-height: 100px;
+        }
+      }
+  
+      .submit-btn {
+        background-color: #24AE7C;
+        color: #1e1e1e;
+        padding: 0.75rem 1rem;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-family: $font-rubik;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+  
+        &:hover {
+          background-color: #24AE7C;
+        }
+      }
+    }
+  
+    .heart-image {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      width: 50px;
+      height: 50px;
+  
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  
+  .add-modal {
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+  
+      .form-group {
+        &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8) {
+          grid-column: span 2;
+        }
+      }
+  
+      .submit-btn {
+        grid-column: span 2;
+        justify-self: center;
+        width: 50%;
+      }
+    }
+  }
