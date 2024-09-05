@@ -39,7 +39,10 @@ export default function HealthDashboard() {
           </div>
         </div>
         <div className="center-panel">
-        <div className="glass-card bp-container">
+        <div className="user-stats">
+          <HealthProfile heartRate={heartRate} bloodPressure={bloodPressure} />
+        </div>
+        <div className=" bp-container">
             <Bp/>
           </div>
         </div>

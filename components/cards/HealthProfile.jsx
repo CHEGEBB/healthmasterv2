@@ -2,7 +2,9 @@ import React from 'react'
 
 function HealthProfile() {
   return (
-    <div>HealthProfile</div>
+    <div className="health-container">
+     
+    </div>
   )
 }
 

@@ -14,7 +14,6 @@ export default function DashboardPage() {
           <Header />
         </div>
         <div className="min-h-screen container-fluid">
-          <h1 className="mb-3 text-2xl font-bold">Health Diagnosis Overview</h1>
           <Cards/>
           </div>
         </div>
