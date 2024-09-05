@@ -3,6 +3,64 @@
     background-color: #1e1e1e;
     border-radius: 2rem;
     .medication-row-one{
-        
+        display: flex;
+        flex-direction: row;
+        .med-1{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            padding: 1rem;
+            background-color: rgba(14, 164, 164, 0.2);
+            .med-image{
+                width: 80%;
+                height: 100px;
+                border-radius: 1rem;
+                background-color: #24AE7C;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+            }
+            .med-details{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+               .med-det1{
+                     display: flex;
+                     flex-direction: row;
+                     justify-content: space-between;
+                     width: 100%;
+                     margin-bottom: 1rem;
+                     .med-name{
+                         
+                     }
+                     .med-time{
+
+                     }
+                     .med-dose{
+
+                     }
+               }
+                .med-det2{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        width: 100%;
+                        .med-quantity{
+
+                        }
+                        .med-refill{
+
+                        }
+                        .med-notes{
+
+                        }
+                }
+            }
+        }
     }
 }

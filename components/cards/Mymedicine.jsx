@@ -33,11 +33,43 @@ function Mymedicine() {
             <div className="med-quantity">
                 <h3>10mg</h3>
             </div>
-            <div className="med-refill">
             <div className="med-notes">
             <FontAwesomeIcon icon={faEye}/>
                 <h3>View</h3>
             </div>
+            </div>
+            
+                
+            </div>
+        </div>
+        <div className="med-2">
+            <div className="med-image">
+                <Image
+                   src="/assets/images/med2.png" 
+                     width={100}
+                        height={100}
+                        alt="medicine"
+                />
+            </div>
+            <div className="med-details">
+            <div className="med-det1">
+            <div className="med-name">
+                <h2>Aspirin</h2>
+            </div>
+            <div className="med-time">
+                <h3>12:00 PM</h3>
+            </div>
+            <div className="med-dose">
+                <h3>1 tablet</h3>
+            </div>
+            </div>
+            <div className="med-det2">
+            <div className="med-quantity">
+                <h3>10 mg</h3>
+            </div>
+            <div className="med-notes">
+            <FontAwesomeIcon icon={faEye}/>
+                <h3>View</h3>
             </div>
             </div>
             
