@@ -39,12 +39,12 @@ export default function HealthDashboard() {
           </div>
         </div>
         <div className="center-panel">
-        <Mymedicine/>
-        </div>
-        <div className="right-panel">
         <div className="glass-card bp-container">
             <Bp/>
           </div>
+        </div>
+        <div className="right-panel">
+        <Mymedicine/>
         </div>
       </div>
     </div>

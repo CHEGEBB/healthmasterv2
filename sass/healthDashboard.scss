@@ -43,17 +43,13 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
  
 .dashboard-content {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 1rem;
   .left-panel{
     flex: 1;
 
   }
   .center-panel{
-    flex: 2;
-
-  }
-  .right-panel{
     flex: 1;
     .bp-container {
       display: flex;
@@ -61,6 +57,10 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       gap: 2rem;
       background-color: #1e1e1e;
     }
+
+  }
+  .right-panel{
+    flex: 2;
 
   }
 }

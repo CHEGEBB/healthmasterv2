@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Activity } from 'lucide-react';
 import 'chart.js/auto';
+import '../../sass/Bp.scss';
 
 const BloodPressureMonitor = () => {
   const [systolic, setSystolic] = useState(120);
@@ -74,7 +75,7 @@ const BloodPressureMonitor = () => {
   };
 
   return (
-    <div className="p-6 text-white bg-gray-900 rounded-lg shadow-lg">
+    <div className="p-6 text-white bg-gray-900 shadow-lg container-bp">
       <h1 className="mb-4 text-2xl font-bold">Blood Pressure Monitor</h1>
       <div className="flex items-center mb-4">
         <Activity className="mr-2 text-blue-500" size={24} />

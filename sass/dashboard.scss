@@ -18,7 +18,7 @@ body {
   .container-fluid{
     background-color: #171717;
     padding: 1rem;
-    width: 82%;
+    width: 83%;
     margin:30px 300px auto;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
@@ -28,6 +28,7 @@ body {
       grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
       gap: 1rem;
       margin-top: 1rem;
+      background-color: red;
       .card{
         background-color: $card-bg;
         padding: 1rem;

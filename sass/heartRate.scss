@@ -100,3 +100,81 @@
     }
   }
 }
+.heart-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .details {
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 10px;
+        animation: pulse 1s infinite;
+      }
+    }
+  }
+
+  .heart-image {
+    position: relative;
+    width: 300px;
+    height: 300px;
+
+    img {
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20%;
+      height: 20%;
+      background-color: rgba(255, 0, 0, 0.1);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
