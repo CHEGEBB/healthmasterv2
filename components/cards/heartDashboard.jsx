@@ -1,18 +1,15 @@
 "use client";
 import React, { Suspense, useState, useEffect } from 'react';
 import Image from 'next/image';
-import HeartModelComponent from '../../components/models/HeartModel';
 import HeartRateGraph from './HeartRateGraph';
-import BloodPressureGraph from './BloodPressureGraph';
-import WeeklyHeartRate from './WeeklyHeartRate';
 import "../../sass/healthDashboard.scss";
 import Bp from "../../components/cards/Bp"
+import HealthProfile from "../../components/cards/HealthProfile"
+import Mymedicine from "../../components/cards/Mymedicine"
 
 export default function HealthDashboard() {
-  const [selectedOrgan, setSelectedOrgan] = useState('heart');
   const [heartRate, setHeartRate] = useState(72);
   const [bloodPressure, setBloodPressure] = useState({ systolic: 120, diastolic: 80 });
-  const [nextCheckup, setNextCheckup] = useState('2024-09-15');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,28 +37,13 @@ export default function HealthDashboard() {
           <div className="glass-card vital-signs">
             <HeartRateGraph heartRate={heartRate} />
           </div>
-          <div className="glass-card vital-signs">
-            <h2>Blood Pressure</h2>
-            <BloodPressureGraph bloodPressure={bloodPressure} />
-          </div>
         </div>
         <div className="center-panel">
-          <div className="glass-card model-container">
-            <HeartModelComponent setSelectedOrgan={setSelectedOrgan} />
-          </div>
+        <Mymedicine/>
         </div>
         <div className="right-panel">
-          {/* <div className="glass-card organ-info">
-            <h2>{selectedOrgan.charAt(0).toUpperCase() + selectedOrgan.slice(1)} Information</h2>
-            <p>Interactive 3D model. Hover over different parts to learn more.</p>
-          </div> */}
-          <div className="glass-card appointment">
+        <div className="glass-card bp-container">
             <Bp/>
-            
-          </div>
-          <div className="glass-card weekly-stats">
-            <h2>Weekly Heart Rate</h2>
-            <WeeklyHeartRate />
           </div>
         </div>
       </div>
