@@ -25,7 +25,7 @@ function HealthProfile() {
         <p>Good</p>
       </div>
       <div className="heart-image">
-        <Image src="/assets/icons/heart.svg" width={40} height={40} alt="Heart" />
+        <Image src="/assets/images/heart2.png" width={40} height={40} alt="Heart" />
       </div>
     </div>
     <div className="kidney">
@@ -34,7 +34,7 @@ function HealthProfile() {
         <p>Good</p>
       </div>
       <div className="kidney-image">
-        <Image src="/assets/icons/kidney.svg" width={40} height={40} alt="Kidney" />
+        <Image src="/assets/images/kidney.png" width={40} height={40} alt="Kidney" />
       </div>
     </div>
     <div className="liver">
@@ -43,7 +43,7 @@ function HealthProfile() {
         <p>Good</p>
       </div>
       <div className="liver-image">
-        <Image src="/assets/icons/liver.svg" width={40} height={40} alt="Liver" />
+        <Image src="/assets/images/liver.jpeg" width={40} height={40} alt="Liver" />
       </div>
       </div>
       <div className="brain">
@@ -52,7 +52,7 @@ function HealthProfile() {
         <p>Good</p>
         </div>
         <div className="brain-image">
-        <Image src="/assets/icons/brain.svg" width={40} height={40} alt="Brain" />
+        <Image src="/assets/images/brain.jpeg" width={40} height={40} alt="Brain" />
         </div>
       </div>
     </div>
