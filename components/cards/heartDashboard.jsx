@@ -6,6 +6,7 @@ import "../../sass/healthDashboard.scss";
 import Bp from "../../components/cards/Bp"
 import HealthProfile from "../../components/cards/HealthProfile"
 import Mymedicine from "../../components/cards/Mymedicine"
+import DynamicGreeting from "../../components/cards/DynamicGreeting"
 
 export default function HealthDashboard() {
   const [heartRate, setHeartRate] = useState(72);
@@ -25,12 +26,12 @@ export default function HealthDashboard() {
 
   return (
     <div className="health-dashboard">
+    <div className="welcome">
+    <DynamicGreeting userName="Sarah Ruth" /> 
+      
+    </div>
       <div className="dashboard-header">
         <h1>My Health Overview</h1>
-        <div className="user-profile">
-          <Image src="/assets/images/3.jpg" width={40} height={40} alt="User Avatar" className="avatar" />
-          <span>John Doe</span>
-        </div>
       </div>
       <div className="dashboard-content">
         <div className="left-panel">

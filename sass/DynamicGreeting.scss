@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.greeting-container {
+  font-family: 'Poppins', sans-serif;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  min-height: 300px;
+  transition: all 0.5s ease;
+
+  &.morning {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  }
+
+  &.afternoon {
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+  }
+
+  &.evening {
+    background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+  }
+
+  .greeting-content {
+    z-index: 1;
+    max-width: 60%;
+  }
+
+  .greeting-text {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1e1e1e;
+  }
+
+  .welcome-message {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #333;
+  }
+
+  .illustration {
+    position: absolute;
+    right: -50px;
+    top: -50px;
+    width: 300px;
+    height: 300px;
+  }
+
+  .circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: pulse 4s infinite alternate;
+  }
+
+  .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: wave 8s infinite linear;
+  }
+
+  .sun-moon {
+    position: absolute;
+    top: 20%;
+    right: 20%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #ffd700;
+    box-shadow: 0 0 20px #ffd700;
+    animation: glow 4s infinite alternate;
+  }
+
+  .stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    animation: twinkle 2s infinite alternate;
+
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}) {
+        top: random(100) * 1%;
+        left: random(100) * 1%;
+        animation-delay: -#{$i * 0.5}s;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+@keyframes wave {
+  0% { transform: translateX(0) translateY(0) scaleY(1); }
+  50% { transform: translateX(-25%) translateY(10px) scaleY(0.8); }
+  100% { transform: translateX(-50%) translateY(0) scaleY(1); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 20px #ffd700; }
+  100% { box-shadow: 0 0 40px #ffd700; }
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .greeting-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+
+    .greeting-content {
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    .illustration {
+      position: relative;
+      right: 0;
+      top: 0;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+  }
+}

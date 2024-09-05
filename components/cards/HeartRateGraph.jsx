@@ -98,15 +98,31 @@ export default function HeartRateGraph() {
           {/* Placeholder for report items, which could be images or data entries */}
           <div className="report-item">
             <Image
-              src="/assets/images/3.jpg"
+              src="/assets/images/report.png"
               alt="Blood Pressure Report"
               width={100}
               height={100}
             />
             <p>24 April 23</p>
           </div>
-          <div className="report-item">Blood Pressure</div>
-          <div className="report-item">Cholesterol Levels</div>
+          <div className="report-item">
+          <Image
+              src="/assets/images/bp2.png"
+              alt="Blood Pressure Report"
+              width={100}
+              height={100}
+            />
+          <p>Blood Pressure</p>
+          </div>
+          <div className="report-item">
+          <Image
+              src="/assets/images/cholesterol.png"
+              alt="Blood Pressure Report"
+              width={100}
+              height={100}
+            />
+          <p>Cholesterol Levels</p>
+          </div>
         </div>
       </div>
     </div>
