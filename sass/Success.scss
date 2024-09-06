@@ -1,0 +1,134 @@
+// Success.scss
+
+// Variables
+$background-color: #121212;
+$card-background: #1E1E1E;
+$text-color: #FFFFFF;
+$text-secondary: #B0B0B0;
+$primary-color: #4CAF50;
+$success-color: #4CAF50;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card-style {
+  background-color: $card-background;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+// Global styles
+body {
+  background-color: $background-color;
+  color: $text-color;
+  font-family: 'Inter', sans-serif;
+}
+
+// Success Page Styles
+.success-page {
+  @include flex-center;
+  min-height: 100vh;
+
+  .success-content {
+    @include card-style;
+    padding: 3rem;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $primary-color;
+    margin-bottom: 2rem;
+  }
+
+  .success-illustration {
+    margin-bottom: 2rem;
+  }
+
+  .success-message {
+    margin-bottom: 2rem;
+
+    .checkmark {
+      font-size: 3rem;
+      color: $success-color;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: $text-secondary;
+    }
+  }
+
+  .appointment-details {
+    background-color: rgba($primary-color, 0.1);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      @include flex-center;
+      gap: 0.5rem;
+    }
+
+    .doctor-icon, .date-icon {
+      font-size: 1.2rem;
+    }
+  }
+
+  .back-link {
+    display: inline-block;
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.success-page {
+  animation: fadeIn 0.5s ease-out;
+
+  .success-content {
+    animation: slideUp 0.5s ease-out;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .success-page {
+    .success-content {
+      padding: 2rem;
+    }
+  }
+}
