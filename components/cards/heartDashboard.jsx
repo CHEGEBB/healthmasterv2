@@ -9,6 +9,7 @@ import Mymedicine from "../../components/cards/Mymedicine"
 import DynamicGreeting from "../../components/cards/DynamicGreeting"
 import Schedule from "../../components/cards/Schedule"
 import MyAlarms from "../../components/cards/MyAlarms"
+import Wearable from "../../components/cards/Wearable"
 
 export default function HealthDashboard() {
   const [heartRate, setHeartRate] = useState(72);
@@ -56,7 +57,13 @@ export default function HealthDashboard() {
           </div>
         </div>
         <div className="right-panel">
+        <div className="medicine">
         <Mymedicine/>
+        </div>
+        <div className="wearable">
+          <Wearable/>
+        </div>
+
         </div>
       </div>
     </div>

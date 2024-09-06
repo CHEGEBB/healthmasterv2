@@ -15,6 +15,7 @@ function MyAlarms() {
     { id: 2, time: '13:00', label: 'Afternoon Medication', medication: '/assets/images/pill-2.png', tone: alarmTones[1] },
     { id: 3, time: '18:00', label: 'Evening Medication', medication: '/assets/images/pill-3.png', tone: alarmTones[2] },
     { id: 4, time: '23:00', label: 'Bedtime Medication', medication: '/assets/images/pill-4.png', tone: alarmTones[1] },
+    { id: 5, time: '06:00', label: 'Early Medication', medication: '/assets/images/pill-5.png', tone: alarmTones[2] },
   ]);
 
   const [showAddAlarm, setShowAddAlarm] = useState(false);
@@ -54,7 +55,7 @@ function MyAlarms() {
             </div>
             <div className="alarm-actions">
               {alarm.medication && (
-                <Image src={alarm.medication} alt="Medication" width={30} height={30} className="medication-image" />
+                <Image src={alarm.medication} alt="Medication" width={40} height={40} quality={100} className="medication-image" />
               )}
               <button className="play-tone" onClick={() => playAlarmTone(alarm.tone.src)}>
                 <Volume2 size={20} />
