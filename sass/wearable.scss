@@ -1,99 +1,228 @@
 .wearable-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    max-height: 200px;
+    width: 100%;
+    max-width: 400px;
     padding: 1rem;
-    background-color: #111;
-    border-radius: 12px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    height: 400px;
-    text-align: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     position: relative;
   
     .smartwatch {
       position: relative;
+      width: 50%;
   
       .smartwatch-image {
-        width: 100px;
+        width: 100%;
         height: auto;
+        object-fit: contain;
+        transition: all 0.3s ease;
       }
   
       .connect-button {
-        background-color: #00ffcc;
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #4CAF50;
+        color: white;
+        padding: 0.5rem 1rem;
         border: none;
-        color: #111;
-        padding: 0.5rem 1.5rem;
-        margin-top: 10px;
         border-radius: 20px;
+        font-size: 0.9rem;
         cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        font-weight: bold;
-  
-        &.connected {
-          background-color: #00bfa5;
-          box-shadow: 0px 0px 10px 0px rgba(0, 255, 204, 0.6);
-        }
+        transition: all 0.3s ease;
   
         &:hover {
-          background-color: #00bfa5;
+          background-color: #45a049;
         }
   
-        &:active {
-          background-color: #008f79;
-          transform: scale(0.95);
+        &.connected {
+          background-color: #2196F3;
+  
+          &:hover {
+            background-color: #1e88e5;
+          }
         }
       }
     }
   
     .slogan {
-      margin-top: 1rem;
+      width: 45%;
+      text-align: right;
+  
       h2 {
-        color: #ffffff;
         font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #2f3542;
       }
   
       p {
-        color: #aaa;
+        font-size: 0.9rem;
+        color: #57606f;
+      }
+    }
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #2f3542;
+      margin-bottom: 1.5rem;
+    }
+  
+    .smartwatch-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+  
+      .watch-item {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+  
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+  
+        .watch-image {
+          width: 150px;
+          height: 150px;
+          object-fit: contain;
+          margin-bottom: 1rem;
+        }
+  
+        .watch-info {
+          h4 {
+            font-size: 1.2rem;
+            color: #2f3542;
+            margin-bottom: 0.5rem;
+          }
+  
+          p {
+            font-size: 0.9rem;
+            color: #57606f;
+          }
+        }
       }
     }
   
-    /* Modal styles */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
+    .close-button {
+      display: block;
+      margin: 2rem auto 0;
+      padding: 0.75rem 1.5rem;
+      background-color: #ff4757;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: #ff6b81;
+      }
+    }
+  }
+  
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+  
+  .loading-content {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  
+    .loading-icon {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+  
+    p {
+      font-size: 1.2rem;
+      color: #2f3542;
+    }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @media (max-width: 768px) {
+    .wearable-container {
+      flex-direction: column;
       align-items: center;
-      z-index: 1000;
+      max-height: none;
+      height: auto;
+  
+      .smartwatch, .slogan {
+        width: 100%;
+        text-align: center;
+      }
+  
+      .slogan {
+        margin-top: 1rem;
+      }
     }
   
     .modal-content {
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      text-align: center;
-      width: 80%;
-      max-width: 500px;
-  
-      h2 {
-        margin-bottom: 1.5rem;
-        font-size: 1.8rem;
-      }
+      padding: 1.5rem;
   
       .smartwatch-options {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
   
         .watch-item {
-          margin: 1rem;
-          text-align: center;
+          padding: 1rem;
   
           .watch-image {
             width: 100px;
@@ -101,40 +230,15 @@
           }
   
           .watch-info {
-            margin-top: 0.5rem;
-  
             h4 {
-              font-size: 1.1rem;
+              font-size: 1rem;
             }
   
             p {
-              font-size: 0.9rem;
-              color: #555;
+              font-size: 0.8rem;
             }
           }
         }
       }
-  
-      .close-button {
-        margin-top: 2rem;
-        background-color: #00ffcc;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 10px;
-        cursor: pointer;
-  
-        &:hover {
-          background-color: #00bfa5;
-        }
-      }
     }
   }
-  
-  /* Media queries */
-  @media (max-width: 768px) {
-    .wearable-container {
-      max-width: 90%;
-      height: auto;
-    }
-  }
-  
