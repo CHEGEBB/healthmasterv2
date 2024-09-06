@@ -1,13 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&family=Outfit:wght@300;400;500;700&family=Poppins:wght@300;400;500;700&family=Jost:wght@300;400;500;700&family=Open+Sans:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&family=Kanit:wght@300;400;500;700&display=swap');
-
-$font-rubik: 'Rubik', sans-serif;
-$font-outfit: 'Outfit', sans-serif;
-$font-poppins: 'Poppins', sans-serif;
-$font-jost: 'Jost', sans-serif;
-$font-open-sans: 'Open Sans', sans-serif;
-$font-roboto: 'Roboto', sans-serif;
-$font-kanit: 'Kanit', sans-serif;
-
+@import "./fonts";
 $primary-color: #0080ff;
 $secondary-color: #f0f8ff;
 $text-color: #333;
@@ -140,7 +131,7 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
 body {
-  font-family: $font-kanit;
+  font-family: $font-rubik;
   background-color: #1e1e1e;
   color: white;
 }

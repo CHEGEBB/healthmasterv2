@@ -1,0 +1,59 @@
+// _colors.scss
+
+// Base Colors
+$space-black: #000000;
+$dark-gray: #333333;
+$medium-gray: #444444;
+$light-gray: #888888;
+$off-white: #cccccc;
+
+// Accent Colors
+$vivid-green: #24AE7C;
+$bright-blue: #2485AE;
+
+// Shades of Black
+$true-black: #000000;
+$charcoal: #111111;
+$onyx: #222222;
+
+// Dark Blues
+$midnight-blue: #1B2735;
+$deep-sea: #003153;
+
+// Dark Greens
+$forest-green: #05472A;
+$emerald: #2ECC71;
+
+// Celestial Colors
+$starlight: #E8F1FF;
+$nebula: #A474B7;
+$cosmos: #1B2735;
+
+// Cyan Variations
+$teal: #008080;
+$aqua: #00FFFF;
+$turquoise: #40E0D0;
+
+// Gradients
+$space-gradient: linear-gradient(to right, $true-black, $midnight-blue);
+$forest-night: linear-gradient(to bottom, $forest-green, $deep-sea);
+$cyber-glow: linear-gradient(45deg, $aqua, $vivid-green);
+$celestial-dream: linear-gradient(to top left, $cosmos, $nebula, $starlight);
+
+// Theme Colors
+$primary-bg: $space-black;
+$secondary-bg: $dark-gray;
+$accent-primary: $vivid-green;
+$accent-secondary: $bright-blue;
+$text-primary: $off-white;
+$text-secondary: $light-gray;
+$input-bg: $dark-gray;
+$input-border: $medium-gray;
+$button-bg: $vivid-green;
+$button-hover: $bright-blue;
+
+// Functional Colors
+$success: $vivid-green;
+$info: $bright-blue;
+$warning: #FFA500;  // Orange
+$danger: #FF4136;   // Red

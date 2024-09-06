@@ -1,3 +1,5 @@
+@import "./fonts";
+@import "./colors";
 
 .schedule-container{
     display: flex;
@@ -12,6 +14,9 @@
             justify-content: center;
             gap: 1.5rem;
             margin: 2rem;
+            background-color: $cosmos;
+            padding: .5rem;
+            border-radius: 1rem;
             .calendar{
                 background-color: #3f3f46;
                 border-radius: 50%;
@@ -21,6 +26,14 @@
                 cursor: pointer;
                 transition: all 0.3s ease;
                 padding:8px;
+                box-shadow: 2px solid $deep-sea;
+            }
+            .info{
+                h1{
+                    color:$vivid-green;
+                    margin-bottom: 0;
+                    font-family: $font-poppins;
+                }
             }
             .arrow{
                 background-color: #3f3f46;
@@ -31,6 +44,11 @@
                 cursor: pointer;
                 transition: all 0.3s ease;
                 padding:8px;
+            }
+        }
+        .schedule-data{
+            .schedule-info{
+                
             }
         }
 
