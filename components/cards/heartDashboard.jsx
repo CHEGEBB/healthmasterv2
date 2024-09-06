@@ -7,6 +7,7 @@ import Bp from "../../components/cards/Bp"
 import HealthProfile from "../../components/cards/HealthProfile"
 import Mymedicine from "../../components/cards/Mymedicine"
 import DynamicGreeting from "../../components/cards/DynamicGreeting"
+import Schedule from "../../components/cards/Schedule"
 
 export default function HealthDashboard() {
   const [heartRate, setHeartRate] = useState(72);
@@ -35,8 +36,11 @@ export default function HealthDashboard() {
       </div>
       <div className="dashboard-content">
         <div className="left-panel">
-          <div className="glass-card vital-signs">
+          <div className=" vital-signs">
             <HeartRateGraph heartRate={heartRate} />
+          </div>
+          <div className="schedule-patient">
+            <Schedule/>
           </div>
         </div>
         <div className="center-panel">
