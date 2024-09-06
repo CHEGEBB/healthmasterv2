@@ -8,6 +8,7 @@ import HealthProfile from "../../components/cards/HealthProfile"
 import Mymedicine from "../../components/cards/Mymedicine"
 import DynamicGreeting from "../../components/cards/DynamicGreeting"
 import Schedule from "../../components/cards/Schedule"
+import MyAlarms from "../../components/cards/MyAlarms"
 
 export default function HealthDashboard() {
   const [heartRate, setHeartRate] = useState(72);
@@ -44,11 +45,14 @@ export default function HealthDashboard() {
           </div>
         </div>
         <div className="center-panel">
+        <div className=" bp-container">
+            <Bp/>
+          </div>
         <div className="user-stats">
           <HealthProfile heartRate={heartRate} bloodPressure={bloodPressure} />
         </div>
-        <div className=" bp-container">
-            <Bp/>
+          <div className="alarms">
+            <MyAlarms/>
           </div>
         </div>
         <div className="right-panel">

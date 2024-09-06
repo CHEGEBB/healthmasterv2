@@ -47,8 +47,8 @@ function Schedule() {
                   <Image
                     src={doctor.image}
                     alt={doctor.name}
-                    width={50}
-                    height={50}
+                    width={70}
+                    height={70}
                   />
                 </div>
                 <div className="doc-profile">

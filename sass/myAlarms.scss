@@ -1,0 +1,180 @@
+@import "./colors";
+
+.container-alarm {
+  border-radius: 2rem;
+  background-color: $space-black;
+  padding: 2rem;
+  color: $off-white;
+  font-family: 'Poppins', sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  .alarm-title {
+    color: $vivid-green;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.5s ease-out;
+  }
+
+  .alarms-list {
+    .alarm-item {
+      background-color: $dark-gray;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      animation: slideInLeft 0.5s ease-out;
+
+      &:hover {
+        transform: translateX(10px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .alarm-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .alarm-time {
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: $vivid-green;
+        }
+
+        .alarm-label {
+          color: $light-gray;
+        }
+      }
+
+      .alarm-actions {
+        display: flex;
+        gap: 0.5rem;
+
+        .medication-image {
+          border-radius: 50%;
+          background-color: $medium-gray;
+        }
+
+        button {
+          background-color: transparent;
+          border: none;
+          color: $off-white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            color: $vivid-green;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+
+  .add-alarm-btn {
+    background-color: $vivid-green;
+    color: $space-black;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+
+    &:hover {
+      background-color: darken($vivid-green, 10%);
+      transform: scale(1.05);
+    }
+  }
+
+  .add-alarm-form {
+    background-color: $dark-gray;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: fadeIn 0.5s ease-out;
+
+    input, select {
+      background-color: $medium-gray;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      color: $off-white;
+      font-family: 'Poppins', sans-serif;
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px $vivid-green;
+      }
+    }
+
+    button {
+      background-color: $vivid-green;
+      color: $space-black;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: darken($vivid-green, 10%);
+      }
+    }
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($vivid-green, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba($vivid-green, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($vivid-green, 0);
+  }
+}
