@@ -365,7 +365,7 @@ function Mymedicine() {
 
   return (
     <div className="medicine-container">
-      <h1 className="medicine-title">My Medicines</h1>
+      <h1 className="medicine-title">My Medicine</h1>
       <div className="doctors-row">
         {doctorsData.map((doctor) => (
           <div key={doctor} className="doctor-bubble">
