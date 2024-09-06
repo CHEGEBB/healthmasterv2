@@ -31,13 +31,12 @@ function Wearable() {
   const handleWatchSelect = (watch) => {
     setSelectedWatch(watch);
     setIsLoading(true);
-    // Simulate loading process
     setTimeout(() => {
       setIsLoading(false);
       setIsConnected(true);
       setShowModal(false);
       setMainWatchImage(watch.img);
-    }, 3000); // 3 seconds loading simulation
+    }, 3000);
   };
 
   return (
