@@ -1,57 +1,226 @@
 @import "./fonts";
 @import "./colors";
 
-.schedule-container{
-    display: flex;
-    flex-direction: column;
-    .schedule{
-        background-color: #1e1e1e;
-        border-radius: 2rem;
-        height: 500px;
-        .title{
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 2rem;
-            background-color: $cosmos;
-            padding: .5rem;
-            border-radius: 1rem;
-            .calendar{
-                background-color: #3f3f46;
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                margin-right: 10px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                padding:8px;
-                box-shadow: 2px solid $deep-sea;
-            }
-            .info{
-                h1{
-                    color:$vivid-green;
-                    margin-bottom: 0;
-                    font-family: $font-poppins;
-                }
-            }
-            .arrow{
-                background-color: #3f3f46;
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                margin-right: 10px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                padding:8px;
-            }
-        }
-        .schedule-data{
-            .schedule-info{
-                
-            }
-        }
+.schedule-container {
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease-in-out;
 
+  .schedule {
+    background-color: $space-black;
+    border-radius: 2rem;
+    height: auto;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     }
 
+    .header {
+      h1 {
+        color: $vivid-green;
+        font-size: 22px;
+        font-family: $font-poppins;
+        text-align: center;
+        margin-bottom: 2rem;
+        animation: slideInDown 0.5s ease-in-out;
+      }
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: $dark-gray;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: lighten($dark-gray, 5%);
+      }
+
+      .calendar, .arrow {
+        background-color: $medium-gray;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: $vivid-green;
+          color: $space-black;
+          transform: scale(1.1);
+        }
+      }
+
+      .info {
+        text-align: center;
+
+        h1 {
+          color: $vivid-green;
+          font-size: 20px;
+          font-family: $font-poppins;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          color: $light-gray;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .schedule-data {
+      .schedule-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $cosmos;
+        padding: 1rem;
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        animation: slideInLeft 0.5s ease-in-out;
+
+        &:hover {
+          transform: translateX(10px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-info {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          .doc-image {
+            img {
+              border-radius: 50%;
+              object-fit: cover;
+            }
+          }
+
+          .doc-profile {
+            h3 {
+              color: $off-white;
+              font-size: 18px;
+              margin-bottom: 0.25rem;
+            }
+
+            p {
+              color: $light-gray;
+              font-size: 14px;
+            }
+          }
+        }
+
+        .access {
+          display: flex;
+          gap: 1rem;
+
+          .call, .message {
+            background-color: $medium-gray;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              background-color: $vivid-green;
+              color: $space-black;
+              transform: scale(1.1);
+            }
+          }
+        }
+      }
+    }
+
+    .add-appointment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba($vivid-green, 0.2);
+      border: 2px solid $vivid-green;
+      border-radius: 2rem;
+      padding: 1rem;
+      margin-top: 2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+
+      &:hover {
+        background-color: $vivid-green;
+        color: $space-black;
+      }
+
+      span {
+        margin-left: 0.5rem;
+        font-family: $font-poppins;
+        font-weight: 600;
+      }
+    }
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.modal {
+  background-color: $space-black;
+  border-radius: 1rem;
+  padding: 2rem;
+  color: $off-white;
+
+  h2 {
+    color: $vivid-green;
+    margin-bottom: 1rem;
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+
+    button {
+      background-color: $vivid-green;
+      color: $space-black;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: darken($vivid-green, 10%);
+      }
+    }
+  }
 }

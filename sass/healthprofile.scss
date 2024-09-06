@@ -1,7 +1,9 @@
+@import "./colors";
+
 .health-container {
     display: flex;
     flex-direction: column;
-    background-color: #1e1e1e;
+    background-color: $space-black;
     border-radius: 2rem;
     color: #ffffff;
     overflow: hidden;
@@ -63,7 +65,7 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
       padding: 1rem;
-      background-color: #2a2a2a;
+      background-color:$space-black;
       border-bottom-left-radius: 2rem;
       border-bottom-right-radius: 2rem;
     }

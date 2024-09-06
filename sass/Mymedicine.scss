@@ -1,4 +1,6 @@
 @import "./fonts";
+@import "./colors";
+
 $primary-color: #0080ff;
 $secondary-color: #f0f8ff;
 $text-color: #333;
@@ -7,7 +9,7 @@ $glass-border: 1px solid rgba(255, 255, 255, 0.18);
 $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 
 @mixin med-card {
-  background-color: #171717;
+  background-color: $midnight-blue;
   border-radius: 1rem;
   padding: 1rem;
   display: flex;
@@ -140,11 +142,8 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background-color: #1e1e1e;
+  background-color: $space-black;
   border-radius: 2rem;
-  background-image: url('/assets/images/pattern.png');
-  background-repeat: repeat;
-  background-size: 200px;
 
   .medicine-title {
     font-size: 2.5rem;

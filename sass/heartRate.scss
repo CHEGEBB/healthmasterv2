@@ -1,6 +1,7 @@
+@import "./colors";
 
 .heart-diagnosis-container {
-  background-color: #1e1e1e;
+  background-color: $space-black;
   padding: 16px;
   border-radius: 2rem;
   min-width: 430px;
