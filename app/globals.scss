@@ -3,22 +3,38 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Your custom SASS/SCSS styles */
+/* Global light theme styles */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --sidebar-bg: #f8f9fa; /* Default sidebar background */
+  --sidebar-text: #343a40;
+}
+
+/* Global dark theme styles */
+[data-theme="dark"] {
+  --background-color: #181818;
+  --text-color: #f8f8f8;
+  --sidebar-bg: #2d2d2d; /* Dark sidebar background */
+  --sidebar-text: #ffffff;
+}
+
+/* Apply colors to the body and text */
 body {
-  font-family: 'YourCustomFont', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Example of a custom SASS mixin */
-@mixin button-style {
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  background-color: #4a90e2;
-  color: white;
-  &:hover {
-    background-color: #357ab8;
-  }
+/* Avoid scroll bar theme transition */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.button {
-  @include button-style;
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }

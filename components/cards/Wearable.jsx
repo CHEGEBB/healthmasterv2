@@ -13,7 +13,9 @@ function Wearable() {
     { id: 1, name: 'Apple Watch Series 7', provider: 'Apple', img: '/assets/images/apple.png' },
     { id: 2, name: 'Samsung Galaxy Watch 4', provider: 'Samsung', img: '/assets/images/samsung.png' },
     { id: 3, name: 'Fitbit Sense', provider: 'Fitbit', img: '/assets/images/fitbit.png' },
+    { id: 4, name: 'Garmin Forerunner 945', provider: 'Garmin', img: '/assets/images/garmin.png' },
   ];
+  
 
   const handleConnectClick = () => {
     setShowModal(true);

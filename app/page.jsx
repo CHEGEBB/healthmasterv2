@@ -17,9 +17,7 @@ export default function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
     console.log("Form submitted");
-    // For demonstration, we're just opening the OTP modal
     setIsOTPModalOpen(true);
   };
 
