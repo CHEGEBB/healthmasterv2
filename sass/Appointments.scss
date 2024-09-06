@@ -1,0 +1,32 @@
+@import "./colors";
+@import "./fonts";
+
+body{
+    background-color: $space-black;
+    color: #ffffff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.container-appointment{
+    background-color: red;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    .container-full{
+        width: 100%;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        background-color: aqua;
+        .main-cont{
+            background-color: #171717;
+            padding: 1rem;
+            width: 93%;
+            margin:30px 300px auto;
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+            min-height: 100vh;
+        }
+    }
+
+}

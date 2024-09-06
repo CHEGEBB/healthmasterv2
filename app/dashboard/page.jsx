@@ -5,7 +5,7 @@ import Header from "../../components/layout/header";
 import Cards from '../../components/cards/Cards';
 export default function DashboardPage() {
   return (
-    <div className="container bg-[#083A3C] !important">
+    <div className="container">
       <div className="w-20 sidenav">
         <Sidenav />
       </div>
