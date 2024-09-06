@@ -84,7 +84,7 @@ export default function HeartRateGraph() {
       </div>
       <div className="heart-cont">
     <div className="details">
-      <h1>My Heart Condition</h1>
+      <h1>My Heart Condition💗</h1>
       <p>Heart Rate: {heartRate} bpm</p>
     </div>
       <div className="heart-image">
