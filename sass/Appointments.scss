@@ -222,7 +222,6 @@ body {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-
   .form-cont {
     display: grid;
     gap: 1.5rem;
@@ -232,7 +231,7 @@ body {
     position: relative;
 
     input, select, textarea {
-      width: 100%;
+      width: 80%;
       padding: 1rem;
       background-color: #333;
       border: none;
@@ -254,8 +253,8 @@ body {
 
     label {
       position: absolute;
-      left: 1rem;
-      top: 1rem;
+      left: 7rem;
+      top: 5rem;
       color: #aaa;
       transition: all 0.3s ease;
       pointer-events: none;
@@ -282,6 +281,8 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 80%;
+    justify-content: center;
 
     &:hover {
       transform: translateY(-2px);
