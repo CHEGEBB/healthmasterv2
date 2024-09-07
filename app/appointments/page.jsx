@@ -157,6 +157,7 @@ function AppointmentsPage() {
             transition={{ delay: 0.5, duration: 0.5 }}
           >
             <form className="form-cont" onSubmit={handleSubmit}>
+            <h2>Book an Appointment</h2>
               <div className="form-group">
                 <select 
                   value={selectedDoctor} 

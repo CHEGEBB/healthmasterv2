@@ -49,7 +49,7 @@ body {
 }
 
 .welcome-app {
-  background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+  background: linear-gradient(135deg, #6b7280 0%, #a7f3d0 100%);
   padding: 2rem;
   height: 25vh;
   border-top-left-radius: 4rem;
@@ -246,32 +246,33 @@ body {
 }
 
 .form-container {
-  background-color: #242424;
+  background-color: #0a0a0a;
+  // border: 1px solid #34d399;
+  border-left: 6px solid #34d399;
   border-radius: 1rem;
   padding: 5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   margin: 0 auto;
+  font-family: $font-raleway;
+
   .form-cont {
     display: grid;
     gap: 1.5rem;
+    h2{
+      font-size: 2rem;
+      font-family: $font-raleway;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
   }
 
   .form-group {
     position: relative;
-    textarea{
-      width: 80%;
-      padding: 1rem;
-      background-color: #333;
-      border: none;
-      border-radius: 0.5rem;
-      color: #fff;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      height: 150px;
-    }
 
-    input, select {
+
+    input, select, textarea {
       width: 80%;
       padding: 1rem;
       background-color: #333;
@@ -283,12 +284,12 @@ body {
 
       &:focus {
         outline: none;
-        box-shadow: 0 0 0 2px #a6c1ee;
+        box-shadow: 0 0 0 2px #34d399;
       }
 
       &:focus + label, &:not(:placeholder-shown) + label {
         transform: translateY(-2.5rem) scale(0.8);
-        color: #a6c1ee;
+        color: #34d399;
       }
     }
 
@@ -313,7 +314,7 @@ body {
   }
 
   button {
-    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    background: linear-gradient(135deg, #22c55e 0%, #86efac 100%);
     color: #333;
     border: none;
     padding: 1rem 2rem;
@@ -322,7 +323,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 80%;
+    width: 40%;
     justify-content: center;
     align-items: center;
     margin: 0 auto;

@@ -1,0 +1,49 @@
+@import "./colors";
+@import "./fonts";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $space-black;
+  font-family: 'Rubik', sans-serif;
+}
+
+.medications-page {
+  text-align: center;
+  min-height: 100vh;
+
+  .header-cont-med {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .content-wrapper-med {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-start;
+    min-height: 100vh;
+
+    .sidebar-cont-med {
+      flex: 1;
+      margin-top: -90px;
+    }
+
+    .main-content-med {
+      flex: 6;
+      background-color: #171717;
+      padding: 1rem;
+      margin: 30px 30px auto;
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+}
