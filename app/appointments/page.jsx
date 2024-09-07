@@ -119,7 +119,7 @@ function AppointmentsPage() {
         </div>
         <div className="main-content">
           <motion.div 
-            className="welcome"
+            className="welcome-app"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}

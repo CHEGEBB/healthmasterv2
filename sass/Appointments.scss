@@ -48,28 +48,58 @@ body {
   }
 }
 
-.welcome {
+.welcome-app {
   background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
   padding: 2rem;
-  border-radius: 2rem;
+  height: 25vh;
+  border-top-left-radius: 4rem;
+  border-bottom-right-radius: 4rem;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  margin-top: 20px;
+
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   margin-bottom: 2rem;
 
   .welcome-svg {
     width: 300px;
     height: 300px;
+    margin-top: -10px;
+    
+    img {
+      transition: transform 0.3s ease;
+      transform: translate(0, 0); 
+      animation: float 5s ease-in-out infinite;
+      
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
+  @keyframes float {
+    0% {
+      transform: translate(0px, 0px); 
+    }
+    50% {
+      transform: translate(10px, -10px);
+    }
+    100% {
+      transform: translate(0px, 0px); 
+    }
+  }
+  
 
   .welcome-message-app {
     text-align: left;
-    color: #333;
+    color: $space-black;
+    font-family: $font-raleway;
 
     h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
+      font-weight: bold;
     }
 
     p {
@@ -87,13 +117,14 @@ body {
 }
 
 .appointment-card {
-  background-color: #242424;
+  background-color: $space-black;
   border-radius: 1rem;
   padding: 1.5rem;
   width: calc(33.33% - 1rem);
   min-width: 300px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  font-family: $font-raleway;
 
   &:hover {
     transform: translateY(-5px);
@@ -217,9 +248,8 @@ body {
 .form-container {
   background-color: #242424;
   border-radius: 1rem;
-  padding: 2rem;
+  padding: 5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   .form-cont {
@@ -229,8 +259,19 @@ body {
 
   .form-group {
     position: relative;
+    textarea{
+      width: 80%;
+      padding: 1rem;
+      background-color: #333;
+      border: none;
+      border-radius: 0.5rem;
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      height: 150px;
+    }
 
-    input, select, textarea {
+    input, select {
       width: 80%;
       padding: 1rem;
       background-color: #333;
@@ -253,8 +294,8 @@ body {
 
     label {
       position: absolute;
-      left: 7rem;
-      top: 5rem;
+      left: 9rem;
+      top: 1rem;
       color: #aaa;
       transition: all 0.3s ease;
       pointer-events: none;
@@ -283,6 +324,8 @@ body {
     transition: all 0.3s ease;
     width: 80%;
     justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 
     &:hover {
       transform: translateY(-2px);
