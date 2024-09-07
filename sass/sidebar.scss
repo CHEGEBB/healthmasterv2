@@ -147,3 +147,23 @@ $text-color: #ffffff;
   visibility: visible;
   opacity: 1;
 }
+.submenu {
+  padding-left: 1rem;
+  .sub-nav-item {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    &.active {
+      background-color: #333; // Highlight active sublink
+    }
+    .sub-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+      &:hover {
+        background-color: #444;
+      }
+    }
+  }
+}
