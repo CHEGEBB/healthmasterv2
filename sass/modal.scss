@@ -9,7 +9,7 @@
 
 body {
   background-color: $space-black;
-  font-family: $font-raleway;
+  font-family: 'Rubik', sans-serif;
 }
 
 .medications-page {
@@ -87,18 +87,10 @@ body {
 
           .med-image {
             margin-bottom: 1rem;
-            // width: 200px;
-            // height: 200px;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-            border-radius: 2rem;
 
             img {
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
               border-radius: 50%;
+              object-fit: cover;
             }
           }
 
