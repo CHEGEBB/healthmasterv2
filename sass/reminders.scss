@@ -1,41 +1,6 @@
-// Variables
-$space-black: #0a0a0a;
-$dark-gray: #171717;
-$medium-gray: #333;
-$light-gray: #aaa;
-$white: #fff;
+@import "./colors";
+@import "./fonts";
 
-$primary-color: #34d399;
-$secondary-color: #f5a623;
-$tertiary-color: #4a90e2;
-
-$success-color: #4caf50;
-$warning-color: #ffd700;
-$danger-color: #f44336;
-
-$border-radius: 1rem;
-$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-// Fonts
-$font-raleway: 'Raleway', sans-serif;
-$font-rubik: 'Rubik', sans-serif;
-
-// Mixins
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin card {
-  background-color: $space-black;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-// Main styles
 * {
   margin: 0;
   padding: 0;
@@ -43,260 +8,407 @@ $font-rubik: 'Rubik', sans-serif;
 }
 
 body {
+  font-family: 'Rubik', sans-serif;
   background-color: $space-black;
-  font-family: $font-rubik;
-  color: $white;
 }
 
 .reminders-page {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+  transition: background-color 0.3s ease, color 0.3s ease;
 
-.page-header {
-  background: linear-gradient(135deg, $tertiary-color 0%, $primary-color 100%);
-  color: $white;
-  padding: 1rem 2rem;
-  @include flex-center;
-  justify-content: space-between;
-  border-bottom-left-radius: $border-radius;
-  border-bottom-right-radius: $border-radius;
-
-  h1 {
-    font-size: 2rem;
-    margin: 0;
-    font-family: $font-raleway;
+  &.light {
+    background-color: $space-black;
+    color: #333;
   }
 
-  nav {
-    button {
-      margin-left: 0.5rem;
-      background-color: rgba($white, 0.2);
+  &.dark {
+    background-color: #1a202c;
+    color: #f0f4f8;
+  }
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.sidebar-cont {
+    flex: 1;
+      margin-top: -90px;
+}
+
+.main-content {
+    flex: 6;
+    background-color: #171717;
+    padding: 1rem;
+    margin: 30px 30px auto;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    gap: 2rem;
+}
+
+.reminders-dashboard {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .theme-toggle {
+      background: none;
       border: none;
-      color: $white;
-      padding: 0.5rem 1rem;
-      border-radius: $border-radius;
+      cursor: pointer;
+      color: inherit;
+    }
+  }
+
+  .stats-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .stat-card {
+      flex: 1;
+      min-width: 120px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      h3 {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .current-time, .water-tracker {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 16px;
+
+    svg {
+      margin-right: 10px;
+    }
+  }
+
+  .water-tracker {
+    button {
+      margin-left: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
       cursor: pointer;
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: rgba($white, 0.3);
+        background-color: #2980b9;
       }
     }
   }
 }
 
-main {
-  flex: 1;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.search-bar {
-  margin-bottom: 1rem;
-  
-  input {
-    width: 100%;
-    padding: 1rem;
-    background-color: $medium-gray;
-    border: none;
-    border-radius: $border-radius;
-    color: $white;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px $primary-color;
-    }
-  }
-}
-
-.medications-container {
+.reminders-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+  gap: 20px;
 }
 
-.medication-card {
-  @include card;
-  transition: transform 0.3s ease;
-  border-left: 5px solid $primary-color;
+.reminder-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   }
 
-  .medication-header {
+  &.active {
+    border-left: 5px solid #2ecc71;
+  }
+
+  &.inactive {
+    border-left: 5px solid #e74c3c;
+  }
+
+  .medication-info {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 15px;
+
+    .medication-image {
+      border-radius: 50%;
+      margin-right: 15px;
+    }
 
     h3 {
-      margin: 0;
-      color: $primary-color;
-      font-family: $font-raleway;
+      font-size: 18px;
+      margin-bottom: 5px;
     }
+  }
+
+  .reminder-details {
+    p {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+
+      svg {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    font-weight: bold;
+
+    svg {
+      margin-right: 10px;
+    }
+
+    &.active {
+      color: #2ecc71;
+    }
+
+    &.inactive {
+      color: #e74c3c;
+    }
+  }
+
+  .reminder-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+      color: inherit;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #3498db;
+      }
+    }
+  }
+}
+
+.add-reminder-button {
+  margin-top: 20px;
+  text-align: center;
+
+  button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #2980b9;
+    }
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.add-reminder-modal, .edit-reminder-modal {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    select, input, textarea {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &[type="submit"] {
+          background-color: #2ecc71;
+          color: white;
+
+          &:hover {
+            background-color: #27ae60;
+          }
+        }
+
+        &[type="button"] {
+          background-color: #e74c3c;
+          color: white;
+
+          &:hover {
+            background-color: #c0392b;
+          }
+        }
+      }
+    }
+  }
+}
+
+.success-modal, .alarm-modal {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 24px;
   }
 
   p {
-    display: flex;
-    align-items: center;
-    margin: 0.5rem 0;
-    color: $light-gray;
-
-    svg {
-      margin-right: 0.5rem;
-    }
+    margin-bottom: 20px;
   }
 
-  .medication-details {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid $medium-gray;
+  button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 
-    h4 {
-      margin: 0.5rem 0;
-      color: $white;
+    &:hover {
+      background-color: #2980b9;
     }
   }
+}
 
-  .adherence-chart {
-    height: 100px;
-    @include flex-center;
+@media (max-width: 768px) {
+  .content-wrapper {
     flex-direction: column;
   }
-}
 
-.calendar-view {
-  @include card;
-
-  .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    color: $white;
+  .sidebar-cont {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
   }
 
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-
-    .calendar-day-header {
-      font-weight: bold;
-      text-align: center;
-      padding: 0.5rem;
-      color: $light-gray;
-    }
-
-    .calendar-day {
-      @include flex-center;
-      height: 50px;
-      border: 1px solid $medium-gray;
-      border-radius: $border-radius;
-      position: relative;
-      color: $white;
-
-      &.empty {
-        background-color: rgba($medium-gray, 0.5);
-      }
-
-      .medication-dot {
-        position: absolute;
-        bottom: 5px;
-        right: 5px;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: $secondary-color;
-      }
-    }
-  }
-}
-
-.stats-view {
-  @include card;
-
-  h2 {
-    margin-bottom: 1rem;
-    color: $white;
-    font-family: $font-raleway;
-  }
-
-  .medication-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 2rem;
-
-    .medication-stat-item {
-      @include card;
-      text-align: center;
-      background-color: $dark-gray;
-
-      h3 {
-        color: $primary-color;
-        margin: 0 0 0.5rem 0;
-      }
-
-      p {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: $white;
-      }
-    }
-  }
-}
-
-.add-medication-button {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background: linear-gradient(135deg, $primary-color 0%, $tertiary-color 100%);
-  color: $space-black;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  @include flex-center;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-size: 1.5rem;
-  font-weight: bold;
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-}
-
-.page-footer {
-  background: linear-gradient(135deg, $tertiary-color 0%, $primary-color 100%);
-  color: $white;
-  text-align: center;
-  padding: 1rem;
-  margin-top: auto;
-  border-top-left-radius: $border-radius;
-  border-top-right-radius: $border-radius;
-}
-
-// Responsive adjustments
-@media (max-width: 768px) {
-  .medications-container {
+  .reminders-container {
     grid-template-columns: 1fr;
   }
 
-  .calendar-view .calendar-grid {
-    font-size: 0.8rem;
+  .stats-container {
+    .stat-card {
+      min-width: calc(50% - 10px);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .reminders-dashboard {
+    .dashboard-header {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .theme-toggle {
+        margin-top: 10px;
+      }
+    }
   }
 
-  .stats-view .medication-stats {
-    grid-template-columns: 1fr;
+  .stats-container {
+    .stat-card {
+      min-width: 100%;
+    }
+  }
+
+  .add-reminder-modal, .edit-reminder-modal {
+    padding: 20px;
+
+    form {
+      .modal-actions {
+        flex-direction: column;
+      }
+    }
   }
 }

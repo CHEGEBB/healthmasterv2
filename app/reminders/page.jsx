@@ -1,388 +1,469 @@
-"use client"
+'use client'
+
 import React, { useState, useEffect } from 'react';
+import Image from "next/image";
+import { Bell, Calendar, Clock, Pill, CheckCircle, XCircle, AlertCircle, Edit, Trash2, Volume2, VolumeX, Heart, Zap, Sun, Moon, Activity, Coffee, Droplet } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Bell, Clock, Pill, CheckCircle, XCircle, AlertTriangle, 
-  PlusCircle, Edit, Trash2, Info, ChevronDown, ChevronUp,
-  Calendar, TrendingUp, Settings, Search
-} from 'lucide-react';
-import Image from 'next/image';
-import { 
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  PieChart, Pie, Cell
-} from 'recharts';
-import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert';
-import { 
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../../components/ui/dialog";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
-import { 
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../components/ui/select";
+import Sidebar from "../../components/layout/sidebar";
+import Header from '../../components/layout/header';
 import "../../sass/reminders.scss";
 
-const defaultMedications = [
-  { id: 1, name: "Aspirin", dosage: "81mg", frequency: "Once daily", time: "08:00", lastTaken: null, adherence: 95, notes: "Take with food" },
-  { id: 2, name: "Lisinopril", dosage: "10mg", frequency: "Twice daily", time: "08:00,20:00", lastTaken: null, adherence: 88, notes: "Monitor blood pressure" },
-  { id: 3, name: "Metformin", dosage: "500mg", frequency: "With meals", time: "08:00,13:00,18:00", lastTaken: null, adherence: 92, notes: "Take with meals to reduce side effects" },
+const medicines = [
+  { id: 1, name: "Aspirin", image: "/assets/images/aspirin.png", description: "Pain reliever and blood thinner" },
+  { id: 2, name: "Lisinopril", image: "/assets/images/lisinopril.png", description: "ACE inhibitor for high blood pressure" },
+  { id: 3, name: "Metformin", image: "/assets/images/metformin.png", description: "Oral medication for type 2 diabetes" },
+  { id: 4, name: "Simvastatin", image: "/assets/images/simvastatin.png", description: "Statin medication for high cholesterol" },
+  { id: 5, name: "Ibuprofen", image: "/assets/images/ibuprofen.png", description: "Anti-inflammatory pain reliever" },
+  { id: 6, name: "Omeprazole", image: "/assets/images/omeprazole.png", description: "Proton pump inhibitor for acid reflux" },
 ];
 
-const adherenceData = [
-  { name: 'Mon', adherence: 100 },
-  { name: 'Tue', adherence: 80 },
-  { name: 'Wed', adherence: 100 },
-  { name: 'Thu', adherence: 60 },
-  { name: 'Fri', adherence: 90 },
-  { name: 'Sat', adherence: 100 },
-  { name: 'Sun', adherence: 70 },
+const doctors = [
+  { id: 1, name: "Dr. Smith", specialty: "Cardiologist" },
+  { id: 2, name: "Dr. Johnson", specialty: "Endocrinologist" },
+  { id: 3, name: "Dr. Williams", specialty: "General Practitioner" },
+  { id: 4, name: "Dr. Brown", specialty: "Neurologist" },
+  { id: 5, name: "Dr. Davis", specialty: "Gastroenterologist" },
 ];
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const reminderSounds = [
+  { id: 1, name: "Chime", file: "/assets/sounds/chime.mp3" },
+  { id: 2, name: "Nature", file: "/assets/sounds/nature.mp3" },
+  { id: 3, name: "Digital", file: "/assets/sounds/digital.mp3" },
+  { id: 4, name: "Gentle Bell", file: "/assets/sounds/gentle-bell.mp3" },
+  { id: 5, name: "Soft Melody", file: "/assets/sounds/soft-melody.mp3" },
+];
 
-function RemindersPage() {
-  const [medications, setMedications] = useState(defaultMedications);
-  const [newMedication, setNewMedication] = useState({ name: '', dosage: '', frequency: '', time: '', notes: '' });
-  const [editingMedication, setEditingMedication] = useState(null);
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [showReminderModal, setShowReminderModal] = useState(false);
-  const [currentReminder, setCurrentReminder] = useState(null);
-  const [expandedMedication, setExpandedMedication] = useState(null);
-  const [view, setView] = useState('list');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDate, setSelectedDate] = useState(new Date());
+const defaultReminders = [
+  {
+    id: 1,
+    medicineId: 1,
+    dosage: "100mg",
+    frequency: "Once daily",
+    time: "08:00",
+    doctorId: 1,
+    soundId: 1,
+    active: true,
+    notes: "Take with food",
+  },
+  {
+    id: 2,
+    medicineId: 2,
+    dosage: "10mg",
+    frequency: "Twice daily",
+    time: "09:00,21:00",
+    doctorId: 2,
+    soundId: 2,
+    active: true,
+    notes: "Monitor blood pressure",
+  },
+  {
+    id: 3,
+    medicineId: 3,
+    dosage: "500mg",
+    frequency: "With meals",
+    time: "08:00,13:00,19:00",
+    doctorId: 3,
+    soundId: 3,
+    active: false,
+    notes: "Check blood sugar levels",
+  },
+];
+
+function EnhancedRemindersPage() {
+  const [reminders, setReminders] = useState(defaultReminders);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [activeAlarms, setActiveAlarms] = useState([]);
+  const [stats, setStats] = useState({ total: 0, active: 0, completed: 0, streak: 0 });
+  const [theme, setTheme] = useState('light');
+  const [waterIntake, setWaterIntake] = useState(0);
+  const [selectedReminder, setSelectedReminder] = useState(null);
+
+  const [newReminder, setNewReminder] = useState({
+    medicineId: '',
+    dosage: '',
+    frequency: '',
+    time: '',
+    doctorId: '',
+    soundId: '',
+    notes: '',
+  });
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
       checkReminders();
     }, 60000);
 
-    return () => clearInterval(interval);
-  }, [medications]);
+    updateStats();
+
+    return () => clearInterval(timer);
+  }, [reminders]);
+
+  const updateStats = () => {
+    const total = reminders.length;
+    const active = reminders.filter(r => r.active).length;
+    const completed = total - active;
+    const streak = Math.floor(Math.random() * 10);
+    setStats({ total, active, completed, streak });
+  };
 
   const checkReminders = () => {
     const now = new Date();
-    const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    const currentHoursMinutes = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
 
-    medications.forEach(med => {
-      const times = med.time.split(',');
-      if (times.includes(currentTime)) {
-        setCurrentReminder(med);
-        setShowReminderModal(true);
+    reminders.forEach(reminder => {
+      if (reminder.active && reminder.time.split(',').includes(currentHoursMinutes)) {
+        triggerAlarm(reminder);
       }
     });
   };
 
-  const handleAddMedication = (e) => {
-    e.preventDefault();
-    setMedications([...medications, { ...newMedication, id: medications.length + 1, lastTaken: null, adherence: 100 }]);
-    setNewMedication({ name: '', dosage: '', frequency: '', time: '', notes: '' });
-    setShowAddForm(false);
+  const triggerAlarm = (reminder) => {
+    setActiveAlarms(prevAlarms => [...prevAlarms, reminder]);
+    const sound = reminderSounds.find(s => s.id === reminder.soundId);
+    if (sound) {
+      const audio = new Audio(sound.file);
+      audio.play();
+    }
   };
 
-  const handleEditMedication = (medication) => {
-    setEditingMedication(medication);
-    setNewMedication(medication);
-    setShowAddForm(true);
+  const dismissAlarm = (reminderId) => {
+    setActiveAlarms(prevAlarms => prevAlarms.filter(alarm => alarm.id !== reminderId));
   };
 
-  const handleUpdateMedication = (e) => {
-    e.preventDefault();
-    setMedications(medications.map(med => med.id === editingMedication.id ? newMedication : med));
-    setNewMedication({ name: '', dosage: '', frequency: '', time: '', notes: '' });
-    setEditingMedication(null);
-    setShowAddForm(false);
-  };
-
-  const handleDeleteMedication = (id) => {
-    setMedications(medications.filter(med => med.id !== id));
-  };
-
-  const handleTakeMedication = (id) => {
-    setMedications(medications.map(med => 
-      med.id === id ? { ...med, lastTaken: new Date().toISOString() } : med
+  const toggleReminder = (id) => {
+    setReminders(reminders.map(reminder => 
+      reminder.id === id ? { ...reminder, active: !reminder.active } : reminder
     ));
-    setShowReminderModal(false);
+    updateStats();
   };
 
-  const filteredMedications = medications.filter(med => 
-    med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    med.dosage.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleDelete = (id) => {
+    setReminders(reminders.filter(reminder => reminder.id !== id));
+    updateStats();
+  };
 
-  const MedicationCard = ({ medication }) => (
-    <motion.div 
-      className="medication-card"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="medication-header">
-        <h3>{medication.name}</h3>
-        <div className="medication-actions">
-          <Button variant="ghost" size="icon" onClick={() => handleEditMedication(medication)}><Edit size={16} /></Button>
-          <Button variant="ghost" size="icon" onClick={() => handleDeleteMedication(medication.id)}><Trash2 size={16} /></Button>
-          <Button variant="ghost" size="icon" onClick={() => setExpandedMedication(expandedMedication === medication.id ? null : medication.id)}>
-            {expandedMedication === medication.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </Button>
-        </div>
-      </div>
-      <p><Pill size={16} /> Dosage: {medication.dosage}</p>
-      <p><Clock size={16} /> Frequency: {medication.frequency}</p>
-      <p><Bell size={16} /> Reminder Times: {medication.time}</p>
-      {medication.lastTaken && (
-        <p><CheckCircle size={16} /> Last Taken: {new Date(medication.lastTaken).toLocaleString()}</p>
-      )}
-      <AnimatePresence>
-        {expandedMedication === medication.id && (
-          <motion.div 
-            className="medication-details"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <h4>Adherence Rate</h4>
-            <div className="adherence-chart">
-              <ResponsiveContainer width="100%" height={100}>
-                <PieChart>
-                  <Pie
-                    data={[
-                      { name: 'Adherence', value: medication.adherence },
-                      { name: 'Non-adherence', value: 100 - medication.adherence }
-                    ]}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={30}
-                    outerRadius={40}
-                    fill="#8884d8"
-                    paddingAngle={5}
-                    dataKey="value"
-                  >
-                    {[0, 1].map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                </PieChart>
-              </ResponsiveContainer>
-              <p>{medication.adherence}% Adherence</p>
-            </div>
-            <h4>Notes</h4>
-            <p>{medication.notes}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
+  const handleAddReminder = () => {
+    const id = reminders.length + 1;
+    const newReminderWithId = { ...newReminder, id, active: true };
+    setReminders([...reminders, newReminderWithId]);
+    setShowAddModal(false);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
+    updateStats();
+  };
 
-  const CalendarView = () => {
-    const daysInMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0).getDate();
-    const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1).getDay();
-  
-    const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-    const calendarDays = Array(firstDayOfMonth).fill(null).concat(days);
-  
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewReminder({ ...newReminder, [name]: value });
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark');
+  };
+
+  const incrementWaterIntake = () => {
+    setWaterIntake(prevIntake => prevIntake + 1);
+  };
+
+  const ReminderCard = ({ reminder }) => {
+    const { id, medicineId, dosage, frequency, time, doctorId, soundId, active, notes } = reminder;
+    const medicine = medicines.find(m => m.id === medicineId);
+    const doctor = doctors.find(d => d.id === doctorId);
+    const sound = reminderSounds.find(s => s.id === soundId);
+
     return (
-      <div className="calendar-view">
-        <div className="calendar-header">
-          <Button onClick={() => setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1, 1))}>
-            Previous
-          </Button>
-          <h2>{selectedDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</h2>
-          <Button onClick={() => setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1))}>
-            Next
-          </Button>
+      <motion.div 
+        className={`reminder-card ${active ? 'active' : 'inactive'}`}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="medication-info">
+          <Image src={medicine.image} alt={medicine.name} width={60} height={60} className="medication-image" />
+          <div>
+            <h3>{medicine.name}</h3>
+            <p>{dosage}</p>
+          </div>
         </div>
-        <div className="calendar-grid">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className="calendar-day-header">{day}</div>
-          ))}
-          {calendarDays.map((day, index) => (
-            <div key={index} className={`calendar-day ${day === null ? 'empty' : ''}`}>
-              {day}
-              {day && medications.some(med => {
-                const date = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day);
-                return med.time.split(',').some(time => {
-                  const [hours, minutes] = time.split(':');
-                  const medicationDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), parseInt(hours), parseInt(minutes));
-                  return medicationDate > new Date();
-                });
-              }) && <div className="medication-dot"></div>}
-            </div>
-          ))}
+        <div className="reminder-details">
+          <p><Pill size={16} /> {frequency}</p>
+          <p><Clock size={16} /> {time}</p>
+          <p><Heart size={16} /> {doctor.name} ({doctor.specialty})</p>
+          <p><Volume2 size={16} /> {sound.name}</p>
+          {notes && <p><AlertCircle size={16} /> {notes}</p>}
         </div>
-      </div>
+        <div className={`status ${active ? 'active' : 'inactive'}`}>
+          {active ? <Bell size={20} /> : <VolumeX size={20} />}
+          {active ? 'Active' : 'Inactive'}
+        </div>
+        <div className="reminder-actions">
+          <button onClick={() => toggleReminder(id)}>
+            {active ? <Volume2 size={16} /> : <VolumeX size={16} />}
+          </button>
+          <button onClick={() => setSelectedReminder(reminder)}>
+            <Edit size={16} />
+          </button>
+          <button onClick={() => handleDelete(id)}>
+            <Trash2 size={16} />
+          </button>
+        </div>
+      </motion.div>
     );
   };
 
-  const StatsView = () => (
-    <div className="stats-view">
-      <h2>Medication Adherence Overview</h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={adherenceData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="adherence" stroke="#8884d8" activeDot={{ r: 8 }} />
-        </LineChart>
-      </ResponsiveContainer>
-      <div className="medication-stats">
-        {medications.map(med => (
-          <div key={med.id} className="medication-stat-item">
-            <h3>{med.name}</h3>
-            <p>Adherence: {med.adherence}%</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
   return (
-    <div className="reminders-page">
-      <header className="page-header">
-        <h1>Medication Reminders 💊</h1>
-        <nav>
-          <Button variant={view === 'list' ? 'default' : 'outline'} onClick={() => setView('list')}>List</Button>
-          <Button variant={view === 'calendar' ? 'default' : 'outline'} onClick={() => setView('calendar')}>Calendar</Button>
-          <Button variant={view === 'stats' ? 'default' : 'outline'} onClick={() => setView('stats')}>Stats</Button>
-        </nav>
-      </header>
-
-      <main>
-        {view === 'list' && (
-          <>
-            <div className="search-bar">
-              <Input
-                type="text"
-                placeholder="Search medications..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+    <div className={`reminders-page ${theme}`}>
+      <div className="header-cont">
+        <Header />
+      </div>
+      <div className="content-wrapper">
+        <div className="sidebar-cont">
+          <Sidebar />
+        </div>
+        <div className="main-content">
+          <motion.div 
+            className="reminders-dashboard"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="dashboard-header">
+              <h1>Your Health Companion</h1>
+              <button onClick={toggleTheme} className="theme-toggle">
+                {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
+              </button>
             </div>
-            <AnimatePresence>
+            <div className="stats-container">
+              <div className="stat-card">
+                <Zap size={24} />
+                <h3>Total Reminders</h3>
+                <p>{stats.total}</p>
+              </div>
+              <div className="stat-card">
+                <Bell size={24} />
+                <h3>Active Reminders</h3>
+                <p>{stats.active}</p>
+              </div>
+              <div className="stat-card">
+                <CheckCircle size={24} />
+                <h3>Completed Today</h3>
+                <p>{stats.completed}</p>
+              </div>
+              <div className="stat-card">
+                <Activity size={24} />
+                <h3>Streak</h3>
+                <p>{stats.streak} days</p>
+              </div>
+            </div>
+            <div className="current-time">
+              <Clock size={20} />
+              <span>{currentTime.toLocaleTimeString()}</span>
+            </div>
+            <div className="water-tracker">
+              <Droplet size={20} />
+              <span>Water Intake: {waterIntake} glasses</span>
+              <button onClick={incrementWaterIntake}>+</button>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            className="reminders-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            {reminders.map((reminder) => (
+              <ReminderCard key={reminder.id} reminder={reminder} />
+            ))}
+          </motion.div>
+
+          <motion.div 
+            className="add-reminder-button"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
+            <button onClick={() => setShowAddModal(true)}>Add New Reminder</button>
+          </motion.div>
+
+          <AnimatePresence>
+            {showAddModal && (
               <motion.div 
-                className="medications-container"
+                className="modal-overlay"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
               >
-                {filteredMedications.map((medication) => (
-                  <MedicationCard key={medication.id} medication={medication} />
-                ))}
+                <motion.div 
+                  className="add-reminder-modal"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                >
+                  <h2>Add New Reminder</h2>
+                  <form onSubmit={(e) => { e.preventDefault(); handleAddReminder(); }}>
+                    <select name="medicineId" value={newReminder.medicineId} onChange={handleInputChange} required>
+                      <option value="">Select Medicine</option>
+                      {medicines.map(med => (
+                        <option key={med.id} value={med.id}>{med.name}</option>
+                      ))}
+                    </select>
+                    <input type="text" name="dosage" placeholder="Dosage" value={newReminder.dosage} onChange={handleInputChange} required />
+                    <input type="text" name="frequency" placeholder="Frequency" value={newReminder.frequency} onChange={handleInputChange} required />
+                    <input type="text" name="time" placeholder="Time (HH:MM)" value={newReminder.time} onChange={handleInputChange} required />
+                    <select name="doctorId" value={newReminder.doctorId} onChange={handleInputChange} required>
+                      <option value="">Select Doctor</option>
+                      {doctors.map(doc => (
+                        <option key={doc.id} value={doc.id}>{doc.name} ({doc.specialty})</option>
+                      ))}
+                    </select>
+                    <select name="soundId" value={newReminder.soundId} onChange={handleInputChange} required>
+                      <option value="">Select Reminder Sound</option>
+                      {reminderSounds.map(sound => (
+                        <option key={sound.id} value={sound.id}>{sound.name}</option>
+                      ))}
+                    </select>
+                    <textarea name="notes" placeholder="Additional Notes" value={newReminder.notes} onChange={handleInputChange}></textarea>
+                    <div className="modal-actions">
+                      <button type="submit">Add Reminder</button>
+                      <button type="button" onClick={() => setShowAddModal(false)}>Cancel</button>
+                    </div>
+                  </form>
+                </motion.div>
               </motion.div>
-            </AnimatePresence>
-          </>
-        )}
-
-        {view === 'calendar' && <CalendarView />}
-        {view === 'stats' && <StatsView />}
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="add-medication-button">
-              <PlusCircle size={20} /> Add New Medication
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>{editingMedication ? 'Edit Medication' : 'Add New Medication'}</DialogTitle>
-              <DialogDescription>
-                Enter the details of your medication below.
-              </DialogDescription>
-            </DialogHeader>
-            <form onSubmit={editingMedication ? handleUpdateMedication : handleAddMedication}>
-              <Input 
-                type="text" 
-                placeholder="Medication Name"
-                value={newMedication.name}
-                onChange={(e) => setNewMedication({...newMedication, name: e.target.value})}
-                required
-              />
-              <Input 
-                type="text" 
-                placeholder="Dosage"
-                value={newMedication.dosage}
-                onChange={(e) => setNewMedication({...newMedication, dosage: e.target.value})}
-                required
-              />
-              <Select 
-                value={newMedication.frequency}
-                onValueChange={(value) => setNewMedication({...newMedication, frequency: value})}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select frequency" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Once daily">Once daily</SelectItem>
-                  <SelectItem value="Twice daily">Twice daily</SelectItem>
-                  <SelectItem value="Three times daily">Three times daily</SelectItem>
-                  <SelectItem value="As needed">As needed</SelectItem>
-                </SelectContent>
-              </Select>
-              <Input 
-                type="text" 
-                placeholder="Reminder Times (comma-separated)"
-                value={newMedication.time}
-                onChange={(e) => setNewMedication({...newMedication, time: e.target.value})}
-                required
-              />
-              <Input 
-                type="text" 
-                placeholder="Notes (optional)"
-                value={newMedication.notes}
-                onChange={(e) => setNewMedication({...newMedication, notes: e.target.value})}
-              />
-              <Button type="submit">
-                {editingMedication ? 'Update Medication' : 'Add Medication'}
-              </Button>
-            </form>
-          </DialogContent>
-        </Dialog>
-
-        <Dialog open={showReminderModal} onOpenChange={setShowReminderModal}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Medication Reminder</DialogTitle>
-              <DialogDescription>
-                It is time to take your medication!
-              </DialogDescription>
-            </DialogHeader>
-            {currentReminder && (
-              <div className="reminder-details">
-                <h3>{currentReminder.name}</h3>
-                <p>Dosage: {currentReminder.dosage}</p>
-                <p>Notes: {currentReminder.notes}</p>
-              </div>
             )}
-            <div className="reminder-actions">
-              <Button onClick={() => handleTakeMedication(currentReminder.id)}>
-                Mark as Taken
-              </Button>
-              <Button variant="outline" onClick={() => setShowReminderModal(false)}>
-                Dismiss
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
-      </main>
+          </AnimatePresence>
 
-      <footer className="page-footer">
-        <p>&copy; 2024 MedReminder. All rights reserved.</p>
-      </footer>
+          <AnimatePresence>
+            {showSuccess && (
+              <motion.div
+
+className="success-modal"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <CheckCircle size={64} color="green" />
+                <h2>Reminder Added Successfully!</h2>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {activeAlarms.map((alarm) => (
+              <motion.div 
+                key={alarm.id}
+                className="alarm-modal"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+              >
+                <h2>Time to take your medication!</h2>
+                <p>{medicines.find(m => m.id === alarm.medicineId).name} - {alarm.dosage}</p>
+                <button onClick={() => dismissAlarm(alarm.id)}>Dismiss</button>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {selectedReminder && (
+              <motion.div 
+                className="modal-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <motion.div 
+                  className="edit-reminder-modal"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                >
+                  <h2>Edit Reminder</h2>
+                  <form onSubmit={(e) => { 
+                    e.preventDefault(); 
+                    setReminders(reminders.map(r => r.id === selectedReminder.id ? selectedReminder : r));
+                    setSelectedReminder(null);
+                    setShowSuccess(true);
+                    setTimeout(() => setShowSuccess(false), 3000);
+                  }}>
+                    <select 
+                      name="medicineId" 
+                      value={selectedReminder.medicineId} 
+                      onChange={(e) => setSelectedReminder({...selectedReminder, medicineId: parseInt(e.target.value)})}
+                      required
+                    >
+                      {medicines.map(med => (
+                        <option key={med.id} value={med.id}>{med.name}</option>
+                      ))}
+                    </select>
+                    <input 
+                      type="text" 
+                      name="dosage" 
+                      placeholder="Dosage" 
+                      value={selectedReminder.dosage} 
+                      onChange={(e) => setSelectedReminder({...selectedReminder, dosage: e.target.value})}
+                      required 
+                    />
+                    <input 
+                      type="text" 
+                      name="frequency" 
+                      placeholder="Frequency" 
+                      value={selectedReminder.frequency} 
+                      onChange={(e) => setSelectedReminder({...selectedReminder, frequency: e.target.value})}
+                      required 
+                    />
+                    <input 
+                      type="text" 
+                      name="time" 
+                      placeholder="Time (HH:MM)" 
+                      value={selectedReminder.time} 
+                      onChange={(e) => setSelectedReminder({...selectedReminder, time: e.target.value})}
+                      required 
+                    />
+                    <select 
+                      name="doctorId" 
+                      value={selectedReminder.doctorId} 
+                      onChange={(e) => setSelectedReminder({...selectedReminder, doctorId: parseInt(e.target.value)})}
+                      required
+                    >
+                      {doctors.map(doc => (
+                        <option key={doc.id} value={doc.id}>{doc.name} ({doc.specialty})</option>
+                      ))}
+                    </select>
+                    <select 
+                      name="soundId" 
+                      value={selectedReminder.soundId} 
+                      onChange={(e) => setSelectedReminder({...selectedReminder, soundId: parseInt(e.target.value)})}
+                      required
+                    >
+                      {reminderSounds.map(sound => (
+                        <option key={sound.id} value={sound.id}>{sound.name}</option>
+                      ))}
+                    </select>
+                    <textarea 
+                      name="notes" 
+                      placeholder="Additional Notes" 
+                      value={selectedReminder.notes} 
+                      onChange={(e) => setSelectedReminder({...selectedReminder, notes: e.target.value})}
+                    ></textarea>
+                    <div className="modal-actions">
+                      <button type="submit">Update Reminder</button>
+                      <button type="button" onClick={() => setSelectedReminder(null)}>Cancel</button>
+                    </div>
+                  </form>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default RemindersPage;
+export default EnhancedRemindersPage;
