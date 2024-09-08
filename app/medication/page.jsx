@@ -67,6 +67,39 @@ export default function Page() {
       frequency: 1,
       disease: 'Hypertension',
     },
+    {
+      name: 'Metoprolol',
+      dosage: '25mg',
+      prescribedDate: '2023-10-05',
+      doctor: 'Dr. Patel',
+      doctorImage: '/assets/images/4.png',
+      image: '/assets/images/medicine6.png',
+      status: 'completed',
+      frequency: 1,
+      disease: 'Hypertension',
+    },
+    {
+      name: 'Simvastatin',
+      dosage: '20mg',
+      prescribedDate: '2023-09-15',
+      doctor: 'Dr. Gupta',
+      doctorImage: '/assets/images/1.png',
+      image: '/assets/images/medicine4.png',
+      status: 'completed',
+      frequency: 1,
+      disease: 'Cholesterol',
+    },
+    {
+      name: 'Lisinopril',
+      dosage: '10mg',
+      prescribedDate: '2023-08-30',
+      doctor: 'Dr. Patel',
+      doctorImage: '/assets/images/2.png',
+      image: '/assets/images/medicine7.png',
+      status: 'completed',
+      frequency: 1,
+      disease: 'Hypertension',
+    }
   ]);
 
   const [showPopup, setShowPopup] = useState(true);
