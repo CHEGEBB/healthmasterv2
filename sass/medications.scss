@@ -48,7 +48,7 @@ body {
 
       h1 {
         font-size: 2.5rem;
-        color: #00ff00;
+        color: #fff;
         margin-bottom: 1rem;
       }
 
@@ -58,7 +58,7 @@ body {
         gap: 1.5rem;
 
         .med-card {
-          background-color: #161b22;
+          background-color: $space-black;
           padding: 1.5rem;
           border-radius: 15px;
           text-align: left;
@@ -66,6 +66,7 @@ body {
           flex-direction: column;
           justify-content: space-between;
           transition: all 0.3s ease;
+          border: none !important;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
           &:hover {
@@ -73,17 +74,17 @@ body {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
           }
 
-          &.amber {
-            border: 2px solid #ffc107;
-          }
+          // &.amber {
+          //   border: 2px solid #ffc107;
+          // }
 
-          &.red {
-            border: 2px solid #dc3545;
-          }
+          // &.red {
+          //   border: 2px solid #dc3545;
+          // }
 
-          &.green {
-            border: 2px solid #28a745;
-          }
+          // &.green {
+          //   border: 2px solid #28a745;
+          // }
 
           .med-image {
             margin-bottom: 1rem;
@@ -105,7 +106,7 @@ body {
           .med-details {
             h3 {
               font-size: 1.5rem;
-              color: #00ff00;
+              color: #24AE7C;
               margin-bottom: 0.5rem;
               text-align: left;
 
@@ -120,7 +121,7 @@ body {
 
             .dosage {
               font-weight: bold;
-              color: #00ff00;
+              color: #24AE7C;
               text-align: left;
 
             }
@@ -134,14 +135,14 @@ body {
 
 
               .frequency-icon {
-                color: #ffc107;
+                color: #f43f5e;
               }
             }
 
             .doctor-info {
               display: flex;
               align-items: left;
-              justify-content: center;
+              justify-content: flex-start;
               gap: 0.5rem;
               margin-top: 0.5rem;
 
@@ -159,7 +160,7 @@ body {
 
             button {
               flex: 1;
-              background-color: #00ff00;
+              background-color: #24AE7C;
               border: none;
               padding: 0.5rem;
               color: #0d1117;
@@ -176,7 +177,7 @@ body {
               }
 
               &.complete-btn {
-                background-color: #28a745;
+                background-color: #24AE7C;
               }
 
               &.delete-btn {
@@ -192,7 +193,7 @@ body {
 
         h2 {
           font-size: 2rem;
-          color: #00ff00;
+          color: #fff;
           margin-bottom: 1rem;
         }
 
@@ -216,14 +217,14 @@ body {
       }
 
       .add-medication-form {
-        background-color: #161b22;
+        background-color: $space-black;
         padding: 2rem;
         border-radius: 15px;
         margin-top: 2rem;
 
         h2 {
           font-size: 2rem;
-          color: #00ff00;
+          color: #fff;
           margin-bottom: 1.5rem;
         }
 
@@ -243,7 +244,7 @@ body {
 
             &:focus {
               outline: none;
-              border-color: #00ff00;
+              border-color: #24AE7C;
             }
 
             &:focus + label,
@@ -267,7 +268,7 @@ body {
         }
 
         .submit-btn {
-          background-color: #00ff00;
+          background-color: #24AE7C;
           color: #000;
           border: none;
           padding: 0.75rem 1.5rem;
@@ -277,7 +278,7 @@ body {
           transition: all 0.3s ease;
 
           &:hover {
-            background-color: #00cc00;
+            background-color: darkcyan;
           }
         }
       }

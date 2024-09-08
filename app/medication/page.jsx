@@ -146,7 +146,7 @@ export default function Page() {
                   <p className="disease">Treating: {med.disease}</p>
                   <div className="doctor-info">
                     <Image src={med.doctorImage} alt={med.doctor} width={30} height={30} className="doctor-image" />
-                    <p>Dr. {med.doctor}</p>
+                    <p>{med.doctor}</p>
                   </div>
                   <p className="date">Prescribed: {med.prescribedDate}</p>
                 </div>
@@ -179,7 +179,7 @@ export default function Page() {
                     <p className="disease">Treated: {med.disease}</p>
                     <div className="doctor-info">
                       <Image src={med.doctorImage} alt={med.doctor} width={30} height={30} className="doctor-image" />
-                      <p>Dr. {med.doctor}</p>
+                      <p>{med.doctor}</p>
                     </div>
                     <p className="date">Prescribed: {med.prescribedDate}</p>
                   </div>
@@ -203,7 +203,6 @@ export default function Page() {
           {showForm && (
             <form className="add-medication-form" onSubmit={(e) => {
               e.preventDefault();
-              // Add form submission logic here
               addMedication({
                 name: e.target.name.value,
                 dosage: e.target.dosage.value,
@@ -234,7 +233,7 @@ export default function Page() {
               </div>
               <div className="form-group">
                 <input type="text" id="doctor" name="doctor" required />
-                <label htmlFor="doctor">Doctor's Name</label>
+                <label htmlFor="doctor">Doctor Name</label>
               </div>
               <div className="form-group">
                 <input type="number" id="frequency" name="frequency" min="1" max="4" required />
