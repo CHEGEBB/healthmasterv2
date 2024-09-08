@@ -33,6 +33,8 @@ $cosmos: #1B2735;
 $teal: #008080;
 $aqua: #00FFFF;
 $turquoise: #40E0D0;
+$white: #FFFFFF;
+$gray: #808080;
 
 // Gradients
 $space-gradient: linear-gradient(to right, $true-black, $midnight-blue);
@@ -41,12 +43,12 @@ $cyber-glow: linear-gradient(45deg, $aqua, $vivid-green);
 $celestial-dream: linear-gradient(to top left, $cosmos, $nebula, $starlight);
 
 // Theme Colors
-$primary-bg: $space-black;
-$secondary-bg: $dark-gray;
+$primary-color: $space-black;
+$secondary-color: $dark-gray;
 $accent-primary: $vivid-green;
 $accent-secondary: $bright-blue;
 $text-primary: $off-white;
-$text-secondary: $light-gray;
+$background-color: $light-gray;
 $input-bg: $dark-gray;
 $input-border: $medium-gray;
 $button-bg: $vivid-green;

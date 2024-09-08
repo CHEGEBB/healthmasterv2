@@ -14,7 +14,6 @@ const doctors = [
   { id: 3, name: "Dr. Williams", specialty: "Dermatologist", image: "/assets/images/3.png" },
 ];
 
-// Default appointments for showcasing the design
 const defaultAppointments = [
   {
     status: "pending",
