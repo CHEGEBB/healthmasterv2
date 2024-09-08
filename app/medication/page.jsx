@@ -45,12 +45,12 @@ export default function Page() {
     {
       name: 'Valsartan',
       dosage: '40mg',
-      image: '/assets/images/medicine4.png',
+      image: '/assets/images/med.webp',
       prescribedDate: '2024-06-30',
       doctor: 'Dr. Davis',
       doctorImage: '/assets/images/4.png',
-      status: 'pending',
-      frequency: 1, // Once a day
+      status: 'not-taken',
+      frequency: 1, 
       disease: 'Hypertension',
     }
   ]);
@@ -62,7 +62,7 @@ export default function Page() {
       prescribedDate: '2023-11-10',
       doctor: 'Dr. Kumar',
       doctorImage: '/assets/images/3.png',
-      image: '/medications/amlodipine.png',
+      image: '/assets/images/medicine5.png',
       status: 'completed',
       frequency: 1,
       disease: 'Hypertension',
@@ -168,7 +168,7 @@ export default function Page() {
               {history.map((med, index) => (
                 <div key={index} className={`med-card ${getStatusColor(med.status)}`}>
                   <div className="med-image">
-                    <Image src={med.image} alt={med.name} width={100} height={100} />
+                    <Image src={med.image} alt={med.name} width={500} height={500} quality={100} />
                   </div>
                   <div className="med-details">
                     <h3>{med.name}</h3>

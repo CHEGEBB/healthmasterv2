@@ -61,7 +61,7 @@ body {
           background-color: #161b22;
           padding: 1.5rem;
           border-radius: 15px;
-          text-align: center;
+          text-align: left;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -87,8 +87,8 @@ body {
 
           .med-image {
             margin-bottom: 1rem;
-            // width: 200px;
-            // height: 200px;
+            width: 200px;
+            height: 200px;
             justify-content: center;
             align-items: center;
             margin: 0 auto;
@@ -107,23 +107,31 @@ body {
               font-size: 1.5rem;
               color: #00ff00;
               margin-bottom: 0.5rem;
+              text-align: left;
+
             }
 
             p {
               color: #999;
               margin-bottom: 0.5rem;
+              text-align: left;
+
             }
 
             .dosage {
               font-weight: bold;
               color: #00ff00;
+              text-align: left;
+
             }
 
             .frequency {
               display: flex;
-              align-items: center;
-              justify-content: center;
+              align-items: left;
+              justify-content: flex-start;
               gap: 0.5rem;
+              text-align: left;
+
 
               .frequency-icon {
                 color: #ffc107;
@@ -132,7 +140,7 @@ body {
 
             .doctor-info {
               display: flex;
-              align-items: center;
+              align-items: left;
               justify-content: center;
               gap: 0.5rem;
               margin-top: 0.5rem;
