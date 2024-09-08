@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from "next/image";
-import { User, Calendar, Clock, Pill, CheckCircle, XCircle, AlertCircle, Heart } from 'lucide-react';
+import { User, Calendar, Clock, Pill, CheckCircle, XCircle, AlertCircle, Heart, Edit, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from "../../components/layout/sidebar";
 import Header from '../../components/layout/header';
@@ -16,6 +16,7 @@ const doctors = [
 
 const defaultAppointments = [
   {
+    id: 1,
     status: "pending",
     doctor: doctors[0],
     profession: "Cardiologist",
@@ -25,6 +26,7 @@ const defaultAppointments = [
     conditions: ["Hypertension", "High cholesterol"],
   },
   {
+    id: 2,
     status: "approved",
     doctor: doctors[1],
     profession: "Pediatrician",
@@ -34,6 +36,7 @@ const defaultAppointments = [
     conditions: ["Ear infection"],
   },
   {
+    id: 3,
     status: "cancelled",
     doctor: doctors[2],
     profession: "Dermatologist",
@@ -42,6 +45,12 @@ const defaultAppointments = [
     medications: ["Tretinoin cream"],
     conditions: ["Acne"],
   },
+];
+
+const pastVisits = [
+  { id: 1, date: "2024-08-01", doctor: "Dr. Smith", reason: "Annual checkup" },
+  { id: 2, date: "2024-07-15", doctor: "Dr. Johnson", reason: "Flu symptoms" },
+  { id: 3, date: "2024-06-20", doctor: "Dr. Williams", reason: "Skin rash" },
 ];
 
 function AppointmentsPage() {
@@ -53,10 +62,13 @@ function AppointmentsPage() {
   const [medications, setMedications] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
   const [appointments, setAppointments] = useState(defaultAppointments);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newAppointment = {
+      id: appointments.length + 1,
       status: "pending",
       doctor: doctors.find(d => d.id === parseInt(selectedDoctor)),
       profession: doctors.find(d => d.id === parseInt(selectedDoctor)).specialty,
@@ -65,12 +77,43 @@ function AppointmentsPage() {
       medications: medications.split(',').map(med => med.trim()),
       conditions: conditions.split(',').map(condition => condition.trim()),
     };
-    setAppointments([newAppointment, ...appointments]);
+    if (isEditing) {
+      setAppointments(appointments.map(app => app.id === selectedAppointment.id ? { ...newAppointment, id: app.id } : app));
+      setIsEditing(false);
+    } else {
+      setAppointments([newAppointment, ...appointments]);
+    }
     setShowSuccess(true);
+    resetForm();
     setTimeout(() => setShowSuccess(false), 8000);
   };
 
-  const AppointmentCard = ({ status, doctor, profession, date, time, medications, conditions }) => (
+  const resetForm = () => {
+    setSelectedDoctor('');
+    setDate('');
+    setTime('');
+    setReason('');
+    setConditions('');
+    setMedications('');
+    setSelectedAppointment(null);
+  };
+
+  const handleEdit = (appointment) => {
+    setSelectedAppointment(appointment);
+    setSelectedDoctor(appointment.doctor.id.toString());
+    setDate(appointment.date);
+    setTime(appointment.time);
+    setReason('');
+    setConditions(appointment.conditions.join(', '));
+    setMedications(appointment.medications.join(', '));
+    setIsEditing(true);
+  };
+
+  const handleDelete = (id) => {
+    setAppointments(appointments.filter(app => app.id !== id));
+  };
+
+  const AppointmentCard = ({ id, status, doctor, profession, date, time, medications, conditions }) => (
     <motion.div 
       className={`appointment-card ${status}`}
       initial={{ opacity: 0, y: 50 }}
@@ -103,6 +146,10 @@ function AppointmentsPage() {
         {status === 'approved' && <CheckCircle size={20} />}
         {status === 'cancelled' && <XCircle size={20} />}
         {status.charAt(0).toUpperCase() + status.slice(1)}
+      </div>
+      <div className="appointment-actions">
+        <button onClick={() => handleEdit({ id, status, doctor, profession, date, time, medications, conditions })}><Edit size={16} /></button>
+        <button onClick={() => handleDelete(id)}><Trash2 size={16} /></button>
       </div>
     </motion.div>
   );
@@ -144,8 +191,8 @@ function AppointmentsPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            {appointments.map((appointment, index) => (
-              <AppointmentCard key={index} {...appointment} />
+            {appointments.map((appointment) => (
+              <AppointmentCard key={appointment.id} {...appointment} />
             ))}
           </motion.div>
 
@@ -156,7 +203,7 @@ function AppointmentsPage() {
             transition={{ delay: 0.5, duration: 0.5 }}
           >
             <form className="form-cont" onSubmit={handleSubmit}>
-            <h2>Book an Appointment</h2>
+              <h2>{isEditing ? 'Edit Appointment' : 'Book an Appointment'}</h2>
               <div className="form-group">
                 <select 
                   value={selectedDoctor} 
@@ -235,8 +282,35 @@ function AppointmentsPage() {
                 />
                 <label htmlFor="medications">Medications (comma-separated)</label>
               </div>
-              <button type="submit">Book Appointment</button>
+              <button type="submit">{isEditing ? 'Update Appointment' : 'Book Appointment'}</button>
             </form>
+          </motion.div>
+
+          <motion.div 
+            className="past-visits-container"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+          >
+            <h2>Past Hospital Visits</h2>
+            <table className="past-visits-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Doctor</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pastVisits.map((visit) => (
+                  <tr key={visit.id}>
+                    <td>{visit.date}</td>
+                    <td>{visit.doctor}</td>
+                    <td>{visit.reason}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </motion.div>
         </div>
       </div>
@@ -251,7 +325,7 @@ function AppointmentsPage() {
             transition={{ duration: 0.3 }}
           >
             <CheckCircle size={64} color="green" />
-            <h2>Appointment Booked Successfully!</h2>
+            <h2>Appointment {isEditing ? 'Updated' : 'Booked'} Successfully!</h2>
             <p>We will get back to you shortly with the appointment details.</p>
             <motion.div 
               className="celebration"
@@ -262,6 +336,26 @@ function AppointmentsPage() {
               transition={{ duration: 2, repeat: Infinity }}
             >
               🎉
+            </motion.div>
+            <motion.div className="confetti-container">
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="confetti"
+                  initial={{ y: -50, x: 0 }}
+                  animate={{
+                    y: 500,
+                    x: Math.random() * 500 - 250,
+                    rotate: Math.random() * 360,
+                  }}
+                  transition={{ duration: Math.random() * 2 + 2, repeat: Infinity }}
+                  style={{
+                    background: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                    width: '10px',
+                    height: '10px',
+                  }}
+                />
+              ))}
             </motion.div>
           </motion.div>
         )}

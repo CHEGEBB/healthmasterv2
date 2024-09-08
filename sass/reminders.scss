@@ -1,0 +1,302 @@
+// Variables
+$space-black: #0a0a0a;
+$dark-gray: #171717;
+$medium-gray: #333;
+$light-gray: #aaa;
+$white: #fff;
+
+$primary-color: #34d399;
+$secondary-color: #f5a623;
+$tertiary-color: #4a90e2;
+
+$success-color: #4caf50;
+$warning-color: #ffd700;
+$danger-color: #f44336;
+
+$border-radius: 1rem;
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+// Fonts
+$font-raleway: 'Raleway', sans-serif;
+$font-rubik: 'Rubik', sans-serif;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card {
+  background-color: $space-black;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+// Main styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $space-black;
+  font-family: $font-rubik;
+  color: $white;
+}
+
+.reminders-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header {
+  background: linear-gradient(135deg, $tertiary-color 0%, $primary-color 100%);
+  color: $white;
+  padding: 1rem 2rem;
+  @include flex-center;
+  justify-content: space-between;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+
+  h1 {
+    font-size: 2rem;
+    margin: 0;
+    font-family: $font-raleway;
+  }
+
+  nav {
+    button {
+      margin-left: 0.5rem;
+      background-color: rgba($white, 0.2);
+      border: none;
+      color: $white;
+      padding: 0.5rem 1rem;
+      border-radius: $border-radius;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba($white, 0.3);
+      }
+    }
+  }
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.search-bar {
+  margin-bottom: 1rem;
+  
+  input {
+    width: 100%;
+    padding: 1rem;
+    background-color: $medium-gray;
+    border: none;
+    border-radius: $border-radius;
+    color: $white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $primary-color;
+    }
+  }
+}
+
+.medications-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.medication-card {
+  @include card;
+  transition: transform 0.3s ease;
+  border-left: 5px solid $primary-color;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .medication-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    h3 {
+      margin: 0;
+      color: $primary-color;
+      font-family: $font-raleway;
+    }
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    color: $light-gray;
+
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .medication-details {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $medium-gray;
+
+    h4 {
+      margin: 0.5rem 0;
+      color: $white;
+    }
+  }
+
+  .adherence-chart {
+    height: 100px;
+    @include flex-center;
+    flex-direction: column;
+  }
+}
+
+.calendar-view {
+  @include card;
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: $white;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+
+    .calendar-day-header {
+      font-weight: bold;
+      text-align: center;
+      padding: 0.5rem;
+      color: $light-gray;
+    }
+
+    .calendar-day {
+      @include flex-center;
+      height: 50px;
+      border: 1px solid $medium-gray;
+      border-radius: $border-radius;
+      position: relative;
+      color: $white;
+
+      &.empty {
+        background-color: rgba($medium-gray, 0.5);
+      }
+
+      .medication-dot {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: $secondary-color;
+      }
+    }
+  }
+}
+
+.stats-view {
+  @include card;
+
+  h2 {
+    margin-bottom: 1rem;
+    color: $white;
+    font-family: $font-raleway;
+  }
+
+  .medication-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+
+    .medication-stat-item {
+      @include card;
+      text-align: center;
+      background-color: $dark-gray;
+
+      h3 {
+        color: $primary-color;
+        margin: 0 0 0.5rem 0;
+      }
+
+      p {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: $white;
+      }
+    }
+  }
+}
+
+.add-medication-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: linear-gradient(135deg, $primary-color 0%, $tertiary-color 100%);
+  color: $space-black;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  @include flex-center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.page-footer {
+  background: linear-gradient(135deg, $tertiary-color 0%, $primary-color 100%);
+  color: $white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .medications-container {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-view .calendar-grid {
+    font-size: 0.8rem;
+  }
+
+  .stats-view .medication-stats {
+    grid-template-columns: 1fr;
+  }
+}
