@@ -12,9 +12,9 @@ const medicines = [
   { id: 1, name: "Aspirin", image: "/assets/images/med2.jpg", description: "Pain reliever and blood thinner" },
   { id: 2, name: "Lisinopril", image: "/assets/images/med2.png", description: "ACE inhibitor for high blood pressure" },
   { id: 3, name: "Metformin", image: "/assets/images/med4.png", description: "Oral medication for type 2 diabetes" },
-  { id: 4, name: "Simvastatin", image: "/assets/images/simvastatin.png", description: "Statin medication for high cholesterol" },
-  { id: 5, name: "Ibuprofen", image: "/assets/images/ibuprofen.png", description: "Anti-inflammatory pain reliever" },
-  { id: 6, name: "Omeprazole", image: "/assets/images/omeprazole.png", description: "Proton pump inhibitor for acid reflux" },
+  { id: 4, name: "Simvastatin", image: "/assets/images/med5.png", description: "Statin medication for high cholesterol" },
+  { id: 5, name: "Ibuprofen", image: "/assets/images/ib.png", description: "Anti-inflammatory pain reliever" },
+  { id: 6, name: "Omeprazole", image: "/assets/images/ome.jpg", description: "Proton pump inhibitor for acid reflux" },
 ];
 
 const doctors = [
