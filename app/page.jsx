@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <div className="items-start justify-start mx-4 form-container">
+      <div className="items-start justify-start mx-4 form-container ">
         <div className="flex-row form-logo">
           <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
           <h2 className="items-center text-xl font-bold">Health master</h2>

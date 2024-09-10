@@ -13,6 +13,8 @@
   position: relative;
   min-height: 300px;
   transition: all 0.5s ease;
+  max-width: 1920px;
+  margin: 0 auto;
 
   &.morning {
     background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
@@ -32,14 +34,14 @@
   }
 
   .greeting-text {
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 600;
     margin-bottom: 1rem;
     color: #1e1e1e;
   }
 
   .welcome-message {
-    font-size: 1rem;
+    font-size: clamp(0.875rem, 2vw, 1rem);
     font-weight: 300;
     line-height: 1.5;
     color: #333;
@@ -130,11 +132,43 @@
   100% { opacity: 1; }
 }
 
+// Desktop responsiveness (1280px to 1920px)
+@media (min-width: 1280px) and (max-width: 1920px) {
+  .greeting-container {
+    padding: 2.5rem;
+    
+    .illustration {
+      width: 350px;
+      height: 350px;
+    }
+  }
+}
+
+// Tablet responsiveness
+@media (min-width: 769px) and (max-width: 1279px) {
+  .greeting-container {
+    padding: 2rem;
+    
+    .greeting-content {
+      max-width: 70%;
+    }
+    
+    .illustration {
+      width: 250px;
+      height: 250px;
+      right: -25px;
+      top: -25px;
+    }
+  }
+}
+
+// Mobile responsiveness
 @media (max-width: 768px) {
   .greeting-container {
     flex-direction: column;
     text-align: center;
     padding: 2rem 1rem;
+    min-height: auto;
 
     .greeting-content {
       max-width: 100%;
@@ -148,6 +182,33 @@
       width: 200px;
       height: 200px;
       margin: 0 auto;
+    }
+
+    .sun-moon {
+      top: 10%;
+      right: 10%;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+// Small mobile screens
+@media (max-width: 480px) {
+  .greeting-container {
+    padding: 1.5rem 1rem;
+
+    .greeting-text {
+      font-size: 1.5rem;
+    }
+
+    .welcome-message {
+      font-size: 0.875rem;
+    }
+
+    .illustration {
+      width: 150px;
+      height: 150px;
     }
   }
 }
