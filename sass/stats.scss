@@ -64,10 +64,11 @@ body {
 
   .dashboard-grid {
     display: grid;
+    font-family: $font-raleway;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     .profile-card {
-        background: #fff;
+        background: #333333;
         padding: 20px;
         border-radius: 12px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -296,6 +297,7 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   outline: none;
   animation: slideIn 0.5s ease-in-out;
+  color: #ccc;
 
   h2 {
     font-size: 1.5em;
