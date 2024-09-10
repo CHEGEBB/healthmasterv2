@@ -42,6 +42,14 @@ export default function Sidebar() {
           </Link>
         ))}
       </nav>
+      <div className="special-link">
+      <Link href="/pharmasense">
+          <div className="ai-cont">
+            <Ambulance size={25} />
+            <span className="ai-text">Emergency</span>
+          </div>
+        </Link>
+      </div>
       <div className="sidebar-footer">
         <Link href="/emergency">
           <div className="emergency-btn">
