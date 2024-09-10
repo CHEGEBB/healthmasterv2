@@ -9,11 +9,13 @@
 
 body {
   background-color: $space-black;
+  font-family: $font-outfit;
 }
 
 .health-dashboard {
   text-align: center;
   min-height: 100vh;
+  font-family: $font-raleway;
 
   .dashboard-content-stats {
     display: flex;
@@ -22,6 +24,8 @@ body {
     align-items: flex-start;
     min-height: 100vh;
     gap: 2rem;
+    font-family: $font-raleway;
+
 
     .side-health-stats {
       flex: 1;
@@ -43,6 +47,8 @@ body {
       flex: 6;
       animation: slideIn 1s ease-in;
       overflow: hidden;
+      font-family: $font-raleway;
+
     }
   }
 
@@ -52,6 +58,8 @@ body {
     text-align: center;
     margin-bottom: 30px;
     animation: fadeInUp 1s ease-in;
+    font-family: $font-raleway;
+
   }
 
   .dashboard-grid {
