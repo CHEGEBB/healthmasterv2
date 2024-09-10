@@ -1,5 +1,6 @@
 @import "./colors";
 @import "./fonts";
+
 $black: #171717;
 $green-light: #022c22;
 $green-dark: #24AE7C;
@@ -9,22 +10,22 @@ $text-color: #ffffff;
 .sidebar {
   width: 250px;
   position: absolute;
-  margin: 120px 20px ;
+  margin: 120px 20px;
   height: 80vh;
   background-color: $black;
-  color: white;
-  // display: flex;
-  // flex-direction: column;
+  color: $text-color;
   transition: width 0.3s ease, background-color 0.3s ease;
   border-radius: $border-radius;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   font-family: $font-outfit;
-
+  
   &.collapsed {
     width: 80px;
+    
     .nav-text {
       display: none;
     }
+    
     .sidebar-header .logo {
       display: none;
     }
@@ -32,63 +33,69 @@ $text-color: #ffffff;
 
   &.expanded {
     width: 250px;
+    
     .nav-item.active {
       background-color: $green-light;
       color: white;
       border-left: 4px solid $green-dark;
     }
   }
-  .special-link{
+
+  .special-link {
     padding: 5px;
     background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
     border-radius: 5px;
-    color: $space-black;
+    color: $black;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    transition: all 0.3s ease;
+    
     &:hover {
       background-color: darken($green-light, 10%);
-      border-left: 4px solid $vivid-green;
+      border-left: 4px solid $green-dark;
     }
-    .ai-cont{
-      // display: flex;
-      // flex-direction: row;
-      // gap: 5px;
+
+    .ai-cont {
       display: flex;
       align-items: center;
       padding: 0.5rem;
-      margin:  0 auto ; 
+      margin: 0 auto; 
       border-radius: $border-radius;
       color: gray;
       gap: 1rem;
       cursor: pointer;
       transition: background-color 0.3s ease, color 0.3s ease;
       position: relative;
+      
       svg {
         background-color: rgba($green-light, 0.2);
         border-radius: 50%;
         padding: 0.5rem;
         transition: background-color 0.3s ease, color 0.3s ease;
       }
+
       &:hover {
         background-color: $green-dark;
         color: white;
+        
         svg {
           background-color: rgba($green-light, 0.8);
         }
       }
+
       &.active {
         background-color: $green-light;
         color: white;
         border-left: 4px solid $green-dark;
         box-shadow: 0 0 10px rgba($green-light, 0.5);
         transform: scale(1.05);
+        
         svg {
           background-color: rgba($green-light, 0.6);
         }
       }
     }
   }
+
   .sidebar-header {
     display: flex;
     align-items: center;
@@ -113,6 +120,7 @@ $text-color: #ffffff;
       border: none;
       color: $text-color;
       cursor: pointer;
+      display: none;
     }
   }
 
@@ -122,6 +130,7 @@ $text-color: #ffffff;
     flex-direction: column;
     padding: 1rem;
     overflow-y: auto;
+
     .nav-item {
       display: flex;
       align-items: center;
@@ -132,29 +141,35 @@ $text-color: #ffffff;
       cursor: pointer;
       transition: background-color 0.3s ease, color 0.3s ease;
       position: relative;
+
       svg {
         background-color: rgba($green-light, 0.2);
         border-radius: 50%;
         padding: 0.5rem;
         transition: background-color 0.3s ease, color 0.3s ease;
       }
+
       &:hover {
         background-color: $green-dark;
         color: white;
+        
         svg {
           background-color: rgba($green-light, 0.8);
         }
       }
+
       &.active {
         background-color: $green-light;
         color: white;
         border-left: 4px solid $green-dark;
         box-shadow: 0 0 10px rgba($green-light, 0.5);
         transform: scale(1.05);
+        
         svg {
           background-color: rgba($green-light, 0.6);
         }
       }
+
       .nav-text {
         margin-left: 1rem;
         transition: color 0.3s ease;
@@ -166,22 +181,26 @@ $text-color: #ffffff;
     padding: 1rem;
     border-bottom-left-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
+
     .emergency-btn {
       display: flex;
       align-items: center;
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.3s ease;
+      
       &:hover {
         background-color: $green-light;
         transform: scale(1.05);
       }
+
       .emergency-text {
         margin-left: 0.5rem;
       }
     }
   }
 }
+
 .tooltip {
   position: absolute;
   background-color: $green-dark;
@@ -198,23 +217,109 @@ $text-color: #ffffff;
   visibility: visible;
   opacity: 1;
 }
+
 .submenu {
   padding-left: 1rem;
+
   .sub-nav-item {
     margin-top: 10px;
     display: flex;
     align-items: center;
+
     &.active {
       background-color: #333;
     }
+
     .sub-nav-link {
       display: flex;
       align-items: center;
       gap: 0.5rem;
       color: #fff;
+
       &:hover {
         background-color: #444;
       }
     }
   }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 100%;
+    height: 100%;
+    transition: left 0.3s ease;
+    z-index: 1000;
+
+    &.expanded {
+      left: 0;
+    }
+
+    .toggle-btn {
+      display: block;
+    }
+
+    .collapsed {
+      width: 60px;
+    }
+
+    .sidebar-header {
+      padding: 1rem;
+      img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .header-title {
+        display: none;
+      }
+    }
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+}
+
+ @media screen and (max-width: 1920px) {
+  .sidebar {
+    width: 250px;
+    position: absolute;
+    margin: 120px 20px;
+  }
+
+  .sidebar-header {
+    padding: 1rem;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .header-title {
+      font-size: 18px;
+      margin-left: 10px;
+    }
+  }
+}
+@media screen and (min-width: 1280px){
+  .sidebar {
+    width: 150px;
+    position: absolute;
+    margin: 120px 0px;
+  }
+  .sidebar-header {
+    padding: 0.3rem;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .header-title {
+      font-size: 14px;
+      margin-left: 5px;
+    }
+}
 }

@@ -56,13 +56,13 @@ const HealthGoal = ({ goal, onComplete }) => {
 
 export default function HealthDashboard() {
   const [userData, setUserData] = useState({
-    name: 'John Doe',
+    name: 'Sarah Ruth',
     age: 35,
     height: 180,
     weight: 75,
     bmi: 23.1,
     bloodType: 'A+',
-    image: '/api/placeholder/100/100',
+    image: '/assets/images/3.jpg',
     medicalHistory: [
       { date: '2023-01-15', event: 'Annual check-up' },
       { date: '2022-06-20', event: 'Flu shot' },
@@ -79,10 +79,10 @@ export default function HealthDashboard() {
 
   const [weightData, setWeightData] = useState([
     { month: 'Jan', weight: 78 },
-    { month: 'Feb', weight: 77 },
-    { month: 'Mar', weight: 76 },
-    { month: 'Apr', weight: 75 },
-    { month: 'May', weight: 75 },
+    { month: 'Feb', weight: 71 },
+    { month: 'Mar', weight: 60 },
+    { month: 'Apr', weight: 15 },
+    { month: 'May', weight: 85 },
   ]);
 
   const [exerciseData, setExerciseData] = useState([
@@ -137,8 +137,10 @@ export default function HealthDashboard() {
   return (
     <div className="health-dashboard">
       <Header />
-      <div className="dashboard-content">
-        <Sidebar />
+      <div className="dashboard-content-stats">
+      <div className="side-health-stats">
+      <Sidebar />
+      </div>
       <div className="main-health-stats">
           <h1 className="welcome-message">Your Health Journey Starts Here!</h1>
           
