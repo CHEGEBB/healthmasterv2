@@ -139,7 +139,7 @@ export default function HealthDashboard() {
       <Header />
       <div className="dashboard-content">
         <Sidebar />
-        <main>
+      <div className="main-health-stats">
           <h1 className="welcome-message">Your Health Journey Starts Here!</h1>
           
           <div className="dashboard-grid">
@@ -221,7 +221,7 @@ export default function HealthDashboard() {
               ))}
             </div>
           </div>
-        </main>
+          </div>
       </div>
 
       <Modal

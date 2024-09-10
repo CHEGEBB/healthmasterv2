@@ -2,9 +2,9 @@
 @import "./fonts";
 
 .health-dashboard {
-  font-family: 'Arial', sans-serif;
-  color: #e0e0e0;
-  background-color: #121212;
+  text-align: center;
+  min-height: 100vh;
+  
 
   .dashboard-content {
     display: flex;
@@ -14,9 +14,7 @@
     min-height: 100vh;
   }
 
-  main {
-
-    flex: 6;
+  .main-health-stats {
     background-color: #171717;
     padding: 2rem;
     margin: 30px 30px auto;
@@ -27,6 +25,7 @@
     flex-direction: column;
     gap: 2rem;
     color: #fff;
+    max-width: 1600px;
   }
 
   .welcome-message {
