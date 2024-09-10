@@ -4,7 +4,8 @@ import Link from "next/link";
 import {
   LayoutDashboard, NotepadText, Pill, ActivitySquare,
   Bell, FileText, Ambulance, MapPin, Settings, User,
-  ChevronLeft, ChevronRight
+  ChevronLeft, ChevronRight,
+  HeartPulse
 } from "lucide-react";
 import "../../sass/sidebar.scss";
 import Image from 'next/image';
@@ -45,19 +46,19 @@ export default function Sidebar() {
       <div className="special-link">
       <Link href="/pharmasense">
           <div className="ai-cont">
-            <Ambulance size={25} />
-            <span className="ai-text">Emergency</span>
+            <HeartPulse size={25} />
+            <span className="ai-text">Pharmasense Ai</span>
           </div>
         </Link>
       </div>
-      <div className="sidebar-footer">
+      {/* <div className="sidebar-footer">
         <Link href="/emergency">
           <div className="emergency-btn">
             <Ambulance size={25} />
             <span className="emergency-text">Emergency</span>
           </div>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }
