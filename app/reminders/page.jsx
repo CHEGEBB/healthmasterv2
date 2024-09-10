@@ -42,7 +42,7 @@ const defaultReminders = [
     time: "08:00",
     doctorId: 1,
     soundId: 1,
-    active: true,
+    active: false,
     notes: "Take with food",
   },
   {

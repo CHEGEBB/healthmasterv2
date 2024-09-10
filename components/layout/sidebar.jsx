@@ -13,10 +13,9 @@ import { usePathname } from 'next/navigation';
 const menuItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/appointments", icon: NotepadText, label: "Appointments" },
-  { href: "/medication", icon: Pill, label: "Medication" },
-  // { href: "/health-stats", icon: ActivitySquare, label: "My Health Stats" },
+  { href: "/medication", icon: Pill, label: "My Medication" },
+  { href: "/health-stats", icon: ActivitySquare, label: "My Health Stats" },
   { href: "/reminders", icon: Bell, label: "Reminders" },
-  { href: "/prescriptions", icon: FileText, label: "Prescriptions" },
   { href: "/settings", icon: Settings, label: "Settings" },
   { href: "/profile", icon: User, label: "Profile" },
 ];

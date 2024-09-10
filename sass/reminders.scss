@@ -274,7 +274,7 @@ body {
 }
 
 .add-reminder-modal, .edit-reminder-modal {
-  background-color: #fff;
+  background-color: $space-black;
   border-radius: 10px;
   padding: 30px;
   width: 90%;
@@ -292,9 +292,10 @@ body {
     select, input, textarea {
       margin-bottom: 15px;
       padding: 10px;
-      border: 1px solid #ccc;
+      border: 1px solid $medium-gray;
       border-radius: 5px;
       font-size: 16px;
+      background: #171717;
     }
 
     textarea {
