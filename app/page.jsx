@@ -104,12 +104,12 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="flex-row form-group">
-          <input type="checkbox" name='terms' id='terms' required />
-            <p>
+          <div className="flex-row form-group custom-checkbox-container">
+            <input type="checkbox" name='terms' id='terms' required className="custom-checkbox" />
+            <label htmlFor="terms">
               By signing up, you agree to our <a href="/terms">Terms and Conditions</a> and{" "}
               <a href="/privacy">Privacy Policy</a>.
-            </p>
+            </label>
           </div>
           <div className="form-group">
             <Button type="submit" className="btn btn-primary">

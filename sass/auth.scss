@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&family=Outfit:wght@300;400;500;700&family=Poppins:wght@300;400;500;700&family=Jost:wght@300;400;500;700&display=swap');
-
+@import "./colors";
+@import "./fonts";
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 // Mixins for responsive design
 @mixin for-phone-only {
   @media (max-width: 599px) { @content; }
 }
 @mixin for-tablet-portrait-up {
-  @media (min-width: 600px) { @content; }
+  @media (min-width: 600px) and (max-width: 899px) { @content; }
 }
 @mixin for-tablet-landscape-up {
   @media (min-width: 900px) { @content; }
@@ -13,242 +14,213 @@
 @mixin for-desktop-up {
   @media (min-width: 1200px) { @content; }
 }
-@mixin for-big-desktop-up {
-  @media (min-width: 1800px) { @content; }
+body{
+  font-family: 'Raleway', sans-serif !important;
 }
 
 @mixin button-style {
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: none;
   border-radius: 0.25rem;
   background-color: #24AE7C;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%;
+  font-weight: 500;
+  font-family: $font-raleway;
+
+
+  
   &:hover {
     background-color: #2485AE;
-    transform: translateY(-2px) scale(1.05);
+    transform: translateY(-2px);
+  }
+
+  @include for-phone-only {
+    animation: pulseButton 2s infinite;
   }
 }
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   background-color: black;
   color: #ccc;
-  align-items: center;
-  font-family: 'Rubik', sans-serif;
   min-height: 100vh;
-  padding: 1rem;
+  font-family: $font-raleway;
+
 
   @include for-tablet-landscape-up {
     flex-direction: row;
-    overflow-y: hidden;
-    padding: 0;
-  }
-
-  .form-logo {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 2rem;
-
-    @include for-tablet-landscape-up {
-      position: absolute;
-      top: 5%;
-      left: 5%;
-      margin-bottom: 0;
-    }
-
-    h2 {
-      font-family: 'Jost', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-left: 1rem;
-
-      @include for-tablet-portrait-up {
-        font-size: 1.5rem;
-      }
-    }
-
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-
-      @include for-tablet-portrait-up {
-        width: 50px;
-        height: 50px;
-      }
-    }
   }
 
   .form-container {
     width: 100%;
+    padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem;
 
     @include for-tablet-landscape-up {
       width: 50%;
-      align-items: flex-start;
       padding: 4rem;
+      align-items: flex-start;
+    }
+
+    .form-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-left: 1rem;
+        font-family: $font-raleway !important;
+
+      }
     }
 
     .form-title {
-      margin-bottom: 2rem;
       text-align: center;
+      margin-bottom: 2rem;
 
       @include for-tablet-landscape-up {
         text-align: left;
       }
+      @include for-phone-only{
+        margin-bottom: 1rem;
+        text-align: center;
+        align-items: center;
+        padding: 0.5rem;
+        justify-content: center;
+        width: 80%;
+      }
 
       h1 {
-        font-family: 'Outfit', sans-serif;
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: 700;
+        font-family: $font-kanit !important;
 
-        @include for-tablet-portrait-up {
-          font-size: 2.5rem;
-        }
+      }
+
+      p {
+        margin-top: 0.5rem;
+        font-family: $font-kanit !important;
+
       }
     }
 
-    .form-group {
+    form {
       width: 100%;
-      max-width: 300px;
-      margin-bottom: 1.5rem;
-      position: relative;
+      max-width: 400px;
 
       @include for-tablet-portrait-up {
-        max-width: 400px;
+        max-width: 80%;
       }
 
-      @include for-desktop-up {
+      @include for-tablet-landscape-up {
         max-width: 550px;
       }
 
-      .copyright {
-        font-size: 1rem;
-        color: #888;
-        margin-top: 1rem;
-        font-family: 'Outfit', sans-serif;
-        text-align: center;
+      .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+        
 
-        @include for-tablet-landscape-up {
+        label {
           position: absolute;
-          top: 55%;
-          font-size: 1.2rem;
-          text-align: left;
+          left: 2.5rem;
+          top: 50%;
+          transform: translateY(-50%);
+          transition: all 0.3s ease;
+          pointer-events: none;
+          color: #888;
+          font-family: $font-kanit !important;
+
+        }
+
+        .input-wrapper {
+          position: relative;
+
+          .input-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+          }
+
+          input {
+            width: 100%;
+            padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #52525b;
+            transition: all 0.3s ease;
+            font-family: $font-kanit !important;
+
+
+            &:focus {
+              outline: none;
+              border-color: #24AE7C;
+              background-color: #444;
+
+              & + label {
+                top: -1.5rem;
+                left: 0;
+                font-size: 0.8rem;
+                color: #24AE7C;
+              }
+            }
+          }
+        }
+
+        &.focused {
+          label {
+            top: -1.5rem;
+            left: 0;
+            font-size: 0.8rem;
+            color: #24AE7C;
+          }
+        }
+      }
+
+      .phone-input-wrapper {
+        margin-top: 10px;
+        
+        .react-tel-input {
+          .form-control {
+            width: 100% !important;
+            padding: 0.75rem 0.75rem 0.75rem 3.5rem;
+            background-color: #333;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 0.25rem;
+            font-family: "Jost", sans-serif;
+          }
+
+          .flag-dropdown {
+            background-color: #333;
+            border: 1px solid #444;
+          }
         }
       }
 
       input[type="checkbox"] {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        position: relative;
-        appearance: none;
-        border: 2px solid #24AE7C;
-        border-radius: 4px;
-        background-color: #000;
-        transition: background-color 0.3s, border-color 0.3s;
-        vertical-align: middle;
         margin-right: 0.5rem;
-      
-        &:checked {
-          background-color: #24AE7C;
-          border-color: #24AE7C;
-      
-          &::after {
-            content: "";
-            position: absolute;
-            left: 6px;
-            top: 2px;
-            width: 5px;
-            height: 10px;
-            border: solid #000;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-          }
-        }
       }
 
-      label {
-        position: absolute;
-        left: 0.5rem;
-        top: 0.5rem;
-        transition: all 0.3s ease;
-        pointer-events: none;
-        font-family: 'Poppins', sans-serif;
-        animation: textGlow 3s ease-in-out infinite alternate;
-      }
-
-      .input-wrapper {
-        position: relative;
-
-        .input-icon {
-          position: absolute;
-          left: 0.5rem;
-          top: 50%;
-          transform: translateY(-50%);
-          color: #888;
-          transition: all 0.3s ease;
-        }
-
-        input {
-          width: 100%;
-          padding: 0.5rem 0.5rem 0.5rem 2rem;
-          border-radius: 0.25rem;
-          border: 1px solid #444;
-          background-color: #333;
-          color: white;
-          font-family: 'Jost', sans-serif;
-          transition: all 0.3s ease;
-
-          &:focus {
-            outline: none;
-            border-color: #24AE7C;
-            background-color: #444;
-          }
-        }
-      }
-
-      &.focused {
-        label {
-          top: -1.5rem;
-          left: 0;
-          font-size: 0.8rem;
-          color: #24AE7C;
-        }
-
-        .input-icon {
-          opacity: 0;
-        }
-
-        input {
-          padding-left: 0.5rem;
-        }
-      }
-    }
-
-    button {
-      @include button-style;
-      width: 100%;
-      max-width: 300px;
-      padding: 0.75rem;
-      font-family: 'Rubik', sans-serif;
-      font-weight: 500;
-      animation: heartbeat 2s ease-in-out infinite;
-
-      @include for-tablet-portrait-up {
-        max-width: 400px;
-      }
-
-      @include for-desktop-up {
-        max-width: 550px;
+      button {
+        @include button-style;
       }
     }
 
@@ -268,84 +240,135 @@
         }
       }
     }
+
+    .copyright {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
   }
 
   .container-image {
     width: 100%;
-    height: 300px;
-    position: relative;
-    animation: fadeIn 2s ease-in 0.5s forwards;
+    height: 200px;
+    overflow: hidden;
+
+    @include for-tablet-portrait-up {
+      height: 500px;
+    }
 
     @include for-tablet-landscape-up {
       width: 50%;
       height: 100vh;
+    }
+    @include for-phone-only{
+      height: 250px;
     }
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      animation: bounceOnScroll 3s ease-in-out infinite alternate;
     }
   }
 }
 
-.phone-input-wrapper {
-  margin-top: 10px;
-  width: 100%;
-}
-
-.phone-input {
-  width: 100% !important;
-  background-color: #333;
-  color: white;
-  border: 1px solid #444;
-  border-radius: 0.25rem;
-  font-family: "Jost", sans-serif;
-
-  input {
-    color: white;
-    background-color: #333;
-    padding: 10px;
-    width: 100% !important;
+// Mobile-specific animations
+@include for-phone-only {
+  .form-container {
+    animation: slideUpFadeIn 0.5s ease-out;
   }
 
-  .react-tel-input .flag-dropdown {
-    background-color: #333;
-    border: 1px solid #444;
+  .form-logo, .form-title, .form-group {
+    animation: fadeInStagger 0.5s ease-out;
+    animation-fill-mode: both;
+  }
+
+  @for $i from 1 through 10 {
+    .form-group:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
   }
 }
 
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@keyframes slideInLeft {
-  from { transform: translateX(-100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+@keyframes fadeInStagger {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes pulseButton {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
+.custom-checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  font-family: $font-outfit !important;
 
-@keyframes diagonalSlideIn {
-  0% { transform: translate(-100%, -100%); opacity: 0; }
-  100% { transform: translate(0, 0); opacity: 1; }
-}
+  .custom-checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #24AE7C;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    margin-right: 10px;
+    flex-shrink: 0;
 
-@keyframes textGlow {
-  0%, 100% { text-shadow: 0 0 5px #24AE7C, 0 0 10px #24AE7C, 0 0 15px #24AE7C; }
-  50% { text-shadow: 0 0 10px #2485AE, 0 0 20px #2485AE, 0 0 25px #2485AE; }
-}
+    &:checked {
+      background-color: #24AE7C;
+      border-color: #24AE7C;
 
-@keyframes ripple {
-  to { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-}
+      &::after {
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid #000;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    }
+  }
 
-@keyframes bounceOnScroll {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  label {
+    font-size: 0.9rem;
+    color: #ccc;
+    cursor: pointer;
+
+    a {
+      color: #24AE7C;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }

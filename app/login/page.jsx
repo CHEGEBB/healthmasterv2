@@ -51,17 +51,12 @@ export default function Login() {
               />
             </div>
           </div>
-          <div className="flex-row form-group remember-forgot">
-            <div className="remember-me">
-              <input type="checkbox" id="remember" name="remember" />
-              <p>
-                Remember me
-                <span className="ml-2 text-sm text-[#878787]">
-                  (Stay signed in)
-                </span>
-              </p>
+          <div className="flex-row form-group custom-checkbox-container">
+            <input type="checkbox" name='terms' id='terms' required className="custom-checkbox" />
+            <label htmlFor="terms">
+            Keep me logged in ?
+            </label>
             </div>
-          </div>
           <div className="form-group">
             <Button type="submit" className="btn btn-primary">
               Log In
