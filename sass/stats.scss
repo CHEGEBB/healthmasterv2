@@ -1,0 +1,276 @@
+@import "./colors";
+@import "./fonts";
+
+.health-dashboard {
+  font-family: 'Arial', sans-serif;
+  color: #e0e0e0;
+  background-color: #121212;
+
+  .dashboard-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+
+  main {
+
+    flex: 6;
+    background-color: #171717;
+    padding: 2rem;
+    margin: 30px 30px auto;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    color: #fff;
+  }
+
+  .welcome-message {
+    font-size: 2.5em;
+    color: #4a90e2;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .profile-card, .heart-status, .glucose-levels, .weight-trend, 
+  .exercise-data, .sleep-trends, .health-recommendations, .health-goals {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  .profile-card {
+    text-align: center;
+
+    .profile-image {
+      border-radius: 50%;
+      margin-bottom: 10px;
+      width: 100px;
+      height: 100px;
+    }
+
+    .medical-history {
+      text-align: left;
+      padding-left: 20px;
+    }
+  }
+
+  .heart-status {
+    position: relative;
+    height: 300px;
+
+    .animated-heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 1.5s infinite;
+    }
+
+    .heart-pointers {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .pointer {
+      position: absolute;
+      width: 100px;
+
+      &-0 { top: 10%; left: -120px; }
+      &-1 { top: 10%; right: -120px; }
+      &-2 { bottom: 10%; left: -120px; }
+      &-3 { bottom: 10%; right: -120px; }
+    }
+  }
+
+  .health-metric-card {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+
+    .icon {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .value {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #4a90e2;
+    }
+
+    .description {
+      font-size: 0.9em;
+      color: #666;
+    }
+  }
+
+  .scrollable-image-list {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+
+    img {
+      margin-right: 10px;
+      border-radius: 5px;
+      height: 100px;
+      width: auto;
+    }
+  }
+
+  .glucose-levels, .weight-trend, .exercise-data {
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+
+  .sleep-trends {
+    .react-calendar {
+      width: 100%;
+      border: none;
+      background-color: transparent;
+    }
+
+    .sleep-hours {
+      font-size: 0.8em;
+      color: #4a90e2;
+    }
+  }
+
+  .health-recommendations {
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        img {
+          margin-right: 10px;
+          border-radius: 5px;
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
+  }
+
+  .health-goals {
+    .health-goal {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      input[type="checkbox"] {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.goal-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  outline: none;
+
+  h2 {
+    font-size: 1.5em;
+    color: #4a90e2;
+  }
+
+  button {
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #357abd;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    flex-direction: column;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .profile-card .profile-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .heart-status {
+    height: 250px;
+  }
+
+  .scrollable-image-list img {
+    height: 80px;
+  }
+
+  .health-recommendations img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .dashboard-content {
+    padding: 40px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+  }
+
+  .profile-card .profile-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .heart-status {
+    height: 400px;
+  }
+
+  .scrollable-image-list img {
+    height: 120px;
+  }
+
+  .health-recommendations img {
+    width: 60px;
+    height: 60px;
+  }
+}
