@@ -8,6 +8,20 @@ $glass-bg: rgba(255, 255, 255, 0.25);
 $glass-border: 1px solid rgba(255, 255, 255, 0.18);
 $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 
+// Responsive mixins
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) and (max-width: 899px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) and (max-width: 1199px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) { @content; }
+}
+
 .health-dashboard {
   max-width: 1920px;
   width: 100%;
@@ -24,6 +38,13 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       font-size: 2.5rem;
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      @include  for-phone-only{
+        // max-width: 350px !important;
+        text-align: center;
+        font-family: $font-kanit !important;
+        font-size: 1.5rem !important;
+        margin-top: 2rem  !important; 
+      }
     }
 
     .user-profile {

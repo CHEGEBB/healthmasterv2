@@ -47,10 +47,10 @@ export default function HeartRateGraph() {
     maintainAspectRatio: false,
     scales: {
       x: {
-        display: false, // Hide X-axis
+        display: false,
       },
       y: {
-        display: false, // Hide Y-axis
+        display: false, 
       },
     },
     plugins: {
@@ -62,8 +62,16 @@ export default function HeartRateGraph() {
 
   return (
     <div className="heart-diagnosis-container">
-      <h1>Summary</h1>
       <div className="heart-diagnosis">
+      <div className="heart-cont">
+    <div className="details">
+      <h1>My Heart Condition💗</h1>
+      <p>Heart Rate: {heartRate} bpm</p>
+    </div>
+      <div className="heart-image">
+        <Image src="/assets/images/heart.png" width={200} height={200} alt="Heart Icon" />
+      </div>
+    </div>
         <div className="heart-rate-box">
           <div className="heart-rate-value">{heartRate} bpm</div>
           <div className="heartbeat-chart">
@@ -80,15 +88,7 @@ export default function HeartRateGraph() {
           </div>
         </div>
       </div>
-      <div className="heart-cont">
-    <div className="details">
-      <h1>My Heart Condition💗</h1>
-      <p>Heart Rate: {heartRate} bpm</p>
-    </div>
-      <div className="heart-image">
-        <Image src="/assets/images/heart.png" width={200} height={200} alt="Heart Icon" />
-      </div>
-    </div>
+     
 
       <div className="reports-section">
         <h2>Reports</h2>
