@@ -148,7 +148,7 @@ export default function PersonalInfo() {
           <div className="relative">
             <input
               type="text"
-              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-md py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
+              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
                 validationState.address === false ? 'border-red-500' : ''
               } ${validationState.address === true ? 'border-green-500' : ''}`}
               id="address"
@@ -171,7 +171,7 @@ export default function PersonalInfo() {
           <div className="relative">
             <input
               type="text"
-              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-md py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
+              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
                 validationState.occupation === false ? 'border-red-500' : ''
               } ${validationState.occupation === true ? 'border-green-500' : ''}`}
               id="occupation"
@@ -194,7 +194,7 @@ export default function PersonalInfo() {
           <div className="relative">
             <input
               type="text"
-              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-md py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
+              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
                 validationState.emergencyContact === false ? 'border-red-500' : ''
               } ${validationState.emergencyContact === true ? 'border-green-500' : ''}`}
               id="emergencyContact"
