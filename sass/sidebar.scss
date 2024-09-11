@@ -14,9 +14,8 @@ $text-color: #ffffff;
   height: 80vh;
   background-color: $black;
   color: $text-color;
-  transition: width 0.3s ease, background-color 0.3s ease;
+  transition: width 0.3s ease;
   border-radius: $border-radius;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   font-family: $font-outfit;
   
   &.collapsed {
