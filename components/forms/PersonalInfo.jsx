@@ -1,6 +1,66 @@
 "use client"
-import React, { useState } from "react";
-import { Briefcase, CalendarDays, Home, Mail, Phone, User2, AlertTriangle } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Briefcase, CalendarDays, Home, Mail, Phone, User2, AlertTriangle, X } from "lucide-react";
+import confetti from 'canvas-confetti';
+
+const SuccessModal = ({ isOpen, onClose, name }) => {
+  const [showModal, setShowModal] = useState(isOpen);
+
+  useEffect(() => {
+    setShowModal(isOpen);
+    if (isOpen) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+      const timer = setTimeout(() => {
+        onClose();
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, onClose]);
+
+  if (!showModal) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onClose}></div>
+      <div className="relative w-full max-w-xs p-8 m-4 bg-gray-800 rounded-lg md:max-w-sm">
+        <button
+          onClick={onClose}
+          className="absolute text-gray-400 top-2 right-2 hover:text-white"
+        >
+          <X size={24} />
+        </button>
+        <div className="text-center">
+          <div className="mb-4">
+            <svg className="w-16 h-16 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth="2" 
+                d="M5 13l4 4L19 7"
+              >
+                <animate
+                  attributeName="stroke-dasharray"
+                  from="0, 150"
+                  to="150, 150"
+                  dur="1s"
+                  begin="0s"
+                  fill="freeze"
+                />
+              </path>
+            </svg>
+          </div>
+          <h3 className="mb-2 text-xl font-semibold text-white">Successful Submission!</h3>
+          <p className="text-gray-300">Thank you, {name || 'valued customer'}!</p>
+          <p className="mt-2 text-gray-300">Your form has been successfully submitted.</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function PersonalInfo() {
   const [formState, setFormState] = useState({
@@ -27,6 +87,8 @@ export default function PersonalInfo() {
     emergencyPhone: null
   });
 
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormState((prev) => ({ ...prev, [id]: value }));
@@ -39,12 +101,48 @@ export default function PersonalInfo() {
   };
 
   const validateField = (field, value) => {
-    // Validation logic (same as before)
+    let isValid = false;
+    switch (field) {
+      case "name":
+        isValid = value.trim().length > 0;
+        break;
+      case "email":
+        isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        break;
+      case "phone":
+      case "emergencyPhone":
+        isValid = /^\d{10}$/.test(value);
+        break;
+      case "dob":
+        isValid = value !== "";
+        break;
+      case "gender":
+        isValid = ["male", "female", "other"].includes(value);
+        break;
+      case "address":
+      case "occupation":
+      case "emergencyContact":
+        isValid = value.trim().length > 0;
+        break;
+      default:
+        break;
+    }
+    setValidationState((prev) => ({ ...prev, [field]: isValid }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const isFormValid = Object.values(validationState).every((value) => value === true);
+    if (isFormValid) {
+      setShowSuccessModal(true);
+    } else {
+      alert("Please fill all fields correctly before submitting.");
+    }
   };
 
   return (
-    <div className="p-6 mx-auto shadow-lg text-whiterounded-lg max-w-7xl">
-      <form className="space-y-6">
+    <div className="p-6 mx-auto text-white rounded-lg shadow-lg max-w-7xl">
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="relative">
             <input
@@ -213,7 +311,6 @@ export default function PersonalInfo() {
             <AlertTriangle className="absolute left-3 top-3.5 text-gray-400 w-5 h-5" />
             {validationState.emergencyContact === false && <p className="mt-1 text-sm text-red-500">Please enter your emergency contact name.</p>}
           </div>
-
           <div className="relative">
             <input
               type="tel"

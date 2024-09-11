@@ -1,12 +1,8 @@
-// data.scss
-
-// Variables
 $primary-color: #24AE7C;
 $secondary-color: #0aabcb;
 $background-color: #000;
 $text-color: #fff;
 
-// Mixins for responsiveness
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "desktop" {
     @media (min-width: 1280px) and (max-width: 1920px) { @content; }
@@ -17,20 +13,24 @@ $text-color: #fff;
   @if $breakpoint == "mobile" {
     @media (max-width: 767px) { @content; }
   }
+  @if $breakpoint == "large-desktop" {
+    @media (min-width: 1920px) { @content; }
+  }
 }
 
-// Global styles
 body {
   font-family: 'Outfit', sans-serif;
   margin: 0;
   padding: 0;
   background-color: $background-color;
   color: $text-color;
+  min-width: 100vw;
 }
 
 .container {
   display: flex;
   min-height: 100vh;
+  overflow-x: hidden !important;
 
   @include respond-to('tablet') {
     flex-direction: column;
@@ -38,6 +38,12 @@ body {
 
   @include respond-to('mobile') {
     flex-direction: column;
+  }
+
+  @include respond-to('large-desktop') {
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 100vw;
   }
 }
 
@@ -89,6 +95,12 @@ body {
   @include respond-to('mobile') {
     max-width: 100%;
     padding: 1rem;
+  }
+  @include respond-to('desktop') {
+    max-width: calc(100% - 200px);
+  }
+  @include respond-to('large-desktop') {
+    max-width: calc(50% - 1rem);
   }
 
   h2 {
@@ -223,6 +235,18 @@ body {
     min-height: auto;
     border-left: none;
     border-top: 4px solid $secondary-color;
+  }
+
+  @include respond-to('desktop') {
+    width: 200px;
+    height: auto;
+    min-height: auto;
+    border-left: 4px solid $secondary-color;
+    border-top: none;
+  }
+
+  @include respond-to('large-desktop') {
+    width: 250px;
   }
 
   img {

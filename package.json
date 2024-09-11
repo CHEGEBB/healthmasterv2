@@ -44,6 +44,7 @@
     "react-calendar": "^5.0.0",
     "react-chartjs-2": "^5.2.0",
     "react-circular-progressbar": "^2.1.0",
+    "react-confetti": "^6.1.0",
     "react-dom": "^18",
     "react-echarts": "^0.1.1",
     "react-modal": "^3.16.1",

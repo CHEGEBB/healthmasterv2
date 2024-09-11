@@ -1,16 +1,39 @@
-import React from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import PersonalInfo from '../../components/forms/PersonalInfo';
 import "../../sass/data.scss";
 import Image from 'next/image';
 import MedicalForm from '../../components/forms/MedicalForm';
 import IdentificationForm from '../../components/forms/IdentityForm';
 import { Button } from '../../components/ui/button';
+import { Check } from 'lucide-react';
+import ReactConfetti from 'react-confetti';
 
 export default function Page() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+    setShowConfetti(true);
+  };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      const timer = setTimeout(() => {
+        setIsModalOpen(false);
+        setShowConfetti(false);
+      }, 6000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isModalOpen]);
+
   return (
     <div className="container">
       <div className="info-container">
-      <div className="flex-row form-logo">
+        <div className="flex-row form-logo">
           <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
           <h2 className="items-center text-xl font-bold">Health master</h2>
         </div>
@@ -55,12 +78,12 @@ export default function Page() {
           </div>
         </div>
         <div className="submit-button">
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
           <p>By submitting this form, you agree to the HealthMaster Terms and Conditions and Privacy Policy.</p>
           <p className="text-[#3db7e3] copyright">
             © 2024 HealthMaster. All rights reserved.
           </p>
-          </div>
+        </div>
       </div>
       <div className="image-container">
         <Image
@@ -71,6 +94,29 @@ export default function Page() {
           quality={100}
         />
       </div>
+
+      {/* Success Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-gray-900 bg-opacity-75" onClick={() => setIsModalOpen(false)}></div>
+          <div className="relative w-full max-w-md p-8 m-4 text-center text-white bg-gray-800 rounded-lg">
+            {showConfetti && <ReactConfetti recycle={false} numberOfPieces={200} />}
+            <div className="mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500 bg-opacity-25 rounded-full">
+                <Check className="w-8 h-8 text-green-500" />
+              </div>
+            </div>
+            <h2 className="mb-2 text-2xl font-bold">Thank you for submitting the form!</h2>
+            <p className="mb-4 text-gray-300">Your data is saved and safe with us.</p>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="px-4 py-2 font-bold text-white transition duration-200 bg-blue-500 rounded hover:bg-blue-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
