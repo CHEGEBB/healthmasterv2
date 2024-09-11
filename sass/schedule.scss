@@ -12,10 +12,10 @@
   @media (min-width: 900px) { @content; }
 }
 @mixin for-desktop-up {
-  @media (min-width: 1200px) { @content; }
+  @media (min-width: 1200px)and (max-width:1399px) { @content; }
 }
 @mixin for-big-desktop-up {
-  @media (min-width: 1800px) { @content; }
+  @media (min-width: 1400px)and (max-width:1920) { @content; }
 }
 
 .schedule-container {
@@ -23,7 +23,6 @@
   flex-direction: column;
   animation: fadeIn 0.5s ease-in-out;
   padding: 1rem;
-
   @include for-tablet-portrait-up {
     padding: 2rem;
   }
@@ -37,8 +36,13 @@
     transition: all 0.3s ease;
 
     @include for-tablet-portrait-up {
-      border-radius: 2rem;
+      border-radius: 1rem;
       padding: 2rem;
+    }
+    @include for-desktop-up{
+      max-width: calc(100% - 10px);
+      border-radius: 1rem;
+
     }
 
     &:hover {
@@ -46,11 +50,12 @@
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     }
 
-    .header {
+    .header-schedule {
       h1 {
         color: $vivid-green;
         font-size: 18px;
         font-family: $font-poppins;
+        background-color: none;
         text-align: center;
         margin-bottom: 1rem;
         animation: slideInDown 0.5s ease-in-out;

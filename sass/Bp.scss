@@ -1,4 +1,20 @@
 @import "./colors";
+@import "./fonts";
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px)and (max-width:1399px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1400px)and (max-width:1920) { @content; }
+}
 
 // Base styles for the container
 .container-bp {
@@ -6,41 +22,28 @@
   color: #fff;
   background-color: $space-black;
   width: 100%;
-  padding: 2rem; // Default padding for larger screens
+  padding: 2rem; 
   margin: 0 auto;
-}
-
-// Media Queries for Responsiveness
-
-// Large Desktops (1920px and above)
-@media (min-width: 1920px) {
-  .container-bp {
-    max-width: 1400px; // Restrict width on larger screens
-    padding: 3rem; // Increase padding for better spacing on large screens
-  }
-}
-
-// Desktops and Laptops (1280px to 1919px)
-@media (min-width: 1280px) and (max-width: 1919px) {
-  .container-bp {
-    max-width: 1200px; // Slightly smaller than 1920px screens
+  font-family: $font-outfit;
+  @include for-tablet-portrait-up {
     padding: 2.5rem;
   }
-}
-
-// Tablets (768px to 1279px)
-@media (max-width: 1279px) {
-  .container-bp {
-    max-width: 90%; // Use 90% of the available screen width on tablets
-    padding: 2rem; // Reduce padding for smaller screens
+  @include for-phone-only{
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
   }
-}
-
-// Mobile Devices (below 768px)
-@media (max-width: 767px) {
-  .container-bp {
-    max-width: 95%; // Almost full-width on mobile screens
-    padding: 1.5rem; // Further reduce padding for mobile
-    border-radius: 1rem; // Smaller border radius for compact screens
+  @include for-tablet-landscape-up {
+    padding: 1.5rem;
   }
+  @include for-desktop-up {
+    max-width: calc(100% - 80px);
+    padding: 2rem;
+  }
+  @include for-big-desktop-up {
+    padding: 2.5rem;
+  }
+
 }

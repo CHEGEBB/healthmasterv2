@@ -22,7 +22,7 @@ function Schedule() {
   return (
     <div className="schedule-container">
       <div className="schedule">
-        <div className="justify-center text-3xl mx-5 header">
+        <div className=" header-schedule">
           <h1>My Schedule</h1>
         </div>
         <div className="title">

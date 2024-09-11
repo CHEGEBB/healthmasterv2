@@ -14,11 +14,25 @@
 @mixin for-desktop-up {
   @media (min-width: 1200px) { @content; }
 }
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "desktop" {
+    @media (min-width: 1280px) and (max-width: 1399px) { @content; }
+  }
+  @if $breakpoint == "tablet" {
+    @media (min-width: 768px) and (max-width: 1279px) { @content; }
+  }
+  @if $breakpoint == "mobile" {
+    @media (max-width: 767px) { @content; }
+  }
+  @if $breakpoint == "large-desktop" {
+    @media (min-width: 1400px) and (max-width: 1920px) { @content; }
+  }
+}
 
 .heart-diagnosis-container {
   background-color: $space-black;
   padding: 16px;
-  border-radius: 2rem;
+  border-radius: 1rem;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -37,6 +51,19 @@
     max-width: 350px !important;
     margin-left: -23px;
   }
+  @include respond-to("desktop"){
+    max-width: calc(100% - 80px);
+  }
+  @include respond-to("tablet"){
+    max-width: calc(80% - 20px);
+  }
+  @include respond-to("mobile"){
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  @include respond-to("large-desktop"){
+    max-width: 1200px;
+  } 
 
   h1 {
     font-size: clamp(20px, 3vw, 24px);
@@ -45,11 +72,11 @@
 
   .heart-diagnosis {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    background-color: #444;
-    min-height: 240px;
-    border-radius: 2rem;
+    background-color: #18181b;
+    max-height: 940px;
+    border-radius: 1rem;
     margin-bottom: 16px;
     width: 100%;
 
@@ -64,16 +91,38 @@
       width: 300px;
       margin: 0 auto;
     }
+.two{
+display: flex;
+flex-direction: row;
+background-color:#27272a ;
+width: 90%;
+height: 400px;
+
+justify-content: center;
+align-items: center;
+border-radius: 1rem;
+height: 100%;
+
+
+@include for-phone-only {
+  flex-direction: column;
+  height: auto;
+  width: 290px;
+  margin: 0 auto;
+}
+
 
     .heart-rate-box {
-      background: #171717;
       border: 2px solid #f87171;
-      border-radius: 2rem;
+      border-radius: 1rem;
       height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 60%;
+      width: 60%;      
+      background-color: $space-black;
+
+
 
       @include for-tablet-portrait-up {
         width: 100%;
@@ -104,6 +153,7 @@
       flex-direction: column;
       align-items: center;
       width: 40%;
+      height: 100%;
 
       @include for-tablet-portrait-up {
         width: 100%;
@@ -128,6 +178,7 @@
         text-align: center;
       }
     }
+  }
   }
 
   .reports-section {

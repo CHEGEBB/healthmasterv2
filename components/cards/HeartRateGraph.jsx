@@ -72,6 +72,7 @@ export default function HeartRateGraph() {
         <Image src="/assets/images/heart.png" width={200} height={200} alt="Heart Icon" />
       </div>
     </div>
+    <div className="two">
         <div className="heart-rate-box">
           <div className="heart-rate-value">{heartRate} bpm</div>
           <div className="heartbeat-chart">
@@ -87,6 +88,7 @@ export default function HeartRateGraph() {
             <h4>Normal</h4>
           </div>
         </div>
+      </div>
       </div>
      
 
