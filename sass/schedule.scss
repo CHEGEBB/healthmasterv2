@@ -26,6 +26,7 @@
   @include for-tablet-portrait-up {
     padding: 2rem;
   }
+ 
 
   .schedule {
     background-color: $space-black;
@@ -34,15 +35,23 @@
     padding: 1rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    @include for-desktop-up{
+      max-width: calc(100% - 10px);
+      border-radius: 1rem;
+  
+    }
+    @include for-phone-only{
+      padding: 1rem;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      width: 350px !important;
+    }
 
     @include for-tablet-portrait-up {
       border-radius: 1rem;
       padding: 2rem;
-    }
-    @include for-desktop-up{
-      max-width: calc(100% - 10px);
-      border-radius: 1rem;
-
     }
 
     &:hover {
