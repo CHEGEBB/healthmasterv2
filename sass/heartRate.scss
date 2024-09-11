@@ -34,9 +34,8 @@
     padding: 24px;
   }
   @include  for-phone-only{
-    background-color: red;
-    max-width: 320px !important;
-    margin: 0 auto;
+    max-width: 370px !important;
+    margin-left: -23px;
   }
 
   h1 {
