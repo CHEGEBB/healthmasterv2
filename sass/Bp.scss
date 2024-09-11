@@ -16,7 +16,6 @@
   @media (min-width: 1400px)and (max-width:1920) { @content; }
 }
 
-// Base styles for the container
 .container-bp {
   border-radius: 2rem;
   color: #fff;
@@ -33,8 +32,8 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    max-width: 300px;
     margin: 0 auto;
+    width: 350px !important;
   }
   @include for-tablet-landscape-up {
     padding: 1.5rem;

@@ -1,4 +1,20 @@
 @import "./colors";
+@import "./fonts";
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px)and (max-width:1399px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1400px)and (max-width:1920) { @content; }
+}
 
 .health-container {
     display: flex;
@@ -7,6 +23,28 @@
     border-radius: 2rem;
     color: #ffffff;
     overflow: hidden;
+    @include for-tablet-portrait-up {
+      padding: 2.5rem;
+    }
+    @include for-phone-only{
+      padding: 1rem;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      width: 350px !important;
+    }
+    @include for-tablet-landscape-up {
+      padding: 1.5rem;
+    }
+    @include for-desktop-up {
+      max-width: calc(100% - 80px);
+      padding: 2rem;
+    }
+    @include for-big-desktop-up {
+      max-width: 1200px;
+      padding: 2.5rem;
+    }
   
     .user {
       display: flex;

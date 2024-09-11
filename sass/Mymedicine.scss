@@ -1,5 +1,20 @@
-@import "./fonts";
 @import "./colors";
+@import "./fonts";
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px)and (max-width:1399px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1400px)and (max-width:1920) { @content; }
+}
 
 $primary-color: #0080ff;
 $secondary-color: #f0f8ff;
@@ -16,6 +31,28 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   flex-direction: column;
   width: 250px;
   transition: all 0.3s ease;
+  @include for-tablet-portrait-up {
+    padding: 2.5rem;
+  }
+  @include for-phone-only{
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 350px !important;
+  }
+  @include for-tablet-landscape-up {
+    padding: 1.5rem;
+  }
+  @include for-desktop-up {
+    max-width: calc(100% - 80px);
+    padding: 2rem;
+  }
+  @include for-big-desktop-up {
+    max-width: 1200px;
+    padding: 2.5rem;
+  }
   
   &:hover {
     transform: translateY(-5px);
@@ -144,6 +181,28 @@ body {
   padding: 2rem;
   background-color: $space-black;
   border-radius: 2rem;
+  @include for-tablet-portrait-up {
+    padding: 2.5rem;
+  }
+  @include for-phone-only{
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 350px !important;
+  }
+  @include for-tablet-landscape-up {
+    padding: 1.5rem;
+  }
+  @include for-desktop-up {
+    max-width: calc(100% - 80px);
+    padding: 2rem;
+  }
+  @include for-big-desktop-up {
+    max-width: 1200px;
+    padding: 2.5rem;
+  }
 
   .medicine-title {
     font-size: 2.5rem;

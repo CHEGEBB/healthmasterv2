@@ -26,6 +26,11 @@
   @include for-tablet-portrait-up {
     padding: 2rem;
   }
+  @include for-big-desktop-up {
+    width: 400px;
+    padding: 2.5rem;
+    background-color: red;
+  }
  
 
   .schedule {
@@ -53,6 +58,8 @@
       border-radius: 1rem;
       padding: 2rem;
     }
+   
+  
 
     &:hover {
       transform: translateY(-5px);
