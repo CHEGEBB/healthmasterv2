@@ -43,13 +43,13 @@ export default function PersonalInfo() {
   };
 
   return (
-    <div className="p-6 mx-auto text-white bg-gray-900 rounded-lg shadow-lg max-w-7xl">
+    <div className="p-6 mx-auto shadow-lg text-whiterounded-lg max-w-7xl">
       <form className="space-y-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="relative">
             <input
               type="text"
-              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-md py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
+              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
                 validationState.name === false ? 'border-red-500' : ''
               } ${validationState.name === true ? 'border-green-500' : ''}`}
               id="name"
@@ -72,7 +72,7 @@ export default function PersonalInfo() {
           <div className="relative">
             <input
               type="email"
-              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-md py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
+              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
                 validationState.email === false ? 'border-red-500' : ''
               } ${validationState.email === true ? 'border-green-500' : ''}`}
               id="email"
@@ -95,7 +95,7 @@ export default function PersonalInfo() {
           <div className="relative">
             <input
               type="tel"
-              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-md py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
+              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
                 validationState.phone === false ? 'border-red-500' : ''
               } ${validationState.phone === true ? 'border-green-500' : ''}`}
               id="phone"
@@ -118,7 +118,7 @@ export default function PersonalInfo() {
           <div className="relative">
             <input
               type="date"
-              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-md py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
+              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
                 validationState.dob === false ? 'border-red-500' : ''
               } ${validationState.dob === true ? 'border-green-500' : ''}`}
               id="dob"
@@ -132,7 +132,7 @@ export default function PersonalInfo() {
 
           <div className="relative">
             <select
-              className="w-full px-4 py-3 pl-10 transition-colors bg-gray-800 border-2 border-gray-700 rounded-md appearance-none focus:outline-none focus:border-green-500"
+              className="w-full px-4 py-3 pl-10 transition-colors bg-gray-800 border-2 border-gray-700 appearance-none rounded-xl focus:outline-none focus:border-green-500"
               onChange={(e) => handleGenderChange(e.target.value)}
               value={formState.gender}
             >
@@ -205,7 +205,7 @@ export default function PersonalInfo() {
             <label
               htmlFor="emergencyContact"
               className={`absolute left-10 top-3 transition-all ${
-                formState.emergencyContact ? 'text-xs -top-2.5 bg-gray-900 px-1' : ''
+                formState.emergencyContact ? 'text-xs -top-0.5 bg-gray-900 px-1' : ''
               }`}
             >
               Emergency contact
@@ -217,7 +217,7 @@ export default function PersonalInfo() {
           <div className="relative">
             <input
               type="tel"
-              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-md py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
+              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
                 validationState.emergencyPhone === false ? 'border-red-500' : ''
               } ${validationState.emergencyPhone === true ? 'border-green-500' : ''}`}
               id="emergencyPhone"
@@ -228,7 +228,7 @@ export default function PersonalInfo() {
             <label
               htmlFor="emergencyPhone"
               className={`absolute left-10 top-3 transition-all ${
-                formState.emergencyPhone ? 'text-xs -top-2.5 bg-gray-900 px-1' : ''
+                formState.emergencyPhone ? 'text-xs -top-0.5 bg-gray-900 px-1' : ''
               }`}
             >
               Emergency phone number
