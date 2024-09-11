@@ -1,6 +1,20 @@
 @import "./colors";
 @import "./fonts";
 
+// Responsive mixins
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) and (max-width: 899px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) and (max-width: 1199px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) { @content; }
+}
+
 .heart-diagnosis-container {
   background-color: $space-black;
   padding: 16px;
@@ -11,6 +25,19 @@
   color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   font-family: $font-kanit;
+
+  @include for-tablet-landscape-up {
+    padding: 20px;
+  }
+
+  @include for-desktop-up {
+    padding: 24px;
+  }
+  @include  for-phone-only{
+    background-color: red;
+    max-width: 320px !important;
+    margin: 0 auto;
+  }
 
   h1 {
     font-size: clamp(20px, 3vw, 24px);
@@ -27,6 +54,16 @@
     margin-bottom: 16px;
     width: 100%;
 
+    @include for-tablet-portrait-up {
+      flex-direction: column;
+      height: auto;
+    }
+
+    @include for-phone-only {
+      flex-direction: column;
+      height: auto;
+    }
+
     .heart-rate-box {
       background: #171717;
       border: 2px solid #f87171;
@@ -36,6 +73,16 @@
       flex-direction: column;
       align-items: center;
       width: 60%;
+
+      @include for-tablet-portrait-up {
+        width: 100%;
+        margin-bottom: 16px;
+      }
+
+      @include for-phone-only {
+        width: 100%;
+        margin-bottom: 16px;
+      }
 
       .heart-rate-value {
         font-size: clamp(24px, 4vw, 32px);
@@ -56,6 +103,14 @@
       flex-direction: column;
       align-items: center;
       width: 40%;
+
+      @include for-tablet-portrait-up {
+        width: 100%;
+      }
+
+      @include for-phone-only {
+        width: 100%;
+      }
 
       .pulse {
         background-color: #f87171;
@@ -81,6 +136,11 @@
     border-radius: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
+    @include for-phone-only {
+      padding: 12px;
+      border-radius: 1rem;
+    }
+
     h2 {
       font-size: clamp(16px, 2.5vw, 18px);
       color: #fff;
@@ -91,6 +151,10 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       gap: 8px;
+
+      @include for-phone-only {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
       .report-item {
         background-color: #333;
@@ -146,6 +210,14 @@
         transform: translateY(-50%);
         animation: pulse 1s infinite;
       }
+
+      @include for-phone-only {
+        &::after {
+          right: -15px;
+          width: 8px;
+          height: 8px;
+        }
+      }
     }
   }
 
@@ -153,6 +225,12 @@
     position: relative;
     width: clamp(200px, 40vw, 300px);
     height: clamp(200px, 40vw, 300px);
+
+    @include for-phone-only {
+      width: 80%;
+      height: auto;
+      max-width: 250px;
+    }
 
     img {
       width: 100%;
@@ -190,66 +268,5 @@
   50% {
     opacity: 1;
     transform: scale(1.2);
-  }
-}
-
-// Desktop responsiveness (1280px to 1920px)
-@media (min-width: 1280px) and (max-width: 1920px) {
-  .heart-diagnosis-container {
-    padding: 24px;
-  }
-}
-
-// Tablet responsiveness
-@media (min-width: 768px) and (max-width: 1279px) {
-  .heart-diagnosis-container {
-    padding: 20px;
-
-    .heart-diagnosis {
-      flex-direction: column;
-      height: auto;
-
-      .heart-rate-box, .heartbeat-monitor {
-        width: 100%;
-        margin-bottom: 16px;
-      }
-    }
-  }
-}
-
-// Mobile responsiveness
-@media (max-width: 767px) {
-  .heart-diagnosis-container {
-    padding: 16px;
-    border-radius: 1rem;
-
-    .heart-diagnosis {
-      flex-direction: column;
-      height: auto;
-
-      .heart-rate-box, .heartbeat-monitor {
-        width: 100%;
-        margin-bottom: 16px;
-      }
-    }
-
-    .reports-section {
-      padding: 12px;
-      border-radius: 1rem;
-
-      .report-items {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  }
-
-  .heart-cont {
-    .details {
-      p::after {
-        right: -15px;
-        width: 8px;
-        height: 8px;
-      }
-    }
   }
 }

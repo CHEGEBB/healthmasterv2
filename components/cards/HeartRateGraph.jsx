@@ -1,4 +1,3 @@
-// components/HeartRateGraph.jsx
 
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
@@ -24,10 +23,9 @@ export default function HeartRateGraph() {
     ],
   });
 
-  // Update heart rate data to simulate real-time changes
   useEffect(() => {
     const interval = setInterval(() => {
-      const newHeartRate = Math.floor(Math.random() * 40) + 80; // Random value between 80 and 120
+      const newHeartRate = Math.floor(Math.random() * 40) + 80;
       setHeartRate(newHeartRate);
       setData((prevData) => ({
         ...prevData,
