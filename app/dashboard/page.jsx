@@ -15,16 +15,16 @@ export default function DashboardPage() {
 
   return (
     <div className="dashboard-container">
-      <div className={`sidenav ${sidebarOpen ? 'open' : ''}`}>
-        <Sidenav />
-      </div>
-      <div className="content">
-        <div className="header">
+    <div className="header">
           <button className="hamburger-menu" onClick={toggleSidebar}>
             <Menu size={24} />
           </button>
           <Header />
         </div>
+      <div className="content">
+      <div className={`sidenav ${sidebarOpen ? 'open' : ''}`}>
+        <Sidenav />
+      </div>
         <div className="container-fluid">
           <Cards />
         </div>
