@@ -34,7 +34,7 @@
     padding: 24px;
   }
   @include  for-phone-only{
-    max-width: 370px !important;
+    max-width: 350px !important;
     margin-left: -23px;
   }
 
@@ -61,6 +61,7 @@
     @include for-phone-only {
       flex-direction: column;
       height: auto;
+      width: 300px;
     }
 
     .heart-rate-box {
@@ -138,6 +139,8 @@
     @include for-phone-only {
       padding: 12px;
       border-radius: 1rem;
+      width: 300px;
+      margin-top: 20px;
     }
 
     h2 {

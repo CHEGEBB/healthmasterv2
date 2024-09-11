@@ -147,68 +147,119 @@
 // Tablet responsiveness
 @media (min-width: 769px) and (max-width: 1279px) {
   .greeting-container {
-    padding: 2rem;
-    
+    padding: 1.5rem;
+    max-width: 90%;
+    margin: 0 auto;
+    background: rgba(20, 20, 30, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 255, 255, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 48px 0 rgba(0, 255, 255, 0.2);
+    }
+
     .greeting-content {
       max-width: 70%;
     }
-    
+
     .illustration {
-      width: 250px;
-      height: 250px;
-      right: -25px;
-      top: -25px;
+      width: 150px; 
+      height: 150px; 
+      right: -10px;
+      top: -10px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .greeting-text {
+      color: #333333; 
+      text-shadow: none;
+    }
+
+    .welcome-message {
+      color: #555555; 
+    }
+
+    .sun-moon {
+      background: #00dddd;
+      box-shadow: 0 0 15px rgba(0, 221, 221, 0.8);
     }
   }
 }
 
-// Mobile responsiveness
 @media (max-width: 768px) {
   .greeting-container {
     flex-direction: column;
     text-align: center;
-    padding: 2rem 1rem;
-    min-height: auto;
+    padding: 1.5rem 1rem;
+    width: 90%;
+    height: auto;
+    min-height: 100px;
+    border-radius: 20px;
+    background: rgba(20, 20, 30, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 255, 255, 0.1);
 
     .greeting-content {
       max-width: 100%;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .illustration {
-      position: relative;
-      right: 0;
-      top: 0;
-      width: 200px;
-      height: 200px;
-      margin: 0 auto;
+      width: 120px;
+      height: 120px; 
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .greeting-text {
+      color: #000000; 
+    }
+
+    .welcome-message {
+      color: #000000; 
     }
 
     .sun-moon {
-      top: 10%;
-      right: 10%;
-      width: 40px;
-      height: 40px;
+      width: 25px;
+      height: 25px;
+      background: #00dddd;
+      box-shadow: 0 0 15px rgba(0, 221, 221, 0.8);
     }
   }
 }
 
-// Small mobile screens
 @media (max-width: 480px) {
   .greeting-container {
-    padding: 1.5rem 1rem;
-
+    padding: 1rem;
     .greeting-text {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
+      color: #000000; 
     }
 
     .welcome-message {
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
+      color: #555555; 
     }
 
     .illustration {
-      width: 150px;
-      height: 150px;
+      width: 100px; 
+      height: 100px; 
     }
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
