@@ -1,8 +1,22 @@
+@import "./colors";
+@import "./fonts";
+
 $primary-bg: #09090b;
 $secondary-bg: #2d3748;
 $accent-color: #48bb78;
 $font-color: #edf2f7;
 $card-bg: #4a5568;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $space-black;
+  font-family: $font-raleway;
+}
 
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "desktop" {
@@ -30,18 +44,16 @@ $card-bg: #4a5568;
     position: fixed;
     left: 0;
     top: 0;
-    transition: transform 0.3s ease-in-out;
+    transition: left 0.3s ease-in-out;
     z-index: 1000;
     overflow-y: auto;
 
-    &.open {
-      transform: translateX(0);
-    }
-
     @include respond-to('mobile') {
-      transform: translateX(-100%);
-      width: 70%;
-      max-width: 250px;
+      left: -250px;
+
+      &.open {
+        left: 0;
+      }
     }
   }
 
@@ -49,12 +61,12 @@ $card-bg: #4a5568;
     flex: 1;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding-left: 250px;
-    box-sizing: border-box;
+    width: calc(100% - 250px);
+    margin-left: 250px;
 
     @include respond-to('mobile') {
-      padding-left: 0;
+      width: 100%;
+      margin-left: 0;
     }
   }
 
@@ -68,27 +80,19 @@ $card-bg: #4a5568;
     position: sticky;
     top: 0;
     z-index: 100;
-
-    @include respond-to('mobile') {
-      padding-left: 4rem;
-    }
   }
 
   .hamburger-menu {
     display: none;
-    background: none;
-    border: none;
-    color: $font-color;
-    margin-right: 1rem;
-    cursor: pointer;
-
+    
     @include respond-to('mobile') {
       display: block;
       position: fixed;
-      top: 1rem;
+      top: 2rem;
       left: 1rem;
       color: white;
       background-color: $accent-color;
+      border: none;
       border-radius: 50%;
       padding: 0.5rem;
       cursor: pointer;
@@ -96,24 +100,10 @@ $card-bg: #4a5568;
       height: 40px;
       z-index: 1001;
       transition: all 0.3s ease;
-      animation: subtle-pulse 2s infinite, subtle-glow 3s infinite alternate;
 
       &:hover {
         background-color: darken($accent-color, 10%);
         transform: scale(1.05);
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        background-color: rgba($accent-color, 0.3);
-        border-radius: 50%;
-        z-index: -1;
-        animation: expand 1.5s infinite alternate;
       }
     }
   }

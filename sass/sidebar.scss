@@ -6,6 +6,23 @@ $green-light: #022c22;
 $green-dark: #24AE7C;
 $border-radius: 2rem;
 $text-color: #ffffff;
+$glass-bg: rgba(23, 23, 23, 0.75); // Glassmorphic transparent background
+$backdrop-filter: blur(10px); // Blur effect for glassmorphism
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "desktop" {
+    @media (min-width: 1280px) and (max-width: 1399px) { @content; }
+  }
+  @if $breakpoint == "tablet" {
+    @media (min-width: 768px) and (max-width: 1279px) { @content; }
+  }
+  @if $breakpoint == "mobile" {
+    @media (max-width: 767px) { @content; }
+  }
+  @if $breakpoint == "large-desktop" {
+    @media (min-width: 1400px) and (max-width: 1920px) { @content; }
+  }
+}
 
 .sidebar {
   width: 250px;
@@ -17,14 +34,14 @@ $text-color: #ffffff;
   transition: width 0.3s ease;
   border-radius: $border-radius;
   font-family: $font-outfit;
-  
+
   &.collapsed {
     width: 80px;
-    
+
     .nav-text {
       display: none;
     }
-    
+
     .sidebar-header .logo {
       display: none;
     }
@@ -32,7 +49,7 @@ $text-color: #ffffff;
 
   &.expanded {
     width: 250px;
-    
+
     .nav-item.active {
       background-color: $green-light;
       color: white;
@@ -40,6 +57,7 @@ $text-color: #ffffff;
     }
   }
 
+  // Special link styling
   .special-link {
     padding: 5px;
     background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
@@ -47,210 +65,24 @@ $text-color: #ffffff;
     color: $black;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    
+
     &:hover {
       background-color: darken($green-light, 10%);
       border-left: 4px solid $green-dark;
     }
-
-    .ai-cont {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem;
-      margin: 0 auto; 
-      border-radius: $border-radius;
-      color: gray;
-      gap: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      position: relative;
-      
-      svg {
-        background-color: rgba($green-light, 0.2);
-        border-radius: 50%;
-        padding: 0.5rem;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-
-      &:hover {
-        background-color: $green-dark;
-        color: white;
-        
-        svg {
-          background-color: rgba($green-light, 0.8);
-        }
-      }
-
-      &.active {
-        background-color: $green-light;
-        color: white;
-        border-left: 4px solid $green-dark;
-        box-shadow: 0 0 10px rgba($green-light, 0.5);
-        transform: scale(1.05);
-        
-        svg {
-          background-color: rgba($green-light, 0.6);
-        }
-      }
-    }
   }
 
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 10px;
-    padding: 1rem;
-
-    img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-    }
-
-    .header-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-left: 10px;
-    }
-
-    .toggle-btn {
-      background: none;
-      border: none;
-      color: $text-color;
-      cursor: pointer;
-      display: none;
-    }
-  }
-
-  .sidebar-nav {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    overflow-y: auto;
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem;
-      margin: 0.5rem 0;
-      border-radius: $border-radius;
-      color: gray;
-      cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      position: relative;
-
-      svg {
-        background-color: rgba($green-light, 0.2);
-        border-radius: 50%;
-        padding: 0.5rem;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-
-      &:hover {
-        background-color: $green-dark;
-        color: white;
-        
-        svg {
-          background-color: rgba($green-light, 0.8);
-        }
-      }
-
-      &.active {
-        background-color: $green-light;
-        color: white;
-        border-left: 4px solid $green-dark;
-        box-shadow: 0 0 10px rgba($green-light, 0.5);
-        transform: scale(1.05);
-        
-        svg {
-          background-color: rgba($green-light, 0.6);
-        }
-      }
-
-      .nav-text {
-        margin-left: 1rem;
-        transition: color 0.3s ease;
-      }
-    }
-  }
-
-  .sidebar-footer {
-    padding: 1rem;
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
-
-    .emergency-btn {
-      display: flex;
-      align-items: center;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      
-      &:hover {
-        background-color: $green-light;
-        transform: scale(1.05);
-      }
-
-      .emergency-text {
-        margin-left: 0.5rem;
-      }
-    }
-  }
-}
-
-.tooltip {
-  position: absolute;
-  background-color: $green-dark;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-  font-size: 0.75rem;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.nav-item:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-.submenu {
-  padding-left: 1rem;
-
-  .sub-nav-item {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-
-    &.active {
-      background-color: #333;
-    }
-
-    .sub-nav-link {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: #fff;
-
-      &:hover {
-        background-color: #444;
-      }
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px;
+  // Responsive design - Glassmorphism only on mobile
+  @include respond-to("mobile") {
     width: 100%;
+    left: -100%;
+    top: 0;
     height: 100%;
-    transition: left 0.3s ease;
+    background-color: $glass-bg;
+    backdrop-filter: $backdrop-filter;
+    border-radius: 0; // No border radius on mobile
     z-index: 1000;
+    transition: left 0.3s ease;
 
     &.expanded {
       left: 0;
@@ -266,6 +98,7 @@ $text-color: #ffffff;
 
     .sidebar-header {
       padding: 1rem;
+      
       img {
         width: 24px;
         height: 24px;
@@ -277,48 +110,123 @@ $text-color: #ffffff;
     }
   }
 
-  .main-content {
-    margin-left: 0;
-    padding: 20px;
+  @include respond-to("tablet") {
+    width: 200px;
+    margin: 100px 15px;
+  }
+
+  @include respond-to("desktop") {
+    width: 220px;
+    margin: 120px 15px;
+    border-radius: $border-radius; // Medium border-radius for desktop
+  }
+
+  @include respond-to("large-desktop") {
+    width: 300px; // Wider on large desktops
+    margin: 100px 25px;
+    border-radius: $border-radius;
   }
 }
 
- @media screen and (max-width: 1920px) {
-  .sidebar {
-    width: 250px;
-    position: absolute;
-    margin: 120px 20px;
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+  padding: 1rem;
+
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
   }
 
-  .sidebar-header {
-    padding: 1rem;
-    img {
-      width: 30px;
-      height: 30px;
+  .header-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    color: $text-color;
+    cursor: pointer;
+    display: none; // Displayed only on mobile
+  }
+}
+
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: auto;
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: $border-radius;
+    color: gray;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    svg {
+      background-color: rgba($green-light, 0.2);
+      border-radius: 50%;
+      padding: 0.5rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .header-title {
-      font-size: 18px;
-      margin-left: 10px;
+    &:hover {
+      background-color: $green-dark;
+      color: white;
+      
+      svg {
+        background-color: rgba($green-light, 0.8);
+      }
+    }
+
+    &.active {
+      background-color: $green-light;
+      color: white;
+      border-left: 4px solid $green-dark;
+      box-shadow: 0 0 10px rgba($green-light, 0.5);
+      transform: scale(1.05);
+      
+      svg {
+        background-color: rgba($green-light, 0.6);
+      }
+    }
+
+    .nav-text {
+      margin-left: 1rem;
+      transition: color 0.3s ease;
     }
   }
 }
-@media screen and (min-width: 1280px){
-  .sidebar {
-    width: 150px;
-    position: absolute;
-    margin: 120px 0px;
-  }
-  .sidebar-header {
-    padding: 0.3rem;
-    img {
-      width: 20px;
-      height: 20px;
+
+.sidebar-footer {
+  padding: 1rem;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+
+  .emergency-btn {
+    display: flex;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background-color: $green-light;
+      transform: scale(1.05);
     }
 
-    .header-title {
-      font-size: 14px;
-      margin-left: 5px;
+    .emergency-text {
+      margin-left: 0.5rem;
     }
-}
+  }
 }
