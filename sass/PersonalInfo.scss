@@ -1,15 +1,54 @@
+// Mixins for responsiveness
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) { @content; }
+}
+
 .personal-info {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+
+  @include for-tablet-landscape-up {
+    padding: 2rem;
+  }
+
   .form-group {
     margin-bottom: 1.5rem;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
+    flex-direction: column;
+    gap: 1rem;
+
+    @include for-tablet-portrait-up {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
   }
 
   .form-item {
     position: relative;
     margin-bottom: 1rem;
+    width: 100%;
+
+    @include for-tablet-portrait-up {
+      width: calc(50% - 0.5rem);
+    }
+
+    @include for-desktop-up {
+      width: calc(33.333% - 0.667rem);
+    }
   }
 
   .input-wrapper {
@@ -18,13 +57,12 @@
 
   .custom-select {
     position: relative;
-    width: 200px;
-    padding: 0.75rem 1rem;
-    padding-left: 2.5rem;
-    background-color: #2d3748; // Dark background
-    border: 2px solid #4a5568; // Dark border
-    border-radius: 0.375rem; // Border radius
-    color: #fff; // Light text color
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    background-color: #2d3748;
+    border: 2px solid #4a5568;
+    border-radius: 0.375rem;
+    color: #fff;
     font-size: 1rem;
     cursor: pointer;
     appearance: none;
@@ -32,7 +70,7 @@
     outline: none;
 
     &::after {
-      content: '▼'; // Downward arrow
+      content: '▼';
       position: absolute;
       right: 1rem;
       top: 50%;
@@ -42,7 +80,7 @@
     }
 
     &:focus {
-      border-color: #24AE7C; // Change border color on focus
+      border-color: #24AE7C;
       box-shadow: 0 0 0 2px rgba(36, 174, 124, 0.2);
     }
 
@@ -59,9 +97,8 @@
   }
 
   .form-input {
-    width: 600px;
-    padding: 0.75rem 1rem;
-    padding-left: 2.5rem;
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
     background-color: #2d3748;
     border: 2px solid #4a5568;
     border-radius: 0.375rem;
@@ -90,6 +127,11 @@
     color: #a0aec0;
     transition: all 0.3s ease;
     pointer-events: none;
+    font-size: 1rem;
+
+    @include for-phone-only {
+      font-size: 0.875rem;
+    }
 
     &.active {
       font-size: 0.75rem;
