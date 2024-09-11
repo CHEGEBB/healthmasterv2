@@ -23,18 +23,16 @@ export default function Home() {
 
   return (
     <div className="container">
-      <div className="items-start justify-start mx-4 form-container ">
-        <div className="flex-row form-logo">
+      <div className="form-container">
+        <div className="form-logo">
           <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
-          <h2 className="items-center text-xl font-bold">Health master</h2>
+          <h2>Health master</h2>
         </div>
         <div className="form-title">
-          <h1 className="flex items-start">Hello there👋</h1>
-          <p>
-            Welcome to HealthMaster, the all-in-one platform to help you stay healthy.
-          </p>
+          <h1>Hello there👋</h1>
+          <p>Welcome to HealthMaster, the all-in-one platform to help you stay healthy.</p>
         </div>
-        <form className="flex-col" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className={`form-group ${focusedInput === 'name' ? 'focused' : ''}`}>
             <label htmlFor="name">Full Name</label>
             <div className="input-wrapper">
@@ -110,32 +108,26 @@ export default function Home() {
               By signing up, you agree to our <a href="/terms">Terms and Conditions</a> and{" "}
               <a href="/privacy">Privacy Policy</a>.
             </label>
-          </div>
+            </div>
           <div className="form-group">
-            <Button type="submit" className="btn btn-primary">
-              Get Started
-            </Button>
+            <Button type="submit">Get Started</Button>
           </div>
         </form>
         <div className="form-group">
-          <p>
-            Already have an account? <a href="/login">Login</a>
-          </p>
+          <p>Already have an account? <a href="/login">Login</a></p>
         </div>
         <div className="form-group">
-          <p className="text-[#24AE7C] copyright">
-            © 2024 HealthMaster. All rights reserved.
-          </p>
+          <p className="copyright">© 2024 HealthMaster. All rights reserved.</p>
         </div>
       </div>
       <div className="otp">
-          <OTPInputModal
-        isOpen={isOTPModalOpen}
-        onClose={() => setIsOTPModalOpen(false)}
-        phoneNumber={phone}
-      />
+        <OTPInputModal
+          isOpen={isOTPModalOpen}
+          onClose={() => setIsOTPModalOpen(false)}
+          phoneNumber={phone}
+        />
       </div>
-      <div className="container-image blur-sm">
+      <div className="w-full container-image">
         <Image src="/assets/images/background-1.webp" width={1000} height={1000} alt="Background" />
       </div>
     </div>

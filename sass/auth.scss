@@ -49,10 +49,15 @@ body{
   color: #ccc;
   min-height: 100vh;
   font-family: $font-raleway;
+  min-width: 100vw;
 
 
   @include for-tablet-landscape-up {
     flex-direction: row;
+  }
+  @include for-desktop-up{
+    flex-direction: row;
+    width: 100%;
   }
 
   .form-container {
@@ -70,12 +75,19 @@ body{
 
     .form-logo {
       display: flex;
-      align-items: center;
       margin-bottom: 2rem;
+      justify-content: flex-start;
+      align-items: left;
+
+      @include for-phone-only {
+        margin-left: -80px;
+
+      }
+
 
       img {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         border-radius: 8px;
       }
 
@@ -83,14 +95,17 @@ body{
         font-size: 1.5rem;
         font-weight: 700;
         margin-left: 1rem;
-        font-family: $font-raleway !important;
+        font-family: $font-outfit !important;
+        text-align: left !important;
 
       }
     }
 
     .form-title {
-      text-align: center;
+      text-align: left !important;
       margin-bottom: 2rem;
+      width: 320px !important;
+      border-radius: 8px;
 
       @include for-tablet-landscape-up {
         text-align: left;
@@ -114,6 +129,8 @@ body{
       p {
         margin-top: 0.5rem;
         font-family: $font-kanit !important;
+        text-align: left !important;
+
 
       }
     }
@@ -262,8 +279,15 @@ body{
       height: 100vh;
     }
     @include for-phone-only{
-      height: 250px;
+      width: 120vw;
+      height: 270px;
+      margin-left: -50px;
+    }@include for-desktop-up{
+      width: 50vw;
+      height: 100vh;
+      margin-right: -70px;
     }
+
 
     img {
       width: 100%;
