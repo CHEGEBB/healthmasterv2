@@ -76,7 +76,7 @@ function HealthStatsPage() {
 
   return (
     <div className={`health-stats-page ${sidebarOpen ? 'sidebar-open' : ''}`}>
-      <button className="fixed z-50 p-2 text-white bg-green-500 rounded-full top-4 left-4 md:hidden" onClick={toggleSidebar}>
+      <button className="fixed z-50 p-2 text-white bg-green-700 rounded-full top-4 left-4 md:hidden" onClick={toggleSidebar}>
         {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
       <div className="header-cont">
@@ -96,14 +96,14 @@ function HealthStatsPage() {
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="flex-grow min-h-screen p-6 bg-gray-900 md:p-10">
+        <div className="flex-grow min-h-screen p-6 bg-zinc-950 md:p-10">
           <motion.div 
-            className="p-8 mb-10 text-white welcome-stats bg-gradient-to-r from-blue-500 to-green-400 rounded-3xl"
+            className="p-8 mb-10 text-white welcome-stats bg-gradient-to-r from-stone-800 to-stone-950 rounded-3xl"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between ">
               <div>
                 <h1 className="mb-4 text-4xl font-bold">Your Health Dashboard</h1>
                 <p className="text-xl">Track your progress and stay healthy!</p>
@@ -120,7 +120,7 @@ function HealthStatsPage() {
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             <motion.div 
-              className="p-6 bg-gray-800 shadow-lg rounded-xl"
+              className="p-6 shadow-lg bg-gradient-to-r from-zinc-800 to-slate-800 rounded-xl"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}

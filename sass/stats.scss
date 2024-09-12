@@ -5,7 +5,7 @@ $primary-bg: #09090b;
 $secondary-bg: #2d3748;
 $accent-color: #48bb78;
 $font-color: #edf2f7;
-$card-bg: #4a5568;
+$card-bg: #4a6858;
 
 .health-stats-page {
   text-align: center;
@@ -109,13 +109,13 @@ $card-bg: #4a5568;
 }
 
 .welcome-stats {
-  background: linear-gradient(135deg, #6b7280 0%, #a7f3d0 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #0a0a0a 100%);
   padding: 2rem;
   height: 25vh;
-  border-top-left-radius: 4rem;
-  border-bottom-right-radius: 4rem;
-  border-top-right-radius: 2rem;
-  border-bottom-left-radius: 2rem;
+  // border-top-left-radius: 4rem;
+  // border-bottom-right-radius: 4rem;
+  // border-top-right-radius: 2rem;
+  // border-bottom-left-radius: 2rem;
   margin-top: 20px;
   width: 100%;
   display: flex;

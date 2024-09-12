@@ -134,21 +134,32 @@ body {
 .welcome-app {
   background: linear-gradient(135deg, #6b7280 0%, #a7f3d0 100%);
   padding: 2rem;
-  height: 25vh;
-  border-top-left-radius: 4rem;
-  border-bottom-right-radius: 4rem;
-  border-top-right-radius: 2rem;
-  border-bottom-left-radius: 2rem;
+  height: 200px;
   margin-top: 20px;
   width: 100%;
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
 
+  @include respond-to('mobile') {
+    padding: 1rem;
+    width: 320px;
+    margin-top: 0;
+    height: 300px !important;
+    border-radius: 1rem;
+    color: #fff;
+  }
+
   .welcome-svg {
     width: 300px;
     height: 300px;
     margin-top: -10px;
+
+    @include respond-to('mobile') {
+      width: 200px;
+      height: 200px;
+      margin-top: -50px;
+    }
     
     img {
       transition: transform 0.3s ease;

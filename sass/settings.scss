@@ -1,0 +1,90 @@
+@keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  .settings-page {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  
+    h1, h2 {
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    section {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+  
+    button {
+      transition: background-color 0.3s ease, transform 0.3s ease;
+  
+      &:hover {
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  
+    .connect-device-btn {
+      animation: pulse 2s infinite;
+    }
+  
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 5px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+  
+      &:hover {
+        opacity: 1;
+      }
+  
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+      }
+  
+      &::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+      }
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .settings-page {
+      section {
+        padding: 1rem;
+      }
+  
+      h1 {
+        font-size: 2rem;
+      }
+  
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  }
