@@ -1,6 +1,12 @@
 @import "./colors";
 @import "./fonts";
 
+$primary-bg: #09090b;
+$secondary-bg: #2d3748;
+$accent-color: #48bb78;
+$font-color: #edf2f7;
+$card-bg: #4a5568;
+
 * {
   margin: 0;
   padding: 0;
@@ -8,8 +14,23 @@
 }
 
 body {
-  font-family: 'Rubik', sans-serif;
   background-color: $space-black;
+  font-family: $font-raleway;
+}
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "desktop" {
+    @media (min-width: 1280px) and (max-width: 1399px) { @content; }
+  }
+  @if $breakpoint == "tablet" {
+    @media (min-width: 768px) and (max-width: 1279px) { @content; }
+  }
+  @if $breakpoint == "mobile" {
+    @media (max-width: 767px) { @content; }
+  }
+  @if $breakpoint == "large-desktop" {
+    @media (min-width: 1400px) and (max-width: 1920px) { @content; }
+  }
 }
 
 .reminders-page {

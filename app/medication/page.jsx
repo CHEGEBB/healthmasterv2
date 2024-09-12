@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Header from '../../components/layout/header';
 import Sidebar from '../../components/layout/sidebar';
-import { Trash2, CheckCircle, Sun, CloudMoon, Coffee, AlertCircle } from 'lucide-react';
+import { Trash2, CheckCircle, Sun, CloudMoon, Coffee, AlertCircle ,Menu, XCircleIcon, X} from 'lucide-react';
 import Modal from '../../components/Modal';
 import "../../sass/medications.scss";
 
@@ -106,6 +106,27 @@ export default function Page() {
   const [selectedIllness, setSelectedIllness] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth >= 768) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -153,12 +174,15 @@ export default function Page() {
   };
 
   return (
-    <div className="medications-page">
+    <div className={`medications-page ${sidebarOpen ? 'sidebar-open' : ''}`}>
+     <button className="hamburger-menu" onClick={toggleSidebar}>
+        {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
       <div className="header-cont-med">
         <Header />
       </div>
       <div className="content-wrapper-med">
-        <div className="sidebar-cont-med">
+        <div className={`sidenav ${sidebarOpen ? 'open' : ''}`}>
           <Sidebar />
         </div>
         <div className="main-content-med">

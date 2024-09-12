@@ -1,6 +1,12 @@
 @import "./colors";
 @import "./fonts";
 
+$primary-bg: #09090b;
+$secondary-bg: #2d3748;
+$accent-color: #48bb78;
+$font-color: #edf2f7;
+$card-bg: #4a5568;
+
 * {
   margin: 0;
   padding: 0;
@@ -12,6 +18,20 @@ body {
   font-family: $font-raleway;
 }
 
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "desktop" {
+    @media (min-width: 1280px) and (max-width: 1399px) { @content; }
+  }
+  @if $breakpoint == "tablet" {
+    @media (min-width: 768px) and (max-width: 1279px) { @content; }
+  }
+  @if $breakpoint == "mobile" {
+    @media (max-width: 767px) { @content; }
+  }
+  @if $breakpoint == "large-desktop" {
+    @media (min-width: 1400px) and (max-width: 1920px) { @content; }
+  }
+}
 .medications-page {
   text-align: center;
   min-height: 100vh;
@@ -20,6 +40,33 @@ body {
     justify-content: center;
     align-items: center;
   }
+  
+  .hamburger-menu {
+    display: none;
+    position: fixed;
+    top: 2rem;
+    left: 1rem;
+    color: white;
+    background-color: $accent-color;
+    border: none;
+    border-radius: 50%;
+    padding: 0.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    z-index: 1001;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: darken($accent-color, 10%);
+      transform: scale(1.05);
+    }
+
+    @include respond-to('mobile') {
+      display: block;
+    }
+  }
+
 
   .content-wrapper-med {
     display: flex;
@@ -28,11 +75,27 @@ body {
     align-items: flex-start;
     min-height: 100vh;
 
-    .sidebar-cont-med {
+    
+    .sidenav {
       flex: 1;
       margin-top: -90px;
-    }
+      transition: all 0.3s ease;
+      height: 100vh;
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 250px;
+      z-index: 1000;
 
+      &.open {
+        left: 0;
+      }
+
+      @include respond-to('mobile') {
+        left: -100%;
+        width: 100%;
+      }
+    }
     .main-content-med {
       flex: 6;
       background-color: #171717;
