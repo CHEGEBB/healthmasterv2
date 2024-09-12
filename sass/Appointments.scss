@@ -1,6 +1,12 @@
 @import "./colors";
 @import "./fonts";
 
+$primary-bg: #09090b;
+$secondary-bg: #2d3748;
+$accent-color: #48bb78;
+$font-color: #edf2f7;
+$card-bg: #4a5568;
+
 * {
   margin: 0;
   padding: 0;
@@ -9,16 +15,58 @@
 
 body {
   background-color: $space-black;
-  font-family: 'Rubik', sans-serif;
+  font-family: $font-raleway;
+}
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "desktop" {
+    @media (min-width: 1280px) and (max-width: 1399px) { @content; }
+  }
+  @if $breakpoint == "tablet" {
+    @media (min-width: 768px) and (max-width: 1279px) { @content; }
+  }
+  @if $breakpoint == "mobile" {
+    @media (max-width: 767px) { @content; }
+  }
+  @if $breakpoint == "large-desktop" {
+    @media (min-width: 1400px) and (max-width: 1920px) { @content; }
+  }
 }
 
 .appointments-page {
   text-align: center;
   min-height: 100vh;
+  transition: all 0.3s ease;
 
   .header-cont {
     justify-content: center;
     align-items: center;
+  }
+  
+  .hamburger-menu {
+    display: none;
+    position: fixed;
+    top: 2rem;
+    left: 1rem;
+    color: white;
+    background-color: $accent-color;
+    border: none;
+    border-radius: 50%;
+    padding: 0.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    z-index: 1001;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: darken($accent-color, 10%);
+      transform: scale(1.05);
+    }
+
+    @include respond-to('mobile') {
+      display: block;
+    }
   }
 
   .content-wrapper {
@@ -28,9 +76,25 @@ body {
     align-items: flex-start;
     min-height: 100vh;
 
-    .sidebar-cont {
+    .sidenav {
       flex: 1;
       margin-top: -90px;
+      transition: all 0.3s ease;
+      height: 100vh;
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 250px;
+      z-index: 1000;
+
+      &.open {
+        left: 0;
+      }
+
+      @include respond-to('mobile') {
+        left: -100%;
+        width: 100%;
+      }
     }
 
     .main-content {
@@ -44,6 +108,25 @@ body {
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      transition: all 0.3s ease;
+
+      @include respond-to('mobile') {
+        margin: 15px;
+        padding: 1rem;
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  &.sidebar-open {
+    .content-wrapper {
+      .main-content {
+        margin-left: 280px;
+
+        @include respond-to('mobile') {
+          margin-left: 15px;
+        }
+      }
     }
   }
 }
@@ -77,6 +160,7 @@ body {
       }
     }
   }
+
   @keyframes float {
     0% {
       transform: translate(0px, 0px); 
@@ -102,6 +186,30 @@ body {
 
     p {
       font-size: 1.2rem;
+    }
+  }
+
+  @include respond-to('mobile') {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+
+    .welcome-svg {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 1rem;
+    }
+
+    .welcome-message-app {
+      text-align: center;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
     }
   }
 }
@@ -262,6 +370,14 @@ body {
       }
     }
   }
+
+  @include respond-to('tablet') {
+    width: calc(50% - 1rem);
+  }
+
+  @include respond-to('mobile') {
+    width: 100%;
+  }
 }
 
 .form-container {
@@ -351,6 +467,24 @@ body {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
   }
+
+  @include respond-to('mobile') {
+    padding: 1rem;
+
+    .form-group {
+      .selected-doctor-image {
+        top: auto;
+        bottom: 0.5rem;
+        transform: none;
+      }
+    }
+
+    .form-cont {
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  }
 }
 
 .past-visits-container {
@@ -389,28 +523,55 @@ body {
       background-color: #1a1a1a;
     }
   }
+
+  @include respond-to('mobile') {
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .past-visits-table {
+      font-size: 0.8rem;
+
+      th, td {
+        padding: 0.3rem;
+      }
+    }
+  }
+}
+.success-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .success-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: #242424;
   padding: 2rem;
   border-radius: 1rem;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  max-width: 90%;
+  width: 400px;
+  position: relative;
+  overflow: hidden;
 
   h2 {
     color: #fff;
     margin: 1rem 0;
+    font-size: 1.5rem;
   }
 
   p {
     color: #bbb;
     margin-bottom: 1rem;
+    font-size: 1rem;
   }
 
   .celebration {
@@ -426,6 +587,24 @@ body {
     height: 100%;
     overflow: hidden;
     pointer-events: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .success-modal {
+    padding: 1.5rem;
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+
+    .celebration {
+      font-size: 2.5rem;
+    }
   }
 }
 

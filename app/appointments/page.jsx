@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
-import { User, Calendar, Clock, Pill, CheckCircle, XCircle, AlertCircle, Heart, Edit, Trash2 } from 'lucide-react';
+import { User, Calendar, Clock, Pill, CheckCircle, XCircle, AlertCircle, Heart, Edit, Trash2, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from "../../components/layout/sidebar";
 import Header from '../../components/layout/header';
@@ -64,6 +64,27 @@ function AppointmentsPage() {
   const [appointments, setAppointments] = useState(defaultAppointments);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth >= 768) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -155,12 +176,15 @@ function AppointmentsPage() {
   );
 
   return (
-    <div className="appointments-page">
+    <div className={`appointments-page ${sidebarOpen ? 'sidebar-open' : ''}`}>
+      <button className="hamburger-menu" onClick={toggleSidebar}>
+        {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
       <div className="header-cont">
         <Header />
       </div>
       <div className="content-wrapper">
-        <div className="sidebar-cont">
+        <div className={`sidenav ${sidebarOpen ? 'open' : ''}`}>
           <Sidebar />
         </div>
         <div className="main-content">
@@ -315,51 +339,68 @@ function AppointmentsPage() {
         </div>
       </div>
 
-      <AnimatePresence>
-        {showSuccess && (
-          <motion.div 
-            className="success-modal"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.3 }}
-          >
-            <CheckCircle size={64} color="green" />
-            <h2>Appointment {isEditing ? 'Updated' : 'Booked'} Successfully!</h2>
-            <p>We will get back to you shortly with the appointment details.</p>
-            <motion.div 
-              className="celebration"
-              animate={{ 
-                scale: [1, 1.2, 1],
-                rotate: [0, 360, 0],
+     <AnimatePresence>
+  {showSuccess && (
+    <motion.div 
+      className="success-modal-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <motion.div 
+        className="success-modal"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.3 }}
+      >
+        <CheckCircle size={64} color="green" />
+        <h2>Appointment {isEditing ? 'Updated' : 'Booked'} Successfully!</h2>
+        <p>We will get back to you shortly with the appointment details.</p>
+        <motion.div 
+          className="celebration"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 360, 0],
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          🎉
+        </motion.div>
+        <div className="confetti-container">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="confetti"
+              initial={{ 
+                y: '-10vh', 
+                x: '50%' 
               }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              🎉
-            </motion.div>
-            <motion.div className="confetti-container">
-              {[...Array(20)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="confetti"
-                  initial={{ y: -50, x: 0 }}
-                  animate={{
-                    y: 500,
-                    x: Math.random() * 500 - 250,
-                    rotate: Math.random() * 360,
-                  }}
-                  transition={{ duration: Math.random() * 2 + 2, repeat: Infinity }}
-                  style={{
-                    background: `hsl(${Math.random() * 360}, 100%, 50%)`,
-                    width: '10px',
-                    height: '10px',
-                  }}
-                />
-              ))}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              animate={{
+                y: '100vh',
+                x: ['0%', `${(i % 2 === 0 ? 100 : -100) * Math.random()}%`],
+                rotate: Math.random() * 360,
+              }}
+              transition={{ 
+                duration: Math.random() * 2 + 2, 
+                repeat: Infinity,
+                ease: 'linear'
+              }}
+              style={{
+                position: 'absolute',
+                width: '10px',
+                height: '10px',
+                background: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                borderRadius: '50%',
+              }}
+            />
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </div>
   );
 }

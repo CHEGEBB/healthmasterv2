@@ -1,7 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import "./fonts";
+@import "./colors";
 
+// Mixins for responsive design
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px)and (max-width:1399px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1400px)and (max-width:1920) { @content; }
+}
 .greeting-container {
-  font-family: 'Poppins', sans-serif;
+  font-family:$font-roboto;
   background-color: #1e1e1e;
   color: #ffffff;
   padding: 2rem;
@@ -132,7 +149,6 @@
   100% { opacity: 1; }
 }
 
-// Desktop responsiveness (1280px to 1920px)
 @media (min-width: 1280px) and (max-width: 1920px) {
   .greeting-container {
     padding: 2.5rem;
@@ -144,7 +160,6 @@
   }
 }
 
-// Tablet responsiveness
 @media (min-width: 769px) and (max-width: 1279px) {
   .greeting-container {
     padding: 1.5rem;
@@ -195,10 +210,10 @@
     flex-direction: column;
     text-align: center;
     padding: 1.5rem 1rem;
-    width: 90%;
-    height: auto;
+    width: 300px;
+    height: 150px;
     min-height: 100px;
-    border-radius: 20px;
+    border-radius: 25px 5px 25px 5px;
     background: rgba(20, 20, 30, 0.7);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 255, 255, 0.2);
