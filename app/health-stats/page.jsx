@@ -127,14 +127,14 @@ function HealthStatsPage() {
             >
               <div className="flex items-center mb-4">
                 <Image
-                  src="/assets/images/3.png"
+                  src="/assets/images/3.jpg"
                   alt="User Avatar"
                   width={80}
                   height={80}
                   className="mr-4 rounded-full"
                 />
                 <div>
-                  <h2 className="text-2xl font-semibold text-white">John Doe</h2>
+                  <h2 className="text-2xl font-semibold text-white">User</h2>
                   <p className="text-gray-400">Age: 35 | Height: 180cm | Weight: 75kg</p>
                 </div>
               </div>
