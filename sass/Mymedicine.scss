@@ -40,7 +40,7 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    width: 350px !important;
+    width: 300px !important;
   }
   @include for-tablet-landscape-up {
     padding: 1.5rem;
@@ -190,6 +190,8 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column !important;
     width: 350px !important;
   }
   @include for-tablet-landscape-up {
@@ -217,6 +219,10 @@ body {
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2rem;
+    @include for-phone-only{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
 
     .doctor-bubble {
       width: 60px;
@@ -242,6 +248,11 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+    @include  for-phone-only{
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+
+    }
   
     .med-card {
       @include med-card;
@@ -412,6 +423,10 @@ body {
           padding: 0.5rem;
           color: #ffffff;
           font-family: $font-rubik;
+          @include for-phone-only{
+            display: flex;
+            width: 150px !important;
+          }
   
           &:focus {
             outline: none;

@@ -27,6 +27,11 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
+  @include for-phone-only {
+    padding: 1rem !important;
+    
+
+  }
 
   .dashboard-header {
     display: flex;
@@ -39,7 +44,6 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       @include  for-phone-only{
-        // max-width: 350px !important;
         text-align: center;
         font-family: $font-kanit !important;
         font-size: 1.5rem !important;
@@ -67,6 +71,12 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     display: grid;
     grid-template-columns: 1fr 1fr 2fr;
     gap: 1rem;
+    @include for-phone-only {
+      padding: 1rem !important;
+      margin-left: -60px !important;
+      
+  
+    }
 
     .left-panel, .center-panel, .right-panel {
       display: flex;
@@ -106,7 +116,6 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   }
 }
 
-// Desktop responsiveness (1280px to 1920px)
 @media (min-width: 1280px) and (max-width: 1920px) {
   .health-dashboard {
     padding: 1.5rem;
@@ -117,7 +126,6 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   }
 }
 
-// Tablet responsiveness
 @media (min-width: 768px) and (max-width: 1279px) {
   .health-dashboard {
     padding: 1rem;
