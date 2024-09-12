@@ -60,7 +60,6 @@ function HealthStatsPage() {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Animate overall health on component mount
     const timer = setTimeout(() => {
       setOverallHealth(80);
     }, 500);
@@ -128,7 +127,7 @@ function HealthStatsPage() {
             >
               <div className="flex items-center mb-4">
                 <Image
-                  src="/assets/images/user-avatar.png"
+                  src="/assets/images/3.png"
                   alt="User Avatar"
                   width={80}
                   height={80}
