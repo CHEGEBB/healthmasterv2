@@ -1,8 +1,7 @@
-'use client';
-
+"use client"
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
-import { Bell, Calendar, Clock, Pill, CheckCircle, XCircle, AlertCircle, Edit, Trash2, Volume2, VolumeX, Heart, Zap, Sun, Moon, Activity, Coffee, Droplet } from 'lucide-react';
+import { Bell, Calendar, Clock, Pill, CheckCircle, XCircle, AlertCircle, Edit, Trash2, Volume2, VolumeX, Heart, Zap, Sun, Moon, Activity, Coffee, Droplet, X, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from "../../components/layout/sidebar";
 import Header from '../../components/layout/header';
@@ -112,6 +111,27 @@ function EnhancedRemindersPage() {
   const [theme, setTheme] = useState('light');
   const [waterIntake, setWaterIntake] = useState(0);
   const [selectedReminder, setSelectedReminder] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth >= 768) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   const [newReminder, setNewReminder] = useState({
     medicineId: '',
@@ -248,12 +268,15 @@ function EnhancedRemindersPage() {
   };
 
   return (
-    <div className={`reminders-page ${theme}`}>
+    <div className={`reminders-page ${theme}  ${sidebarOpen ? 'sidebar-open' : ''}`}>
+      <button className="hamburger-menu" onClick={toggleSidebar}>
+        {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
       <div className="header-cont">
         <Header />
       </div>
       <div className="content-wrapper">
-        <div className="sidebar-cont">
+        <div className={`sidenav ${sidebarOpen ? 'open' : ''}`}>
           <Sidebar />
         </div>
         <div className="main-content">

@@ -1,41 +1,83 @@
 @import "./colors";
 @import "./fonts";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+$primary-bg: #09090b;
+$secondary-bg: #2d3748;
+$accent-color: #48bb78;
+$font-color: #edf2f7;
+$card-bg: #4a5568;
 
-body {
-  background-color: $space-black;
-  font-family: $font-outfit;
-}
-
-.health-dashboard {
+.health-stats-page {
   text-align: center;
   min-height: 100vh;
+  transition: all 0.3s ease;
+  background-color: $primary-bg;
+  color: $font-color;
   font-family: $font-raleway;
 
-  .dashboard-content-stats {
+  .header-cont {
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hamburger-menu {
+    display: none;
+    position: fixed;
+    top: 2rem;
+    left: 1rem;
+    color: white;
+    background-color: $accent-color;
+    border: none;
+    border-radius: 50%;
+    padding: 0.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    z-index: 1001;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: darken($accent-color, 10%);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 767px) {
+      display: block;
+    }
+  }
+
+  .content-wrapper {
     display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: flex-start;
     min-height: 100vh;
-    gap: 2rem;
-    font-family: $font-raleway;
 
-
-    .side-health-stats {
+    .sidenav {
       flex: 1;
       margin-top: -90px;
-      animation: fadeIn 1s ease-in;
+      transition: all 0.3s ease;
+      height: 100vh;
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 250px;
+      z-index: 1000;
+
+      &.open {
+        left: 0;
+      }
+
+      @media (max-width: 767px) {
+        left: -100%;
+        width: 100%;
+      }
     }
 
-    .main-health-stats {
+    .main-content {
+      flex: 6;
       background-color: #171717;
-      padding: 2rem;
+      padding: 1rem;
       margin: 30px 30px auto;
       border-top-left-radius: 2rem;
       border-top-right-radius: 2rem;
@@ -43,406 +85,379 @@ body {
       display: flex;
       flex-direction: column;
       gap: 2rem;
-      color: #fff;
-      flex: 6;
-      animation: slideIn 1s ease-in;
-      overflow: hidden;
-      font-family: $font-raleway;
+      transition: all 0.3s ease;
 
-    }
-  }
-
-  .welcome-message {
-    font-size: 2.5em;
-    color: #4a90e2;
-    text-align: center;
-    margin-bottom: 30px;
-    animation: fadeInUp 1s ease-in;
-    font-family: $font-raleway;
-
-  }
-
-  .dashboard-grid {
-    display: grid;
-    font-family: $font-raleway;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    .profile-card {
-        background: #333333;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        h2 {
-          font-size: 1.8em;
-          margin-top: 10px;
-        }
-        p {
-          font-size: 1em;
-          color: #555;
-          margin: 5px 0;
-        }
-        .medical-history {
-          list-style-type: none;
-          padding: 0;
-          li {
-            margin: 5px 0;
-            color: #333;
-          }
-        }
-      }
-      
-      .health-metric-card {
-        background: #f4f4f4;
-        padding: 15px;
-        border-radius: 10px;
-        text-align: center;
-        h3 {
-          margin-top: 10px;
-          font-size: 1.4em;
-        }
-        .value {
-          font-size: 2em;
-          color: #28a745;
-        }
-        .description {
-          color: #666;
-          font-size: 0.9em;
-        }
-      }
-      
-  }
-
-  .profile-card, .heart-status, .blood-pressure, .weight-trend, 
-  .exercise-data, .sleep-trends, .health-recommendations, .health-goals {
-    background-color: #2e2e2e;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-    overflow: hidden;
-    animation: fadeInUp 1s ease-in;
-
-    // Adding transitions for smooth hover effects
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    &:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
-    }
-  }
-
-  .profile-card {
-    text-align: center;
-
-    .profile-image {
-      border-radius: 50%;
-      margin-bottom: 10px;
-      width: 100px;
-      height: 100px;
-    }
-
-    .medical-history {
-      text-align: left;
-      padding-left: 20px;
-    }
-  }
-
-  .heart-status {
-    position: relative;
-    height: 300px;
-
-    .animated-heart {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: pulse 1.5s infinite;
-    }
-
-    .heart-pointers {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .pointer {
-      position: absolute;
-      width: 100px;
-
-      &-0 { top: 10%; left: -120px; }
-      &-1 { top: 10%; right: -120px; }
-      &-2 { bottom: 10%; left: -120px; }
-      &-3 { bottom: 10%; right: -120px; }
-    }
-  }
-
-  .blood-pressure {
-    background-color: #333;
-    border-radius: 10px;
-    padding: 20px;
-    color: #fff;
-    text-align: center;
-
-    .metric {
-      font-size: 2em;
-      font-weight: bold;
-      color: #e74c3c;
-      animation: pulse 1.5s infinite;
-    }
-
-    .description {
-      font-size: 0.9em;
-      color: #ccc;
-    }
-  }
-
-  .health-metric-card {
-    background-color: #2e2e2e;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-
-    .icon {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-
-    .value {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #4a90e2;
-    }
-
-    .description {
-      font-size: 0.9em;
-      color: #666;
-    }
-  }
-
-  .scrollable-image-list {
-    display: flex;
-    overflow-x: auto;
-    padding: 10px 0;
-
-    img {
-      margin-right: 10px;
-      border-radius: 5px;
-      height: 100px;
-      width: auto;
-    }
-  }
-
-  .glucose-levels, .weight-trend, .exercise-data {
-    h2 {
-      margin-bottom: 20px;
-    }
-  }
-
-  .sleep-trends {
-    .react-calendar {
-      width: 100%;
-      border: none;
-      background-color: transparent;
-    }
-
-    .sleep-hours {
-      font-size: 0.8em;
-      color: #4a90e2;
-    }
-  }
-
-  .health-recommendations {
-    ul {
-      list-style-type: none;
-      padding: 0;
-
-      li {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-
-        img {
-          margin-right: 10px;
-          border-radius: 5px;
-          width: 50px;
-          height: 50px;
-        }
+      @media (max-width: 767px) {
+        margin: 15px;
+        padding: 1rem;
+        border-radius: 1rem;
       }
     }
   }
 
-  .health-goals {
-    .health-goal {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
+  &.sidebar-open {
+    .content-wrapper {
+      .main-content {
+        margin-left: 280px;
 
-      input[type="checkbox"] {
-        margin-right: 10px;
+        @media (max-width: 767px) {
+          margin-left: 15px;
+        }
       }
     }
   }
 }
 
-.goal-modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #1e1e1e;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  outline: none;
-  animation: slideIn 0.5s ease-in-out;
-  color: #ccc;
+.welcome-stats {
+  background: linear-gradient(135deg, #6b7280 0%, #a7f3d0 100%);
+  padding: 2rem;
+  height: 25vh;
+  border-top-left-radius: 4rem;
+  border-bottom-right-radius: 4rem;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .welcome-svg {
+    width: 300px;
+    height: 300px;
+    margin-top: -10px;
+    
+    img {
+      transition: transform 0.3s ease;
+      transform: translate(0, 0); 
+      animation: float 5s ease-in-out infinite;
+      
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translate(0px, 0px); 
+    }
+    50% {
+      transform: translate(10px, -10px);
+    }
+    100% {
+      transform: translate(0px, 0px); 
+    }
+  }
+
+  .welcome-message-stats {
+    text-align: left;
+    color: $space-black;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+
+    .welcome-svg {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 1rem;
+    }
+
+    .welcome-message-stats {
+      text-align: center;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.user-stats-card {
+  background-color: $card-bg;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .user-avatar {
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
 
   h2 {
-    font-size: 1.5em;
-    color: #4a90e2;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
-  button {
-    background-color: #4a90e2;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s;
+  p {
+    font-size: 0.9rem;
+    color: #a0aec0;
+    margin-bottom: 1rem;
+  }
 
-    &:hover {
-      background-color: #357abd;
+  .overall-health {
+    width: 120px;
+    margin-top: 1rem;
+
+    p {
+      margin-top: 0.5rem;
     }
   }
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
+.health-activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.health-activity-card {
+  background-color: $card-bg;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .activity-icon {
+    margin-bottom: 0.5rem;
+    color: $accent-color;
   }
-  50% {
-    transform: scale(1.1);
+
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
   }
-  100% {
-    transform: scale(1);
+
+  .activity-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .activity-goal {
+    font-size: 0.8rem;
+    color: #a0aec0;
+  }
+
+  .activity-status {
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border-radius: 1rem;
+
+    &.normal {
+      background-color: #48bb78;
+      color: #fff;
+    }
+
+    &.warning {
+      background-color: #ed8936;
+      color: #fff;
+    }
+
+    &.danger {
+      background-color: #f56565;
+      color: #fff;
+    }
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+.organs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.organ-card {
+  background-color: $card-bg;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    margin-bottom: 0.5rem;
   }
-  to {
-    opacity: 1;
+
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .CircularProgressbar {
+    width: 80px;
+    margin-top: 0.5rem;
   }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+.suggested-foods-card, .my-doctors-card, .scheduled-checkups-card {
+  background-color: $card-bg;
+  border-radius: 1rem;
+  padding: 1.5rem;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
+.foods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+
+  .food-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      border-radius: 50%;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
   }
-  to {
-    transform: translateX(0);
+}
+
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+
+  .doctor-item {
+    display: flex;
+    align-items: center;
+
+    .doctor-avatar {
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+      color: #a0aec0;
+    }
+  }
+}
+
+.checkups-list {
+  list-style-type: none;
+  padding: 0;
+
+  .checkup-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    svg {
+      margin-right: 1rem;
+      color: $accent-color;
+    }
+
+    .checkup-date {
+      font-weight: bold;
+      margin-bottom: 0.2rem;
+    }
+
+    .checkup-details {
+      font-size: 0.9rem;
+      color: #a0aec0;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
 
 @media (max-width: 768px) {
-  .dashboard-content {
-    flex-direction: column;
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
 
-  .dashboard-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  .health-activities-grid, .organs-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 
-  .profile-card .profile-image {
-    width: 80px;
-    height: 80px;
+  .foods-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   }
 
-  .heart-status {
-    height: 250px;
-  }
-
-  .scrollable-image-list img {
-    height: 80px;
-  }
-
-  .health-recommendations img {
-    width: 40px;
-    height: 40px;
+  .doctors-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (min-width: 1920px) {
-  .dashboard-content {
-    padding: 40px;
+@media (max-width: 480px) {
+  .welcome-stats {
+    .welcome-message-stats {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
   }
 
-  .dashboard-grid {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-  }
-
-  .profile-card .profile-image {
-    width: 120px;
-    height: 120px;
-  }
-
-  .heart-status {
-    height: 400px;
-  }
-
-  .scrollable-image-list img {
-    height: 120px;
-  }
-
-  .health-recommendations img {
-    width: 60px;
-    height: 60px;
-  }
-}
-
-@media screen and (max-width:1280px) {
-  .dashboard-content-stats {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: flex-start;
-    min-height: 100vh;
-
-    .side-health-stats {
-      flex: 1;
-      margin-top: -90px;
+  .user-stats-card {
+    h2 {
+      font-size: 1.3rem;
     }
 
-    .main-health-stats {
-      background-color: #171717;
-      padding: 2rem;
-      margin: 30px 30px auto;
-      border-top-left-radius: 2rem;
-      border-top-right-radius: 2rem;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      color: #fff;
-      max-width: 950px;
+    p {
+      font-size: 0.8rem;
+    }
+  }
+
+  .health-activity-card, .organ-card {
+    h3 {
+      font-size: 0.9rem;
+    }
+  }
+
+  .suggested-foods-card, .my-doctors-card, .scheduled-checkups-card {
+    h2 {
+      font-size: 1.3rem;
     }
   }
 }

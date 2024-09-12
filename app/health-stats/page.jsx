@@ -1,241 +1,257 @@
-"use client"
+'use client'
+
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import Image from "next/image";
+import { User, Calendar, Activity, Heart, Pill, CheckCircle, ArrowUp, ArrowDown, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Sidebar from "../../components/layout/sidebar";
 import Header from '../../components/layout/header';
-import Sidebar from '../../components/layout/sidebar';
-import { Heart, Brain, Activity, Apple, Dumbbell, Thermometer, Moon, Sandwich, CheckCircle } from 'lucide-react';
-import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLungs } from '@fortawesome/free-solid-svg-icons';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import Modal from 'react-modal';
-import confetti from 'canvas-confetti';
-import "../../sass/stats.scss"
+import "../../sass/stats.scss";
 
-const AnimatedHeart = () => (
-  <div className="animated-heart">
-    <Image src="/assets/images/heart.png" alt="Animated Heart" width={300} height={300} />
-  </div>
-);
+const organs = [
+  { name: 'Heart', health: 85, image: '/assets/images/heart.png' },
+  { name: 'Lungs', health: 90, image: '/assets/images/lungs.png' },
+  { name: 'Liver', health: 75, image: '/assets/images/liver.png' },
+  { name: 'Kidneys', health: 80, image: '/assets/images/kidneys.png' },
+];
 
-const HealthMetricCard = ({ title, value, icon, description }) => (
-  <div className="health-metric-card">
-    <div className="icon">{icon}</div>
-    <h3>{title}</h3>
-    <p className="value">{value}</p>
-    <p className="description">{description}</p>
-  </div>
-);
+const healthActivities = [
+  { name: 'Steps', value: 8500, goal: 10000, icon: Activity },
+  { name: 'BP', value: '120/80', status: 'normal', icon: Heart },
+  { name: 'Sugar Level', value: 95, unit: 'mg/dL', status: 'normal', icon: Pill },
+  { name: 'Medication Adherence', value: 90, unit: '%', icon: CheckCircle },
+];
 
-const ScrollableImageList = ({ images }) => (
-  <div className="scrollable-image-list">
-    {images.map((img, index) => (
-      <Image key={index} src={img} alt={`Image ${index + 1}`} width={100} height={100} />
-    ))}
-  </div>
-);
+const suggestedFoods = [
+  { name: 'Blueberries', image: '/assets/images/blueberries.png' },
+  { name: 'Salmon', image: '/assets/images/salmon.png' },
+  { name: 'Spinach', image: '/assets/images/spinach.png' },
+  { name: 'Almonds', image: '/assets/images/almonds.png' },
+];
 
-const HealthGoal = ({ goal, onComplete }) => {
-  const [checked, setChecked] = useState(false);
+const doctors = [
+  { id: 1, name: "Dr. Smith", specialty: "Cardiologist", image: "/assets/images/1.png" },
+  { id: 2, name: "Dr. Johnson", specialty: "Pediatrician", image: "/assets/images/2.png" },
+  { id: 3, name: "Dr. Williams", specialty: "Dermatologist", image: "/assets/images/3.png" },
+];
 
-  const handleCheck = () => {
-    setChecked(true);
-    onComplete(goal);
-  };
+const scheduledCheckups = [
+  { date: '2024-10-15', doctor: 'Dr. Smith', type: 'Annual Physical' },
+  { date: '2024-11-02', doctor: 'Dr. Johnson', type: 'Dental Checkup' },
+];
 
-  return (
-    <div className="health-goal">
-      <input type="checkbox" checked={checked} onChange={handleCheck} />
-      <span>{goal}</span>
-    </div>
-  );
-};
-
-export default function HealthDashboard() {
-  const [userData, setUserData] = useState({
-    name: 'Sarah Ruth',
-    age: 35,
-    height: 180,
-    weight: 75,
-    bmi: 23.1,
-    bloodType: 'A+',
-    image: '/assets/images/3.jpg',
-    medicalHistory: [
-      { date: '2023-01-15', event: 'Annual check-up' },
-      { date: '2022-06-20', event: 'Flu shot' },
-      { date: '2021-11-05', event: 'Broke arm' },
-    ]
-  });
-
-  const [healthMetrics, setHealthMetrics] = useState([
-    { title: 'Heart Health', value: '85%', icon: <Heart size={24} />, description: 'Your heart is functioning well. Keep up the good work!' },
-    { title: 'Lung Function', value: '78%', icon: <FontAwesomeIcon icon={faLungs} />, description: 'Your lung capacity is good. Consider adding more cardio to your routine.' },
-    { title: 'Brain Health', value: '92%', icon: <Brain size={24} />, description: 'Excellent cognitive function. Keep challenging your mind with puzzles and new skills.' },
-    { title: 'Digestive Health', value: '88%', icon: <Sandwich size={24} />, description: 'Your digestive system is in good shape. Remember to stay hydrated and eat fiber-rich foods.' }
-  ]);
-
-  const [weightData, setWeightData] = useState([
-    { month: 'Jan', weight: 78 },
-    { month: 'Feb', weight: 71 },
-    { month: 'Mar', weight: 60 },
-    { month: 'Apr', weight: 15 },
-    { month: 'May', weight: 85 },
-  ]);
-
-  const [exerciseData, setExerciseData] = useState([
-    { activity: 'Running', duration: 30, image: '/api/placeholder/100/100' },
-    { activity: 'Yoga', duration: 45, image: '/api/placeholder/100/100' },
-    { activity: 'Weightlifting', duration: 60, image: '/api/placeholder/100/100' },
-    { activity: 'Swimming', duration: 40, image: '/api/placeholder/100/100' },
-  ]);
-
-  const [sleepData, setSleepData] = useState([
-    { date: '2023-05-01', hours: 7.5 },
-    { date: '2023-05-02', hours: 8 },
-    { date: '2023-05-03', hours: 6.5 },
-    { date: '2023-05-04', hours: 7 },
-    { date: '2023-05-05', hours: 8.5 },
-  ]);
-
-  const [recommendations, setRecommendations] = useState([
-    { text: 'Increase daily water intake to 8 glasses', image: '/api/placeholder/100/100' },
-    { text: 'Add 30 minutes of moderate exercise to your routine', image: '/api/placeholder/100/100' },
-    { text: 'Incorporate more leafy greens into your diet', image: '/api/placeholder/100/100' },
-  ]);
-
-  const [healthGoals, setHealthGoals] = useState([
-    'Exercise for 30 minutes daily',
-    'Eat 5 servings of vegetables',
-    'Get 8 hours of sleep',
-    'Meditate for 10 minutes',
-  ]);
-
-  const [glucoseData, setGlucoseData] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [completedGoal, setCompletedGoal] = useState('');
+function HealthStatsPage() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setGlucoseData(prevData => {
-        const newData = [...prevData, { value: Math.random() * 50 + 70 }];
-        return newData.slice(-20);
-      });
-    }, 1000);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth >= 768) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
 
-    return () => clearInterval(interval);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleGoalComplete = (goal) => {
-    setCompletedGoal(goal);
-    setModalIsOpen(true);
-    confetti();
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
   };
 
   return (
-    <div className="health-dashboard">
-      <Header />
-      <div className="dashboard-content-stats">
-      <div className="side-health-stats">
-      <Sidebar />
+    <div className={`health-stats-page ${sidebarOpen ? 'sidebar-open' : ''}`}>
+      <button className="hamburger-menu" onClick={toggleSidebar}>
+        {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+      <div className="header-cont">
+        <Header />
       </div>
-      <div className="main-health-stats">
-          <h1 className="welcome-message">Your Health Journey Starts Here!</h1>
-          
-          <div className="dashboard-grid">
-            <div className="profile-card">
-              <Image src={userData.image} alt={userData.name} width={100} height={100} className="profile-image" />
-              <h2>{userData.name}</h2>
-              <p>Age: {userData.age} | Height: {userData.height}cm | Weight: {userData.weight}kg</p>
-              <p>BMI: {userData.bmi} | Blood Type: {userData.bloodType}</p>
-              <h3>Medical History</h3>
-              <ul className="medical-history">
-                {userData.medicalHistory.map((event, index) => (
-                  <li key={index}>{event.date}: {event.event}</li>
-                ))}
-              </ul>
+      <div className="content-wrapper">
+        <div className={`sidenav ${sidebarOpen ? 'open' : ''}`}>
+          <Sidebar />
+        </div>
+        <div className="main-content">
+          <motion.div 
+            className="welcome-stats"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="welcome-svg">
+              <Image
+                src="/assets/images/health-stats.png"
+                alt="Health Stats Illustration"
+                width={300}
+                height={300}
+                quality={100}
+              />
+            </div>
+            <div className="welcome-message-stats">
+              <h1>Your Health Dashboard</h1>
+              <p>Track your progress and stay healthy!</p>
+            </div>
+          </motion.div>
+
+          <div className="stats-grid">
+            <motion.div 
+              className="user-stats-card"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Image
+                src="/assets/images/user-avatar.png"
+                alt="User Avatar"
+                width={100}
+                height={100}
+                className="user-avatar"
+              />
+              <h2>John Doe</h2>
+              <p>Age: 35 | Height: 180cm | Weight: 75kg</p>
+              <div className="overall-health">
+                <CircularProgressbar
+                  value={80}
+                  text={`${80}%`}
+                  styles={buildStyles({
+                    textColor: "#fff",
+                    pathColor: "#4ade80",
+                    trailColor: "#374151"
+                  })}
+                />
+                <p>Overall Health</p>
+              </div>
+            </motion.div>
+
+            <div className="health-activities-grid">
+              {healthActivities.map((activity, index) => (
+                <motion.div 
+                  key={activity.name}
+                  className="health-activity-card"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <activity.icon size={24} className="activity-icon" />
+                  <h3>{activity.name}</h3>
+                  <p className="activity-value">{activity.value}{activity.unit}</p>
+                  {activity.goal && (
+                    <p className="activity-goal">Goal: {activity.goal}</p>
+                  )}
+                  {activity.status && (
+                    <p className={`activity-status ${activity.status}`}>{activity.status}</p>
+                  )}
+                </motion.div>
+              ))}
             </div>
 
-            <div className="heart-status">
-              <AnimatedHeart />
-              <div className="heart-pointers">
-                {healthMetrics.map((metric, index) => (
-                  <div key={index} className={`pointer pointer-${index}`}>
-                    <HealthMetricCard {...metric} />
+            <div className="organs-grid">
+              {organs.map((organ, index) => (
+                <motion.div 
+                  key={organ.name}
+                  className="organ-card"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Image
+                    src={organ.image}
+                    alt={organ.name}
+                    width={80}
+                    height={80}
+                  />
+                  <h3>{organ.name}</h3>
+                  <CircularProgressbar
+                    value={organ.health}
+                    text={`${organ.health}%`}
+                    styles={buildStyles({
+                      textColor: "#fff",
+                      pathColor: "#4ade80",
+                      trailColor: "#374151"
+                    })}
+                  />
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div 
+              className="suggested-foods-card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2>Suggested Foods</h2>
+              <div className="foods-grid">
+                {suggestedFoods.map((food, index) => (
+                  <div key={food.name} className="food-item">
+                    <Image
+                      src={food.image}
+                      alt={food.name}
+                      width={60}
+                      height={60}
+                    />
+                    <p>{food.name}</p>
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="glucose-levels">
-              <h2>Real-time Glucose Levels</h2>
-              <LineChart width={300} height={200} data={glucoseData}>
-                <Line type="monotone" dataKey="value" stroke="#8884d8" dot={false} />
-              </LineChart>
-            </div>
+            <motion.div 
+              className="my-doctors-card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2>My Doctors</h2>
+              <div className="doctors-grid">
+                {doctors.map((doctor) => (
+                  <div key={doctor.id} className="doctor-item">
+                    <Image
+                      src={doctor.image}
+                      alt={doctor.name}
+                      width={60}
+                      height={60}
+                      className="doctor-avatar"
+                    />
+                    <div>
+                      <h3>{doctor.name}</h3>
+                      <p>{doctor.specialty}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
 
-            <div className="weight-trend">
-              <h2>Weight Trend</h2>
-              <AreaChart width={300} height={200} data={weightData}>
-                <Area type="monotone" dataKey="weight" stroke="#8884d8" fill="#8884d8" />
-              </AreaChart>
-            </div>
-
-            <div className="exercise-data">
-              <h2>Exercise Data</h2>
-              <ScrollableImageList images={exerciseData.map(d => d.image)} />
-              <BarChart width={300} height={200} data={exerciseData}>
-                <Bar dataKey="duration" fill="#82ca9d" />
-              </BarChart>
-            </div>
-
-            <div className="sleep-trends">
-              <h2>Sleep Trends</h2>
-              <Calendar
-                value={new Date()}
-                tileContent={({ date, view }) => {
-                  if (view === 'month') {
-                    const sleepEntry = sleepData.find(d => d.date === date.toISOString().split('T')[0]);
-                    return sleepEntry ? <p className="sleep-hours">{sleepEntry.hours}h</p> : null;
-                  }
-                }}
-              />
-            </div>
-
-            <div className="health-recommendations">
-              <h2>Health Recommendations</h2>
-              <ul>
-                {recommendations.map((rec, index) => (
-                  <li key={index}>
-                    <Image src={rec.image} alt={rec.text} width={50} height={50} />
-                    {rec.text}
+            <motion.div 
+              className="scheduled-checkups-card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2>Scheduled Checkups</h2>
+              <ul className="checkups-list">
+                {scheduledCheckups.map((checkup, index) => (
+                  <li key={index} className="checkup-item">
+                    <Calendar size={20} />
+                    <div>
+                      <p className="checkup-date">{checkup.date}</p>
+                      <p className="checkup-details">{checkup.type} with {checkup.doctor}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
-            </div>
-
-            <div className="health-goals">
-              <h2>Health Goals</h2>
-              {healthGoals.map((goal, index) => (
-                <HealthGoal key={index} goal={goal} onComplete={handleGoalComplete} />
-              ))}
-            </div>
+            </motion.div>
           </div>
-          </div>
+        </div>
       </div>
-
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Goal Completed"
-        className="goal-modal"
-      >
-        <h2>Congratulations!</h2>
-        <p>You have completed your goal: {completedGoal}</p>
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
-      </Modal>
     </div>
   );
 }
+
+export default HealthStatsPage;
