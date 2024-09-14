@@ -29,7 +29,6 @@
   @include for-big-desktop-up {
     width: 400px;
     padding: 2.5rem;
-    background-color: red;
   }
  
 
@@ -51,7 +50,7 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto;
-      width: 350px !important;
+      width: 340px !important;
     }
 
     @include for-tablet-portrait-up {
