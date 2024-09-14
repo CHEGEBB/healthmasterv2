@@ -46,7 +46,7 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     padding: 1.5rem;
   }
   @include for-desktop-up {
-    max-width: calc(100% - 80px);
+    max-width: calc(100% - 30px);
     padding: 2rem;
   }
   @include for-big-desktop-up {
@@ -198,8 +198,10 @@ body {
     padding: 1.5rem;
   }
   @include for-desktop-up {
-    max-width: calc(100% - 80px);
+    max-width: calc(100% - 60px);
     padding: 2rem;
+    margin-left: -40px;
+
   }
   @include for-big-desktop-up {
     max-width: 1200px;
@@ -222,6 +224,10 @@ body {
     @include for-phone-only{
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+    }
+    @include for-desktop-up{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .doctor-bubble {
@@ -252,6 +258,10 @@ body {
       display: grid;
       grid-template-columns: repeat(1, 1fr);
 
+    }
+    @include for-desktop-up {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
     }
   
     .med-card {

@@ -68,8 +68,14 @@ body {
       margin-top: 0;
       margin-bottom: 50px;
       height: 100vh;
-      width: 100px;
-      margin-left: -100px;
+      width: 200px;
+      margin-left: -20px;
+      overflow: hidden;
+      position: fixed;
+    }
+    @include respond-to("large-desktop"){
+      
+      
     }
 
     @include respond-to('mobile') {
@@ -95,7 +101,10 @@ body {
     @include for-desktop-up{
       padding: 2rem;
       width: 1200px;
-      margin-left: 80px;
+      margin-left: 160px;
+    }
+    @include for-desktop-big{
+      margin-left: 230px;
     }
   }
 

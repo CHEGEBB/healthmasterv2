@@ -41,8 +41,10 @@
     padding: 1.5rem;
   }
   @include for-desktop-up {
-    max-width: calc(100% - 80px);
-    padding: 2rem;
+    max-width: calc(100% - 1px);
+    padding: 1.5rem;
+    margin-left: -40px;
+    width: 300px;
   }
   @include for-big-desktop-up {
     max-width: 1200px;
@@ -75,6 +77,13 @@
       @include for-tablet-portrait-up {
         padding: 2.5rem;
       }
+      @include for-desktop-up{
+        padding: 0.5rem;
+        width:auto;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+            }
       @include for-phone-only{
         padding: 1rem;
         text-align: center;
@@ -86,12 +95,8 @@
       @include for-tablet-landscape-up {
         padding: 1.5rem;
       }
-      @include for-desktop-up {
-        max-width: calc(100% - 80px);
-        padding: 2rem;
-      }
+   
       @include for-big-desktop-up {
-        max-width: 1200px;
         padding: 2.5rem;
       }
 

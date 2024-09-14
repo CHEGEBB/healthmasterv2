@@ -39,8 +39,10 @@
     padding: 1.5rem;
   }
   @include for-desktop-up {
-    max-width: calc(100% - 80px);
-    padding: 2rem;
+    max-width: calc(100% - 10px);
+    padding: 1.5rem;
+    margin-left: -40px;
+    
   }
   @include for-big-desktop-up {
     max-width: 1200px;
