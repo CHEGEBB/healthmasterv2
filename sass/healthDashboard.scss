@@ -19,7 +19,10 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   @media (min-width: 900px) and (max-width: 1199px) { @content; }
 }
 @mixin for-desktop-up {
-  @media (min-width: 1200px) { @content; }
+  @media (min-width: 1200px)and (max-width:1399px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1400px)and (max-width:1920px) { @content; }
 }
 
 .health-dashboard {
@@ -95,6 +98,21 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     .right-panel {
       flex-direction: column-reverse;
       gap: 0.8rem;
+      @include for-desktop-up{
+        top: 73%;
+        position: absolute;
+        left: 74%;
+      }
+      @include for-tablet-landscape-up{
+        top: 50%;
+        position: absolute;
+        left: 45%;
+      }
+      @include for-big-desktop-up{
+        top: 50%;
+        position: absolute;
+        left: 63%;
+      }
 
       .wearable {
         width: 100%;
