@@ -1,104 +1,68 @@
-// ProfilePage.module.scss
-
 .profilePage {
-    background-color: #0f172a;
-    min-height: 100vh;
-  }
-  
-  .profileCard {
-    transition: all 0.3s ease;
-    border: 1px solid #2d3748;
-  
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    .profileCard {
+      border-radius: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+      }
+      
+      h2 {
+        color: #e0e0e0;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #3a3a3a;
+        padding-bottom: 0.5rem;
+      }
+      
+      p {
+        margin-bottom: 0.5rem;
+      }
+      
+      ul {
+        padding-left: 1.5rem;
+        
+        li {
+          margin-bottom: 0.5rem;
+        }
+      }
     }
-  }
-  
-  .uploadBtn {
-    transition: all 0.3s ease;
-  
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-  
-  .editBtn {
-    transition: all 0.3s ease;
-  
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    }
-  }
-  
-  // Animated section headers
-  h2 {
-    position: relative;
-    display: inline-block;
     
-    &::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      bottom: -4px;
-      left: 0;
-      background-color: #15803d;
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
+    .uploadBtn {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: #4a90e2;
+      }
     }
-  
-    &:hover::after {
-      transform: scaleX(1);
+    
+    .editBtn {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: #4a90e2;
+      }
     }
-  }
-  
-  // Custom scrollbar
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #1a202c;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #15803d;
-    border-radius: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #1a9e4b;
-  }
-  
-  // Card hover effect
-  .profileCard {
-    &:hover {
-      box-shadow: 0 0 15px rgba(21, 128, 61, 0.5);
+    
+    input, select {
+      background-color: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      color: #e0e0e0;
+      transition: all 0.3s ease;
+      
+      &:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+      }
     }
-  }
-  
-  // Animated list items
-  li {
-    transition: all 0.3s ease;
-  
-    &:hover {
-      transform: translateX(5px);
+    
+    .bg-zinc-800 {
+      background-color: #2a2a2a;
     }
-  }
-  
-  // Button styles
-  button {
-    transition: all 0.3s ease;
-  
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    }
-  
-    &:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    
+    .bg-zinc-900 {
+      background-color: #1a1a1a;
     }
   }

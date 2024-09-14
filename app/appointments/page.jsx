@@ -209,6 +209,7 @@ function AppointmentsPage() {
             </div>
           </motion.div>
 
+          <h2 className='text-2xl text-white'>My Appointments</h2>
           <motion.div 
             className="appointments-container"
             initial={{ opacity: 0 }}

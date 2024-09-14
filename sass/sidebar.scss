@@ -24,16 +24,19 @@ $backdrop-filter: blur(10px); // Blur effect for glassmorphism
   }
 }
 
+
 .sidebar {
   width: 250px;
-  position: absolute;
-  margin: 120px 20px;
+  position: sticky;
+  margin: 160px 20px;
+  margin-top: 50px;
   height: 80vh;
   background-color: $black;
   color: $text-color;
   transition: width 0.3s ease;
   border-radius: $border-radius;
   font-family: $font-outfit;
+ 
 
   &.collapsed {
     width: 80px;

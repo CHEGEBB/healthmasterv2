@@ -29,7 +29,7 @@ const ProfilePage = () => {
     ],
     doctor: 'Dr. Jane Smith',
     emergencyContact: 'Sarah Doe (Wife) - +1 234 567 8900',
-    profileImage: '/assets/images/patient.jpg',
+    profileImage: '/assets/images/3.jpg',
     doctorImage: '/assets/images/1.png',
   });
 
@@ -48,7 +48,6 @@ const ProfilePage = () => {
   ]);
 
   useEffect(() => {
-    // Simulate fetching patient data
     setTimeout(() => {
       console.log('Patient data loaded');
     }, 1000);
@@ -121,7 +120,7 @@ const ProfilePage = () => {
         </Link>
         <h1 className="mb-8 text-3xl font-bold sm:text-4xl">Patient Profile</h1>
 
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 rounded-xl">
           <motion.section
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -148,7 +147,7 @@ const ProfilePage = () => {
               </label>
             </div>
             <h2 className="mb-4 text-xl font-semibold text-center sm:text-2xl">{patientData.name}</h2>
-            <div className="space-y-2 text-sm text-center sm:text-base">
+            <div className="space-y-2 text-sm text-left sm:text-base">
               <p>Age: {patientData.age}</p>
               <p>Gender: {patientData.gender}</p>
               <p>Date of Birth: {patientData.dob}</p>
