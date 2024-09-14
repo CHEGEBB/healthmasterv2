@@ -54,9 +54,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: blue;
+  background-color: #27272a;
   @include for-phone-only{
-    background-color: green;
     padding: 0 !important;
     width: 370px;  
   }
@@ -186,13 +185,13 @@ body {
       height: 100%;
       border-radius: 0;
       margin: 0;
-      padding: 0;
+      padding: 1rem;
       position: absolute;
-      top: 40%;
+      top: 30%;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: red;
+      // background-color: red;
     }
     
   }
