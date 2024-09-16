@@ -1,31 +1,35 @@
-"use client"
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { User, FileText, AlertCircle, Pill, ChevronDown } from 'lucide-react';
-import "../../sass/MedicalInfo.scss";
+import { User, FileText, AlertCircle, Pill, ChevronDown, Upload, X } from 'lucide-react';
 
 export default function MedicalForm() {
   const [doctors, setDoctors] = useState([
     { id: 1, name: "Dr. Adam Smith", specialty: "General Practice", image: "/assets/images/admin.png" },
     { id: 2, name: "Dr. Emily Johnson", specialty: "Pediatrics", image: "/assets/images/1.png" },
-    { id: 3, name: "Dr. Michael Chen", specialty: "Cardiology", image: "/assets/images/8.png" },
-    { id: 4, name: "Dr. Sarah Patel", specialty: "Neurology", image: "/assets/images/7.png" },
-    { id: 5, name: "Dr. David Kim", specialty: "Orthopedics", image: "/assets/images/9.png" },
-    { id: 6, name: "Dr. Lisa Rodriguez", specialty: "Dermatology", image: "/assets/images/2.png" },
-    { id: 7, name: "Dr. James Wilson", specialty: "Oncology", image: "/assets/images/3.png" },
-    { id: 8, name: "Dr. Anna Novak", specialty: "Gynecology", image: "/assets/images/4.png" },
-    { id: 9, name: "Dr. Robert Lee", specialty: "Psychiatry", image: "/assets/images/6.png" },
-    { id: 10, name: "Dr. Olivia Brown", specialty: "Endocrinology", image: "/assets/images/2.png" },
+    // ... add more doctors as needed
   ]);
 
   const [formState, setFormState] = useState({
     primaryPhysician: null,
     insuranceProvider: '',
-    policyNumber: '',
+    bloodGroup: '',
     allergies: '',
     currentMedications: '',
     familyHistory: '',
     pastMedicalHistory: ''
+  });
+
+  const [medicines, setMedicines] = useState([]);
+  const [newMedicine, setNewMedicine] = useState({
+    name: '',
+    dosage: '',
+    image: null,
+    prescribedDate: '',
+    doctor: '',
+    status: 'pending',
+    frequency: 1,
+    disease: '',
+    sideEffects: ''
   });
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -54,154 +58,310 @@ export default function MedicalForm() {
     setIsDropdownOpen(false);
   };
 
+  const handleMedicineChange = (e) => {
+    const { name, value } = e.target;
+    setNewMedicine(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewMedicine(prev => ({ ...prev, image: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const addMedicine = () => {
+    setMedicines(prev => [...prev, newMedicine]);
+    setNewMedicine({
+      name: '',
+      dosage: '',
+      image: null,
+      prescribedDate: '',
+      doctor: '',
+      status: 'pending',
+      frequency: 1,
+      disease: '',
+      sideEffects: ''
+    });
+  };
+
+  const removeMedicine = (index) => {
+    setMedicines(prev => prev.filter((_, i) => i !== index));
+  };
+
   return (
-    <div className="medical-info">
+    <div className="max-w-4xl p-6 mx-auto rounded-lg shadow-lg bg-[#1a202c] text-white">
+      <h2 className="mb-6 text-2xl font-bold text-white">Medical Information</h2>
+      
       <form className="space-y-6">
-        <div className="form-group">
-          <div className="form-item doctor-select" ref={dropdownRef}>
-            <div 
-              className="doctor-select-trigger" 
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            >
-              {formState.primaryPhysician ? (
-                <div className="selected-doctor">
+        {/* Primary Physician Selection */}
+        <div className="relative" ref={dropdownRef}>
+          <label className="block mb-1 text-sm font-medium text-white">Primary Care Physician</label>
+          <div 
+            className="flex items-center justify-between w-full p-2 border border-green-400 pointer rounded-2xl bg-slate-800"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            {formState.primaryPhysician ? (
+              <div className="flex items-center">
+                <Image
+                  src={formState.primaryPhysician.image}
+                  alt={formState.primaryPhysician.name}
+                  width={40}
+                  height={40}
+                  className="mr-2 rounded-full"
+                />
+                <div>
+                  <div className="font-medium">{formState.primaryPhysician.name}</div>
+                  <div className="text-sm text-white">{formState.primaryPhysician.specialty}</div>
+                </div>
+              </div>
+            ) : (
+              <span className="text-white">Select primary care physician</span>
+            )}
+            <ChevronDown className="w-5 h-5 text-white" />
+          </div>
+          {isDropdownOpen && (
+            <div className="absolute z-10 w-full mt-1 overflow-auto bg-white border rounded-md shadow-lg max-h-60">
+              {doctors.map((doctor) => (
+                <div 
+                  key={doctor.id} 
+                  className="flex items-center p-2 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleDoctorSelect(doctor)}
+                >
                   <Image
-                    src={formState.primaryPhysician.image}
-                    alt={formState.primaryPhysician.name}
+                    src={doctor.image}
+                    alt={doctor.name}
                     width={40}
                     height={40}
-                    className="doctor-image"
+                    className="mr-2 rounded-full"
                   />
-                  <div className="doctor-info">
-                    <div className="doctor-name">{formState.primaryPhysician.name}</div>
-                    <div className="doctor-specialty">{formState.primaryPhysician.specialty}</div>
+                  <div>
+                    <div className="font-medium">{doctor.name}</div>
+                    <div className="text-sm text-gray-500">{doctor.specialty}</div>
                   </div>
                 </div>
-              ) : (
-                <span className="placeholder">Select primary care physician</span>
-              )}
-              <ChevronDown className="dropdown-icon" />
+              ))}
             </div>
-            {isDropdownOpen && (
-              <div className="doctor-select-dropdown">
-                {doctors.map((doctor) => (
-                  <div 
-                    key={doctor.id} 
-                    className="doctor-option" 
-                    onClick={() => handleDoctorSelect(doctor)}
-                  >
-                    <Image
-                      src={doctor.image}
-                      alt={doctor.name}
-                      width={40}
-                      height={40}
-                      className="doctor-image"
-                    />
-                    <div className="doctor-info">
-                      <div className="doctor-name">{doctor.name}</div>
-                      <div className="doctor-specialty">{doctor.specialty}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          )}
         </div>
 
-        <div className="form-group md:flex md:space-x-4">
-          <div className="flex-1 form-item">
-            <div className="input-wrapper">
+        {/* Insurance and Blood Group */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <label htmlFor="insuranceProvider" className="block mb-1 text-sm font-medium text-gray-700">Insurance Provider</label>
+            <div className="relative">
               <input
                 type="text"
-                className="form-input"
                 id="insuranceProvider"
                 value={formState.insuranceProvider}
                 onChange={handleInputChange}
-                required
+                className="w-full p-2 pl-10 border rounded-md"
+                placeholder="Enter insurance provider"
               />
-              <label htmlFor="insuranceProvider" className={formState.insuranceProvider ? 'active' : ''}>Insurance provider</label>
-              <FileText className="form-icon" />
+              <FileText className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
             </div>
           </div>
-
-          <div className="flex-1 form-item">
-            <div className="input-wrapper">
+          <div>
+            <label htmlFor="bloodGroup" className="block mb-1 text-sm font-medium text-gray-700">Blood Group</label>
+            <div className="relative">
               <input
                 type="text"
-                className="form-input"
-                id="policyNumber"
-                value={formState.policyNumber}
+                id="bloodGroup"
+                value={formState.bloodGroup}
                 onChange={handleInputChange}
-                required
+                className="w-full p-2 pl-10 border rounded-md"
+                placeholder="Enter blood group"
               />
-              <label htmlFor="policyNumber" className={formState.policyNumber ? 'active' : ''}>Insurance policy number</label>
-              <AlertCircle className="form-icon" />
+              <AlertCircle className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
             </div>
           </div>
         </div>
 
-        <div className="form-group md:flex md:space-x-4">
-          <div className="flex-1 form-item">
-            <div className="input-wrapper">
+        {/* Allergies and Current Medications */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <label htmlFor="allergies" className="block mb-1 text-sm font-medium text-gray-700">Allergies</label>
+            <div className="relative">
               <input
                 type="text"
-                className="form-input"
                 id="allergies"
                 value={formState.allergies}
                 onChange={handleInputChange}
-                required
+                className="w-full p-2 pl-10 border rounded-md"
+                placeholder="Enter allergies (if any)"
               />
-              <label htmlFor="allergies" className={formState.allergies ? 'active' : ''}>Allergies (if any)</label>
-              <AlertCircle className="form-icon" />
+              <AlertCircle className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
             </div>
           </div>
-
-          <div className="flex-1 form-item">
-            <div className="input-wrapper">
+          <div>
+            <label htmlFor="currentMedications" className="block mb-1 text-sm font-medium text-gray-700">Current Medications</label>
+            <div className="relative">
               <input
                 type="text"
-                className="form-input"
                 id="currentMedications"
                 value={formState.currentMedications}
                 onChange={handleInputChange}
-                required
+                className="w-full p-2 pl-10 border rounded-md"
+                placeholder="Enter current medications"
               />
-              <label htmlFor="currentMedications" className={formState.currentMedications ? 'active' : ''}>Current medications</label>
-              <Pill className="form-icon" />
+              <Pill className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
             </div>
           </div>
         </div>
 
-        <div className="form-group md:flex md:space-x-4">
-          <div className="flex-1 form-item">
-            <div className="input-wrapper">
-              <input
-                type="text"
-                className="form-input"
-                id="familyHistory"
-                value={formState.familyHistory}
-                onChange={handleInputChange}
-                required
-              />
-              <label htmlFor="familyHistory" className={formState.familyHistory ? 'active' : ''}>Family medical history (if relevant)</label>
-              <FileText className="form-icon" />
-            </div>
+        {/* Family History and Past Medical History */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <label htmlFor="familyHistory" className="block mb-1 text-sm font-medium text-gray-700">Family Medical History</label>
+            <textarea
+              id="familyHistory"
+              value={formState.familyHistory}
+              onChange={handleInputChange}
+              className="w-full p-2 border rounded-md"
+              rows="3"
+              placeholder="Enter family medical history"
+            ></textarea>
           </div>
+          <div>
+            <label htmlFor="pastMedicalHistory" className="block mb-1 text-sm font-medium text-gray-700">Past Medical History</label>
+            <textarea
+              id="pastMedicalHistory"
+              value={formState.pastMedicalHistory}
+              onChange={handleInputChange}
+              className="w-full p-2 border rounded-md"
+              rows="3"
+              placeholder="Enter past medical history"
+            ></textarea>
+          </div>
+        </div>
 
-          <div className="flex-1 form-item">
-            <div className="input-wrapper">
+        {/* Medicines List */}
+        <div>
+          <h3 className="mb-2 text-lg font-semibold">Current Medications</h3>
+          <div className="space-y-4">
+            {medicines.map((medicine, index) => (
+              <div key={index} className="relative p-4 rounded-lg bg-gray-50">
+                <button 
+                  onClick={() => removeMedicine(index)}
+                  className="absolute text-red-500 top-2 right-2 hover:text-red-700"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <div className="flex items-center mb-2">
+                  {medicine.image && (
+                    <Image src={medicine.image} alt={medicine.name} width={50} height={50} className="mr-4 rounded" />
+                  )}
+                  <div>
+                    <h4 className="font-semibold">{medicine.name}</h4>
+                    <p className="text-sm text-gray-600">{medicine.dosage}</p>
+                  </div>
+                </div>
+                <p className="text-sm"><span className="font-medium">Prescribed by:</span> {medicine.doctor}</p>
+                <p className="text-sm"><span className="font-medium">Date:</span> {medicine.prescribedDate}</p>
+                <p className="text-sm"><span className="font-medium">Frequency:</span> {medicine.frequency} times per day</p>
+                <p className="text-sm"><span className="font-medium">Disease:</span> {medicine.disease}</p>
+                <p className="text-sm"><span className="font-medium">Side Effects:</span> {medicine.sideEffects}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="p-4 rounded-lg bg-gray-50">
+          <h4 className="mb-4 font-semibold">Add New Medicine</h4>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <input
+              type="text"
+              name="name"
+              value={newMedicine.name}
+              onChange={handleMedicineChange}
+              placeholder="Medicine Name"
+              className="w-full p-2 border rounded-md"
+            />
+            <input
+              type="text"
+              name="dosage"
+              value={newMedicine.dosage}
+              onChange={handleMedicineChange}
+              placeholder="Dosage"
+              className="w-full p-2 border rounded-md"
+            />
+            <input
+              type="date"
+              name="prescribedDate"
+              value={newMedicine.prescribedDate}
+              onChange={handleMedicineChange}
+              className="w-full p-2 border rounded-md"
+            />
+            <input
+              type="text"
+              name="doctor"
+              value={newMedicine.doctor}
+              onChange={handleMedicineChange}
+              placeholder="Prescribing Doctor"
+              className="w-full p-2 border rounded-md"
+            />
+            <input
+              type="number"
+              name="frequency"
+              value={newMedicine.frequency}
+              onChange={handleMedicineChange}
+              placeholder="Frequency per day"
+              className="w-full p-2 border rounded-md"
+            />
+            <input
+              type="text"
+              name="disease"
+              value={newMedicine.disease}
+              onChange={handleMedicineChange}
+              placeholder="Disease"
+              className="w-full p-2 border rounded-md"
+            />
+            <textarea
+              name="sideEffects"
+              value={newMedicine.sideEffects}
+              onChange={handleMedicineChange}
+              placeholder="Side Effects"
+              className="w-full col-span-2 p-2 border rounded-md"
+              rows="2"
+            ></textarea>
+            <div className="col-span-2">
               <input
-                type="text"
-                className="form-input"
-                id="pastMedicalHistory"
-                value={formState.pastMedicalHistory}
-                onChange={handleInputChange}
-                required
+                type="file"
+                onChange={handleImageUpload}
+                accept="image/*"
+                className="hidden"
+                id="medicine-image-upload"
               />
-              <label htmlFor="pastMedicalHistory" className={formState.pastMedicalHistory ? 'active' : ''}>Past medical history</label>
-              <FileText className="form-icon" />
+              <label 
+                htmlFor="medicine-image-upload" 
+                className="flex items-center justify-center p-2 border rounded-md cursor-pointer bg-[#1a202c] hover:bg-gray-50"
+              >
+                <Upload className="mr-2" />
+                Upload Medicine Image
+              </label>
             </div>
           </div>
+          <button 
+            type="button" 
+            onClick={addMedicine} 
+            className="px-4 py-2 mt-4 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600"
+          >
+            Add Medicine
+          </button>
+        </div>
+
+        {/* Submit Button */}
+        <div>
+          <button 
+            type="submit" 
+            className="w-full px-4 py-2 text-white transition duration-300 bg-green-500 rounded-md hover:bg-green-600"
+          >
+            Save Medical Information
+          </button>
         </div>
       </form>
     </div>

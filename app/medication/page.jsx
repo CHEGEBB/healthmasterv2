@@ -3,9 +3,53 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Header from '../../components/layout/header';
 import Sidebar from '../../components/layout/sidebar';
-import { Trash2, CheckCircle, Sun, CloudMoon, Coffee, AlertCircle ,Menu, XCircleIcon, X} from 'lucide-react';
+import { Trash2, CheckCircle, Sun, Bell, Menu, X } from 'lucide-react';
 import Modal from '../../components/Modal';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import "../../sass/medications.scss";
+
+const MedicationTimeline = ({ medications }) => (
+  <div className="medication-timeline">
+    <h2>My Medication Journey</h2>
+    <div className="timeline">
+      {medications.map((med, index) => (
+        <div key={index} className="timeline-item">
+          <div className="timeline-bubble">
+            <Image src={med.doctorImage} alt={med.doctor} width={40} height={40} />
+          </div>
+          <div className="timeline-content">
+            <h3>{med.name}</h3>
+            <p>Prescribed by {med.doctor}</p>
+            <p>{med.prescribedDate}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const SideEffectsCarousel = ({ medications }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % medications.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [medications]);
+
+  return (
+    <div className="side-effects-carousel">
+      <h2>Medication Information</h2>
+      <div className="carousel-content">
+        <h3>{medications[currentIndex].name}</h3>
+        <p>Treats: {medications[currentIndex].disease}</p>
+        <p>Side Effects: {medications[currentIndex].sideEffects}</p>
+      </div>
+    </div>
+  );
+};
 
 export default function Page() {
   const [medications, setMedications] = useState([
@@ -16,9 +60,10 @@ export default function Page() {
       prescribedDate: '2024-09-01',
       doctor: 'Dr. Smith',
       doctorImage: '/assets/images/1.png',
-      status: 'pending', // Status: pending (yellow), completed (green), or not taken (red)
-      frequency: 1, // 1 means once a day
+      status: 'pending',
+      frequency: 1,
       disease: 'Cholesterol',
+      sideEffects: 'Muscle pain, digestive problems'
     },
     {
       name: 'Metformin',
@@ -27,9 +72,10 @@ export default function Page() {
       prescribedDate: '2024-08-21',
       doctor: 'Dr. Wilson',
       doctorImage: '/assets/images/2.png',
-      status: 'pending', // Adjust the status as needed
-      frequency: 2, // Twice a day
+      status: 'pending',
+      frequency: 2,
       disease: 'Diabetes',
+      sideEffects: 'Nausea, diarrhea, stomach discomfort'
     },
     {
       name: 'Losartan',
@@ -39,8 +85,9 @@ export default function Page() {
       doctor: 'Dr. Johnson',
       doctorImage: '/assets/images/3.png',
       status: 'pending',
-      frequency: 1, // Once a day
+      frequency: 1,
       disease: 'Hypertension',
+      sideEffects: 'Dizziness, headache, fatigue'
     },
     {
       name: 'Valsartan',
@@ -50,8 +97,9 @@ export default function Page() {
       doctor: 'Dr. Davis',
       doctorImage: '/assets/images/4.png',
       status: 'not-taken',
-      frequency: 1, 
+      frequency: 1,
       disease: 'Hypertension',
+      sideEffects: 'Headache, dizziness, stomach pain'
     }
   ]);
 
@@ -66,6 +114,7 @@ export default function Page() {
       status: 'completed',
       frequency: 1,
       disease: 'Hypertension',
+      sideEffects: 'Swelling, dizziness, flushing'
     },
     {
       name: 'Metoprolol',
@@ -77,6 +126,7 @@ export default function Page() {
       status: 'completed',
       frequency: 1,
       disease: 'Hypertension',
+      sideEffects: 'Fatigue, dizziness, cold hands and feet'
     },
     {
       name: 'Simvastatin',
@@ -88,6 +138,7 @@ export default function Page() {
       status: 'completed',
       frequency: 1,
       disease: 'Cholesterol',
+      sideEffects: 'Muscle pain, liver problems, digestive issues'
     },
     {
       name: 'Lisinopril',
@@ -99,15 +150,20 @@ export default function Page() {
       status: 'completed',
       frequency: 1,
       disease: 'Hypertension',
+      sideEffects: 'Dizziness, headache, dry cough'
     }
   ]);
 
-  const [showPopup, setShowPopup] = useState(true);
-  const [selectedIllness, setSelectedIllness] = useState(null);
+  const [showDiseasePopup, setShowDiseasePopup] = useState(true);
+  const [selectedDisease, setSelectedDisease] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showAlarmModal, setShowAlarmModal] = useState(false);
+  const [alarms, setAlarms] = useState({});
+  const [currentAlarmMed, setCurrentAlarmMed] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -127,15 +183,6 @@ export default function Page() {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPopup(false);
-      setShowForm(true);
-    }, 10000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const addMedication = (newMed) => {
     setMedications([...medications, newMed]);
@@ -173,9 +220,35 @@ export default function Page() {
     }
   };
 
+  const setAlarm = (medName) => {
+    setCurrentAlarmMed(medName);
+    setShowAlarmModal(true);
+  };
+
+  const handleSetAlarm = (time) => {
+    setAlarms({ ...alarms, [currentAlarmMed]: time });
+    setShowAlarmModal(false);
+    setCurrentAlarmMed(null);
+  };
+
+  const handleDiseaseSelection = (disease) => {
+    setSelectedDisease(disease);
+    setShowDiseasePopup(false);
+    setShowForm(true);
+  };
+
+  const tileContent = ({ date, view }) => {
+    if (view === 'month') {
+      const medForDate = medications.find(med => new Date(med.prescribedDate).toDateString() === date.toDateString());
+      if (medForDate) {
+        return <div className="medication-dot"></div>;
+      }
+    }
+  };
+
   return (
     <div className={`medications-page ${sidebarOpen ? 'sidebar-open' : ''}`}>
-     <button className="hamburger-menu" onClick={toggleSidebar}>
+      <button className="hamburger-menu" onClick={toggleSidebar}>
         {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
       <div className="header-cont-med">
@@ -187,6 +260,20 @@ export default function Page() {
         </div>
         <div className="main-content-med">
           <h1>My Medications</h1>
+
+          <div className="info-cards">
+            <MedicationTimeline medications={medications} />
+            <SideEffectsCarousel medications={medications} />
+          </div>
+
+          <div className="calendar-section">
+            <Calendar
+              onChange={setSelectedDate}
+              value={selectedDate}
+              tileContent={tileContent}
+              className="dark-theme-calendar"
+            />
+          </div>
 
           <div className="medications-grid">
             {medications.map((med, index) => (
@@ -206,6 +293,9 @@ export default function Page() {
                     <p>{med.doctor}</p>
                   </div>
                   <p className="date">Prescribed: {med.prescribedDate}</p>
+                  {alarms[med.name] && (
+                    <p className="alarm">Alarm set for: {alarms[med.name]}</p>
+                  )}
                 </div>
                 <div className="med-actions">
                   <button onClick={() => markAsCompleted(index)} className="complete-btn">
@@ -213,6 +303,9 @@ export default function Page() {
                   </button>
                   <button onClick={() => deleteMedication(index)} className="delete-btn">
                     <Trash2 /> Remove
+                  </button>
+                  <button onClick={() => setAlarm(med.name)} className="alarm-btn">
+                    <Bell /> Set Alarm
                   </button>
                 </div>
               </div>
@@ -245,14 +338,16 @@ export default function Page() {
             </div>
           </div>
 
-          {showPopup && (
-            <Modal onClose={() => setShowPopup(false)}>
-              <h2>Select Your Condition</h2>
-              <div className="illness-options">
-                <button onClick={() => setSelectedIllness('HIV')}>HIV</button>
-                <button onClick={() => setSelectedIllness('Diabetes')}>Diabetes</button>
-                <button onClick={() => setSelectedIllness('Hypertension')}>Hypertension</button>
-                <button onClick={() => setSelectedIllness('Asthma')}>Asthma</button>
+          {showDiseasePopup && (
+            <Modal onClose={() => setShowDiseasePopup(false)}>
+              <div className="disease-selection">
+                <h2>Are you diagnosed with any of these diseases?</h2>
+                <div className="illness-options">
+                  <button onClick={() => handleDiseaseSelection('HIV')}>HIV</button>
+                  <button onClick={() => handleDiseaseSelection('Diabetes')}>Diabetes</button>
+                  <button onClick={() => handleDiseaseSelection('Hypertension')}>Hypertension</button>
+                  <button onClick={() => handleDiseaseSelection('Asthma')}>Asthma</button>
+                </div>
               </div>
             </Modal>
           )}
@@ -263,26 +358,24 @@ export default function Page() {
               addMedication({
                 name: e.target.name.value,
                 dosage: e.target.dosage.value,
-                image: e.target.image.files[0],
+                image: '/assets/images/default-med.png',
                 prescribedDate: e.target.prescribedDate.value,
                 doctor: e.target.doctor.value,
+                doctorImage: '/assets/images/default-doctor.png',
                 status: 'pending',
                 frequency: parseInt(e.target.frequency.value),
-                disease: e.target.disease.value,
+                disease: selectedDisease || e.target.disease.value,
+                sideEffects: e.target.sideEffects.value,
               });
             }}>
               <h2>Add New Medication</h2>
               <div className="form-group">
                 <input type="text" id="name" name="name" required />
                 <label htmlFor="name">Medication Name</label>
-              </div>
+                </div>
               <div className="form-group">
                 <input type="text" id="dosage" name="dosage" required />
                 <label htmlFor="dosage">Dosage</label>
-              </div>
-              <div className="form-group">
-                <input type="file" id="image" name="image" accept="image/*" required />
-                <label htmlFor="image">Upload Image</label>
               </div>
               <div className="form-group">
                 <input type="date" id="prescribedDate" name="prescribedDate" required />
@@ -296,11 +389,17 @@ export default function Page() {
                 <input type="number" id="frequency" name="frequency" min="1" max="4" required />
                 <label htmlFor="frequency">Frequency (times per day)</label>
               </div>
+              {!selectedDisease && (
+                <div className="form-group">
+                  <input type="text" id="disease" name="disease" required />
+                  <label htmlFor="disease">Disease/Condition</label>
+                </div>
+              )}
               <div className="form-group">
-                <input type="text" id="disease" name="disease" required />
-                <label htmlFor="disease">Disease/Condition</label>
+                <input type="text" id="sideEffects" name="sideEffects" required />
+                <label htmlFor="sideEffects">Side Effects</label>
               </div>
-              {selectedIllness === 'HIV' && (
+              {selectedDisease === 'HIV' && (
                 <>
                   <div className="form-group">
                     <input type="text" id="cd4Count" name="cd4Count" />
@@ -325,6 +424,20 @@ export default function Page() {
                     <div key={i} className="balloon" style={{animationDelay: `${i * 0.2}s`}}></div>
                   ))}
                 </div>
+              </div>
+            </Modal>
+          )}
+
+          {showAlarmModal && (
+            <Modal onClose={() => setShowAlarmModal(false)}>
+              <div className="alarm-setting">
+                <h2>Set Alarm for {currentAlarmMed}</h2>
+                <input 
+                  type="time" 
+                  onChange={(e) => handleSetAlarm(e.target.value)}
+                  className="alarm-input"
+                />
+                <button onClick={() => setShowAlarmModal(false)} className="set-alarm-btn">Set Alarm</button>
               </div>
             </Modal>
           )}
