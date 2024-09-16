@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { User, FileText, AlertCircle, Pill, ChevronDown, Upload, X } from 'lucide-react';
+import { User, FileText, AlertCircle, Pill, ChevronDown, Upload, X, Droplet } from 'lucide-react';
 
 export default function MedicalForm() {
   const [doctors, setDoctors] = useState([
     { id: 1, name: "Dr. Adam Smith", specialty: "General Practice", image: "/assets/images/admin.png" },
     { id: 2, name: "Dr. Emily Johnson", specialty: "Pediatrics", image: "/assets/images/1.png" },
-    // ... add more doctors as needed
   ]);
 
   const [formState, setFormState] = useState({
@@ -98,7 +97,6 @@ export default function MedicalForm() {
       <h2 className="mb-6 text-2xl font-bold text-white">Medical Information</h2>
       
       <form className="space-y-6">
-        {/* Primary Physician Selection */}
         <div className="relative" ref={dropdownRef}>
           <label className="block mb-1 text-sm font-medium text-white">Primary Care Physician</label>
           <div 
@@ -120,16 +118,16 @@ export default function MedicalForm() {
                 </div>
               </div>
             ) : (
-              <span className="text-white">Select primary care physician</span>
+              <span className="p-3 text-white">Select primary care physician</span>
             )}
             <ChevronDown className="w-5 h-5 text-white" />
           </div>
           {isDropdownOpen && (
-            <div className="absolute z-10 w-full mt-1 overflow-auto bg-white border rounded-md shadow-lg max-h-60">
+            <div className="absolute z-10 w-full mt-1 overflow-auto border border-green-400 shadow-lg rounded-2xl bg-slate-800 max-h-60">
               {doctors.map((doctor) => (
                 <div 
                   key={doctor.id} 
-                  className="flex items-center p-2 cursor-pointer hover:bg-gray-100"
+                  className="flex items-center p-2 cursor-pointer hover:bg-gray-700"
                   onClick={() => handleDoctorSelect(doctor)}
                 >
                   <Image
@@ -141,7 +139,7 @@ export default function MedicalForm() {
                   />
                   <div>
                     <div className="font-medium">{doctor.name}</div>
-                    <div className="text-sm text-gray-500">{doctor.specialty}</div>
+                    <div className="text-sm text-white">{doctor.specialty}</div>
                   </div>
                 </div>
               ))}
@@ -149,63 +147,61 @@ export default function MedicalForm() {
           )}
         </div>
 
-        {/* Insurance and Blood Group */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="insuranceProvider" className="block mb-1 text-sm font-medium text-gray-700">Insurance Provider</label>
+            <label htmlFor="insuranceProvider" className="block mb-1 text-sm font-medium text-white">Insurance Provider</label>
             <div className="relative">
               <input
                 type="text"
                 id="insuranceProvider"
                 value={formState.insuranceProvider}
                 onChange={handleInputChange}
-                className="w-full p-2 pl-10 border rounded-md"
+                className="w-full p-2 pl-10 border border-green-400 rounded-2xl bg-slate-800"
                 placeholder="Enter insurance provider"
               />
-              <FileText className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
+              <FileText className="absolute text-white transform -translate-y-1/2 left-3 top-1/2" />
             </div>
           </div>
           <div>
-            <label htmlFor="bloodGroup" className="block mb-1 text-sm font-medium text-gray-700">Blood Group</label>
+            <label htmlFor="bloodGroup" className="block mb-1 text-sm font-medium text-white">Blood Group</label>
             <div className="relative">
               <input
                 type="text"
                 id="bloodGroup"
                 value={formState.bloodGroup}
                 onChange={handleInputChange}
-                className="w-full p-2 pl-10 border rounded-md"
+                className="w-full p-2 pl-10 border border-green-400 rounded-2xl bg-slate-800"
                 placeholder="Enter blood group"
               />
-              <AlertCircle className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
+              <Droplet className="absolute text-white transform -translate-y-1/2 left-3 top-1/2" />
             </div>
           </div>
         </div>
 
-        {/* Allergies and Current Medications */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="allergies" className="block mb-1 text-sm font-medium text-gray-700">Allergies</label>
+            <label htmlFor="allergies" className="block mb-1 text-sm font-medium text-white">Allergies</label>
             <div className="relative">
               <input
                 type="text"
                 id="allergies"
                 value={formState.allergies}
                 onChange={handleInputChange}
-                className="w-full p-2 pl-10 border rounded-md"
+                className="w-full p-2 pl-10 border border-green-400 rounded-2xl bg-slate-800"
                 placeholder="Enter allergies (if any)"
               />
-              <AlertCircle className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
+              <AlertCircle className="absolute text-white transform-translate-y-1/2 left-3 top-1/4" />
             </div>
           </div>
           <div>
-            <label htmlFor="currentMedications" className="block mb-1 text-sm font-medium text-gray-700">Current Medications</label>
+            <label htmlFor="currentMedications" className="block mb-1 text-sm font-medium text-white">Current Medications</label>
             <div className="relative">
               <input
                 type="text"
                 id="currentMedications"
                 value={formState.currentMedications}
                 onChange={handleInputChange}
-                className="w-full p-2 pl-10 border rounded-md"
+                className="w-full p-2 pl-10 border border-green-400 rounded-2xl bg-slate-800"
                 placeholder="Enter current medications"
               />
               <Pill className="absolute text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
@@ -213,47 +209,45 @@ export default function MedicalForm() {
           </div>
         </div>
 
-        {/* Family History and Past Medical History */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="familyHistory" className="block mb-1 text-sm font-medium text-gray-700">Family Medical History</label>
+            <label htmlFor="familyHistory" className="block mb-1 text-sm font-medium text-white">Family Medical History</label>
             <textarea
               id="familyHistory"
               value={formState.familyHistory}
               onChange={handleInputChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
               rows="3"
               placeholder="Enter family medical history"
             ></textarea>
           </div>
           <div>
-            <label htmlFor="pastMedicalHistory" className="block mb-1 text-sm font-medium text-gray-700">Past Medical History</label>
+            <label htmlFor="pastMedicalHistory" className="block mb-1 text-sm font-medium text-white">Past Medical History</label>
             <textarea
               id="pastMedicalHistory"
               value={formState.pastMedicalHistory}
               onChange={handleInputChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
               rows="3"
               placeholder="Enter past medical history"
             ></textarea>
           </div>
         </div>
 
-        {/* Medicines List */}
         <div>
           <h3 className="mb-2 text-lg font-semibold">Current Medications</h3>
           <div className="space-y-4">
             {medicines.map((medicine, index) => (
-              <div key={index} className="relative p-4 rounded-lg bg-gray-50">
+              <div key={index} className="relative p-4 rounded-lg bg-slate-800">
                 <button 
                   onClick={() => removeMedicine(index)}
                   className="absolute text-red-500 top-2 right-2 hover:text-red-700"
                 >
                   <X className="w-5 h-5" />
                 </button>
-                <div className="flex items-center mb-2">
+                <div className="flex flex-col mb-2 sm:flex-row sm:items-center">
                   {medicine.image && (
-                    <Image src={medicine.image} alt={medicine.name} width={50} height={50} className="mr-4 rounded" />
+                    <Image src={medicine.image} alt={medicine.name} width={50} height={50} className="mb-2 rounded sm:mb-0 sm:mr-4" />
                   )}
                   <div>
                     <h4 className="font-semibold">{medicine.name}</h4>
@@ -270,16 +264,16 @@ export default function MedicalForm() {
           </div>
         </div>
 
-        <div className="p-4 rounded-lg bg-gray-50">
+        <div className="p-4 border-green-400 rounded-xl bg-slate-700">
           <h4 className="mb-4 font-semibold">Add New Medicine</h4>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <input
               type="text"
               name="name"
               value={newMedicine.name}
               onChange={handleMedicineChange}
               placeholder="Medicine Name"
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
             />
             <input
               type="text"
@@ -287,14 +281,14 @@ export default function MedicalForm() {
               value={newMedicine.dosage}
               onChange={handleMedicineChange}
               placeholder="Dosage"
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
             />
             <input
               type="date"
               name="prescribedDate"
               value={newMedicine.prescribedDate}
               onChange={handleMedicineChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
             />
             <input
               type="text"
@@ -302,7 +296,7 @@ export default function MedicalForm() {
               value={newMedicine.doctor}
               onChange={handleMedicineChange}
               placeholder="Prescribing Doctor"
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
             />
             <input
               type="number"
@@ -310,7 +304,7 @@ export default function MedicalForm() {
               value={newMedicine.frequency}
               onChange={handleMedicineChange}
               placeholder="Frequency per day"
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
             />
             <input
               type="text"
@@ -318,17 +312,17 @@ export default function MedicalForm() {
               value={newMedicine.disease}
               onChange={handleMedicineChange}
               placeholder="Disease"
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
             />
             <textarea
               name="sideEffects"
               value={newMedicine.sideEffects}
               onChange={handleMedicineChange}
               placeholder="Side Effects"
-              className="w-full col-span-2 p-2 border rounded-md"
+              className="w-full col-span-1 p-2 border border-green-400 sm:col-span-2 rounded-2xl bg-slate-800"
               rows="2"
             ></textarea>
-            <div className="col-span-2">
+            <div className="col-span-1 sm:col-span-2">
               <input
                 type="file"
                 onChange={handleImageUpload}
@@ -338,7 +332,7 @@ export default function MedicalForm() {
               />
               <label 
                 htmlFor="medicine-image-upload" 
-                className="flex items-center justify-center p-2 border rounded-md cursor-pointer bg-[#1a202c] hover:bg-gray-50"
+                className="flex items-center justify-center p-2 border border-green-400 cursor-pointer hover:bg-gray-500 rounded-2xl bg-slate-800"
               >
                 <Upload className="mr-2" />
                 Upload Medicine Image
@@ -354,7 +348,6 @@ export default function MedicalForm() {
           </button>
         </div>
 
-        {/* Submit Button */}
         <div>
           <button 
             type="submit" 
