@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import axios from 'axios';
 import { User, FileText, AlertCircle, Pill, ChevronDown, Upload, X, Droplet } from 'lucide-react';
 
 export default function MedicalForm() {
@@ -32,6 +33,8 @@ export default function MedicalForm() {
   });
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -62,14 +65,21 @@ export default function MedicalForm() {
     setNewMedicine(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setNewMedicine(prev => ({ ...prev, image: reader.result }));
-      };
-      reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await axios.post('/api/upload', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        setNewMedicine(prev => ({ ...prev, image: response.data.fileId }));
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        setError('Failed to upload image. Please try again.');
+      }
     }
   };
 
@@ -92,11 +102,36 @@ export default function MedicalForm() {
     setMedicines(prev => prev.filter((_, i) => i !== index));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const medicalInfo = {
+        ...formState,
+        primaryPhysician: formState.primaryPhysician ? formState.primaryPhysician.id : null,
+        medicines
+      };
+
+      const response = await axios.post('/api/medical/save', medicalInfo);
+      console.log('Medical information saved:', response.data);
+      // Reset form or navigate to a success page
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error saving medical information:', error);
+      setError('Failed to save medical information. Please try again.');
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="max-w-4xl p-6 mx-auto rounded-lg shadow-lg bg-[#1a202c] text-white">
       <h2 className="mb-6 text-2xl font-bold text-white">Medical Information</h2>
       
-      <form className="space-y-6">
+      {error && <div className="p-3 mb-4 text-red-500 bg-red-100 rounded">{error}</div>}
+      
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div className="relative" ref={dropdownRef}>
           <label className="block mb-1 text-sm font-medium text-white">Primary Care Physician</label>
           <div 
@@ -240,6 +275,7 @@ export default function MedicalForm() {
             {medicines.map((medicine, index) => (
               <div key={index} className="relative p-4 rounded-lg bg-slate-800">
                 <button 
+                  type="button"
                   onClick={() => removeMedicine(index)}
                   className="absolute text-red-500 top-2 right-2 hover:text-red-700"
                 >
@@ -247,7 +283,7 @@ export default function MedicalForm() {
                 </button>
                 <div className="flex flex-col mb-2 sm:flex-row sm:items-center">
                   {medicine.image && (
-                    <Image src={medicine.image} alt={medicine.name} width={50} height={50} className="mb-2 rounded sm:mb-0 sm:mr-4" />
+                    <Image src={`/api/images/${medicine.image}`} alt={medicine.name} width={50} height={50} className="mb-2 rounded sm:mb-0 sm:mr-4" />
                   )}
                   <div>
                     <h4 className="font-semibold">{medicine.name}</h4>
