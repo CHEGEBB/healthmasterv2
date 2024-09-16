@@ -1,24 +1,69 @@
-"use client";
+'use client'
+import React, { useState } from 'react';
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import PhoneInput from "react-phone-input-2";
+import { User, Mail, Lock } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Checkbox } from "../components/ui/checkbox";
-import PhoneInput from "react-phone-input-2";
+import OTPInputModal from "../components/OTPInputModal";
+import { toast } from 'react-hot-toast';
+
 import "react-phone-input-2/lib/style.css";
 import "../sass/auth.scss";
-import { User, Mail, Phone, Lock } from "lucide-react";
-import OTPInputModal from "../components/OTPInputModal";
 
-export default function Home() {
+export default function SignUp() {
   const [focusedInput, setFocusedInput] = useState(null);
   const [phone, setPhone] = useState("");
   const [isOTPModalOpen, setIsOTPModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+  });
+  const [userId, setUserId] = useState(null);
+  const [testOTP, setTestOTP] = useState(null);
+  const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
-    setIsOTPModalOpen(true);
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/signup', {
+        ...formData,
+        phoneNumber: phone
+      });
+      setUserId(response.data.userId);
+      setTestOTP(response.data.otp);
+      setIsOTPModalOpen(true);
+      toast.success('Signup successful. Please verify your phone number.');
+    } catch (error) {
+      console.error('Signup error:', error.response?.data?.message || error.message);
+      toast.error(error.response?.data?.message || 'An error occurred during signup');
+    }
+  };
+
+  const handleVerifyOTP = async (enteredOTP) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/verify-otp', {
+        userId,
+        otp: enteredOTP
+      });
+      localStorage.setItem('token', response.data.token);
+      toast.success('Phone number verified successfully');
+      router.push('/data');
+    } catch (error) {
+      console.error('OTP verification error:', error.response?.data?.message || error.message);
+      toast.error(error.response?.data?.message || 'Error verifying OTP');
+    }
   };
 
   return (
@@ -34,16 +79,18 @@ export default function Home() {
         </div>
         <form onSubmit={handleSubmit}>
           <div className={`form-group ${focusedInput === 'name' ? 'focused' : ''}`}>
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="fullName">Full Name</label>
             <div className="input-wrapper">
               <User className="input-icon" />
               <Input
                 type="text"
                 placeholder="John Doe"
-                id="name"
+                id="fullName"
                 required
                 onFocus={() => setFocusedInput('name')}
                 onBlur={() => setFocusedInput(null)}
+                onChange={handleInputChange}
+                value={formData.fullName}
               />
             </div>
           </div>
@@ -58,6 +105,8 @@ export default function Home() {
                 onFocus={() => setFocusedInput('email')}
                 onBlur={() => setFocusedInput(null)}
                 placeholder="johndoe@gmail.com"
+                onChange={handleInputChange}
+                value={formData.email}
               />
             </div>
           </div>
@@ -98,7 +147,9 @@ export default function Home() {
                 type="password"
                 id="password"
                 required
-                placeholder="create your password"
+                placeholder="Create your password"
+                onChange={handleInputChange}
+                value={formData.password}
               />
             </div>
           </div>
@@ -108,7 +159,7 @@ export default function Home() {
               By signing up, you agree to our <a href="/terms">Terms and Conditions</a> and{" "}
               <a href="/privacy">Privacy Policy</a>.
             </label>
-            </div>
+          </div>
           <div className="form-group">
             <Button type="submit">Get Started</Button>
           </div>
@@ -120,13 +171,15 @@ export default function Home() {
           <p className="copyright">© 2024 HealthMaster. All rights reserved.</p>
         </div>
       </div>
-      <div className="otp">
+      {isOTPModalOpen && (
         <OTPInputModal
           isOpen={isOTPModalOpen}
           onClose={() => setIsOTPModalOpen(false)}
           phoneNumber={phone}
+          onVerify={handleVerifyOTP}
+          testOTP={testOTP}
         />
-      </div>
+      )}
       <div className="w-full container-image">
         <Image src="/assets/images/background-1.webp" width={1000} height={1000} alt="Background" />
       </div>
