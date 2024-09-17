@@ -102,7 +102,7 @@ body {
     margin-top: 30px;
     .sidenav {
       flex: 1;
-      margin-top: -90px;
+      margin-top: -25px;
       transition: all 0.3s ease;
       height: 100vh;
       position: fixed;
@@ -135,7 +135,7 @@ body {
     @include for-desktop-up{
       padding: 2rem;
       width: 1200px;
-      margin-left: 160px;
+      margin-left: 180px;
     }
     @include for-desktop-big{
       margin-left: 230px;

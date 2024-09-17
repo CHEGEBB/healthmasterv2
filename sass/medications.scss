@@ -20,7 +20,10 @@ body {
 
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "desktop" {
-    @media (min-width: 1200px) and (max-width: 1920px) { @content; }
+    @media (min-width: 1200px) and (max-width: 1399px) { @content; }
+  }
+  @if $breakpoint == "large-desktop" {
+    @media (min-width: 1400px) and (max-width: 1920px) { @content; }
   }
   @if $breakpoint == "tablet" {
     @media (min-width: 768px) and (max-width: 1199px) { @content; }
@@ -71,6 +74,18 @@ body {
     width: 100%;
     align-items: flex-start;
     min-height: 100vh;
+    @include respond-to('desktop') {
+      width: 85%;
+      margin-left: 200px;
+    }
+    @include respond-to('tablet') {
+      width: 85%;
+      margin-left: 100px;
+    }
+    @include respond-to('large-desktop') {
+      width: 85%;
+      margin-left: 270px;
+    }
 
     .sidenav {
       flex: 1;

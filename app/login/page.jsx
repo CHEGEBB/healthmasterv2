@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Button } from "../../components/ui/button";
@@ -19,6 +19,16 @@ export default function Login() {
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  // Check if the user has logged in before
+  useEffect(() => {
+    const hasLoggedInBefore = localStorage.getItem("hasLoggedInBefore");
+
+    // If the user has logged in before, redirect them to the dashboard
+    if (hasLoggedInBefore === "true") {
+      router.push("/dashboard");
+    }
+  }, [router]);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -43,8 +53,20 @@ export default function Login() {
         sessionStorage.setItem("token", token);
       }
 
+      // Check if this is the user's first login (i.e., if the flag exists)
+      const hasLoggedInBefore = localStorage.getItem("hasLoggedInBefore");
+
+      // Set the flag to indicate the user has logged in before
+      localStorage.setItem("hasLoggedInBefore", "true");
+
       toast.success("Login successful!");
-      router.push("/data")
+
+      // Redirect based on whether the user has logged in before
+      if (hasLoggedInBefore === "true") {
+        router.push("/dashboard"); // Redirect to dashboard for returning users
+      } else {
+        router.push("/data"); // Redirect to data page for new users
+      }
     } catch (error) {
       console.error("Login error:", error.response?.data?.message || error.message);
       toast.error(error.response?.data?.message || "An error occurred during login");
