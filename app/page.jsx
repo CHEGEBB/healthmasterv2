@@ -328,9 +328,9 @@ const LandingPage = () => {
               { title: 'Breakthrough in HIV Treatment', image: '/assets/images/lab.jpg', category: 'HIV Research', date: 'June 15, 2024' },
               { title: 'Managing Hypertension Through Diet', image: '/assets/images/hyp.jpg', category: 'Nutrition', date: 'June 10, 2024' },
               { title: 'The Future of TB Diagnostics', image: '/assets/images/tb.jpg', category: 'Tuberculosis', date: 'June 5, 2024' },
-              { title: 'Mental Health and Chronic Diseases', image: '/path-to-mental-health-article.jpg', category: 'Mental Wellness', date: 'May 30, 2024' },
-              { title: 'Advancements in Wearable Health Tech', image: '/path-to-wearable-article.jpg', category: 'Technology', date: 'May 25, 2024' },
-              { title: 'Understanding Drug Interactions', image: '/path-to-drug-interaction-article.jpg', category: 'Medication', date: 'May 20, 2024' },
+              { title: 'Mental Health and Chronic Diseases', image: '/assets/images/mental.webp', category: 'Mental Wellness', date: 'May 30, 2024' },
+              { title: 'Advancements in Wearable Health Tech', image: '/assets/images/wear.webp', category: 'Technology', date: 'May 25, 2024' },
+              { title: 'Understanding Drug Interactions', image: '/assets/images/drugs.jpg', category: 'Medication', date: 'May 20, 2024' },
             ].map((article, index) => (
               <motion.div
                 key={article.title}
