@@ -69,15 +69,15 @@ body {
     }
     
   }
-  .features{
+  .feats{
     .feat-image{
-        width: 300px;
-        height: 300px;
+        width: 150px;
+        height: 150px;
         border-radius:2rem;
-        border-left: 5px solid $vivid-green;
+        box-shadow: 0 0 1px 1px $starlight;
         @include for-phone-only{
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
         }
     }
   }

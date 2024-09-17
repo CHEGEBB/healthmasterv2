@@ -269,7 +269,7 @@ const LandingPage = () => {
       <section id="features" className="px-6 py-24 bg-gradient-to-r from-cyan-600 to-emerald-500 features">
         <div className="container mx-auto">
           <h2 className="mb-16 text-4xl font-bold text-center font-kanit">Key Features</h2>
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 feats">
             {[
               { icon: '/assets/images/ai.png', title: 'AI-Powered Insights', description: 'Our advanced AI analyzes your health data to provide personalized recommendations and detect potential issues early.' },
               { icon: '/assets/images/apple.png', title: 'Wearable Integration', description: 'Seamlessly connect your favorite health devices for real-time monitoring of vital signs and activity levels.' },

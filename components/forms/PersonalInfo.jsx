@@ -1,5 +1,5 @@
-"use client"
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Briefcase, CalendarDays, Home, Mail, Phone, User2, AlertTriangle, X } from "lucide-react";
 import confetti from 'canvas-confetti';
 
@@ -55,14 +55,14 @@ const SuccessModal = ({ isOpen, onClose, name }) => {
           </div>
           <h3 className="mb-2 text-xl font-semibold text-white">Successful Submission!</h3>
           <p className="text-gray-300">Thank you, {name || 'valued customer'}!</p>
-          <p className="mt-2 text-gray-300">Your form has been successfully submitted.</p>
+          <p className="mt-2 text-gray-300">Your form has been successfully submitted.Kindly fill the remaining forms below😊</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default function PersonalInfo() {
+const PersonalInfo = () => {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -88,6 +88,8 @@ export default function PersonalInfo() {
   });
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -130,13 +132,47 @@ export default function PersonalInfo() {
     setValidationState((prev) => ({ ...prev, [field]: isValid }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const isFormValid = Object.values(validationState).every((value) => value === true);
     if (isFormValid) {
-      setShowSuccessModal(true);
+      setIsSubmitting(true);
+      setError(null);
+      try {
+        const response = await axios.post('http://localhost:5000/api/personal-info', formState);
+        if (response.status === 201) {
+          setShowSuccessModal(true);
+          setFormState({
+            name: "",
+            email: "",
+            phone: "",
+            dob: "",
+            gender: "",
+            address: "",
+            occupation: "",
+            emergencyContact: "",
+            emergencyPhone: ""
+          });
+          setValidationState({
+            name: null,
+            email: null,
+            phone: null,
+            dob: null,
+            gender: null,
+            address: null,
+            occupation: null,
+            emergencyContact: null,
+            emergencyPhone: null
+          });
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        setError('An error occurred while submitting the form. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
     } else {
-      alert("Please fill all fields correctly before submitting.");
+      setError("Please fill all fields correctly before submitting.");
     }
   };
 
@@ -311,10 +347,11 @@ export default function PersonalInfo() {
             <AlertTriangle className="absolute left-3 top-3.5 text-gray-400 w-5 h-5" />
             {validationState.emergencyContact === false && <p className="mt-1 text-sm text-red-500">Please enter your emergency contact name.</p>}
           </div>
+
           <div className="relative">
             <input
               type="tel"
-              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
+              className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500transition-colors ${
                 validationState.emergencyPhone === false ? 'border-red-500' : ''
               } ${validationState.emergencyPhone === true ? 'border-green-500' : ''}`}
               id="emergencyPhone"
@@ -334,7 +371,33 @@ export default function PersonalInfo() {
             {validationState.emergencyPhone === false && <p className="mt-1 text-sm text-red-500">Please enter a valid emergency contact phone number.</p>}
           </div>
         </div>
+
+        {error && (
+          <div className="p-3 text-sm text-red-500 bg-red-100 border border-red-400 rounded-md">
+            {error}
+          </div>
+        )}
+
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className={`px-6 py-3 text-white bg-green-500 rounded-xl hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors ${
+              isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+          </button>
+        </div>
       </form>
+
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        name={formState.name}
+      />
     </div>
   );
-}
+};
+
+export default PersonalInfo;
