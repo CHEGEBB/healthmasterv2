@@ -148,7 +148,7 @@ const LandingPage = () => {
               <input 
                 type="text" 
                 placeholder="Search for health information, medications, or services..." 
-                className="w-full px-6 py-4 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white/80 backdrop-blur-sm"
+                className="w-full px-6 py-4 rounded-full text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white/20 backdrop-blur-sm"
               />
               <motion.button 
                 whileHover={{ scale: 1.05 }}
@@ -266,7 +266,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <section id="features" className="px-6 py-24 bg-gradient-to-r from-cyan-600 to-emerald-500">
+      <section id="features" className="px-6 py-24 bg-gradient-to-r from-cyan-600 to-emerald-500 features">
         <div className="container mx-auto">
           <h2 className="mb-16 text-4xl font-bold text-center font-kanit">Key Features</h2>
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
@@ -285,7 +285,7 @@ const LandingPage = () => {
                 transition={{ delay: index * 0.2, duration: 0.5 }}
                 className="p-8 transition-all bg-white/20 backdrop-blur-sm rounded-2xl hover:shadow-xl hover:-translate-y-2"
               >
-                <img src={feature.icon} alt={feature.title} className="w-16 h-16 mb-6" />
+                <Image src={feature.icon}b width={400} height={400} alt={feature.title} className="w-16 h-16 mb-6 feat-image" />
                 <h3 className="mb-4 text-2xl font-semibold font-rubik">{feature.title}</h3>
                 <p className="text-slate-200 font-raleway">{feature.description}</p>
               </motion.div>

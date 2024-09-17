@@ -67,5 +67,18 @@ body {
             height: 300px;
         }
     }
+    
+  }
+  .features{
+    .feat-image{
+        width: 300px;
+        height: 300px;
+        border-radius:2rem;
+        border-left: 5px solid $vivid-green;
+        @include for-phone-only{
+            width: 200px;
+            height: 200px;
+        }
+    }
   }
 }
