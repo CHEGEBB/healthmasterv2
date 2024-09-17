@@ -41,7 +41,7 @@ const LandingPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const navItems = ['Home', 'Services', 'Doctors', 'About', 'Features', 'Testimonials', 'Blog', 'Contact'];
+  const navItems = ['Home', 'Services', 'Experts', 'About', 'Features', 'Testimonials', 'Blog', 'Contact'];
 
   return (
     <div className="min-h-screen text-white bg-slate-900 font-outfit">
@@ -168,9 +168,9 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: '/assets/images/land1.png', title: 'Medication Reminders', description: 'Never miss a dose with our smart reminder system.' },
-              { icon: '/assets/images/land2.png', title: 'Health Tracking', description: 'Monitor your vitals and symptoms in real-time.' },
-              { icon: '/path-to-education-icon.svg', title: 'Educational Resources', description: 'Access a wealth of information about your condition.' },
-              { icon: '/path-to-consultation-icon.svg', title: 'Virtual Consultations', description: 'Connect with healthcare professionals from home.' }
+              { icon: '/assets/images/body.png', title: 'Health Tracking', description: 'Monitor your vitals and symptoms in real-time.' },
+              { icon: '/assets/images/report.png', title: 'Educational Resources', description: 'Access a wealth of information about your condition.' },
+              { icon: '/assets/images/5.png', title: 'Virtual Consultations', description: 'Connect with healthcare professionals from home.' }
             ].map((service, index) => (
               <motion.div 
                 key={service.title}
@@ -188,44 +188,53 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <section id="doctors" className="px-6 py-24 overflow-hidden bg-slate-800">
-        <div className="container mx-auto mb-12">
-          <h2 className="mb-16 text-4xl font-bold text-center font-kanit text-emerald-500">Meet Our Specialists</h2>
+      <section id="experts" className="px-6 py-24 overflow-hidden bg-slate-800">
+  <div className="container mx-auto mb-12">
+    <h2 className="mb-16 text-4xl font-bold text-center font-kanit text-emerald-500">
+      Your Personalized Care Team
+    </h2>
+    <p className="mb-10 text-lg text-center text-slate-300 max-w-2xl mx-auto">
+      Our team of expert healthcare professionals is here to support your journey to better health. Connect with specialists who understand your unique needs and provide personalized care, all from the comfort of your home.
+    </p>
+  </div>
+
+  <motion.div 
+    ref={horizontalScrollRef}
+    style={{ x }}
+    className="flex space-x-8 cursor-grab active:cursor-grabbing"
+    animate={{ x: [0, -1200] }} // The scroll distance, adjust as per your card width
+    transition={{ repeat: Infinity, duration: 15, ease: "linear" }} // Smooth, infinite scrolling
+  >
+    {[ 
+      { name: 'Dr. Don James', role: 'General Physician', image: '/assets/images/17.png' },
+      { name: 'Dr. Michael Johnson', role: 'Pulmonology Specialist', image: '/assets/images/12.png' },
+      { name: 'Dr. Sarah Thompson', role: 'Cardiac Care Expert', image: '/assets/images/13.png' },
+      { name: 'Dr. David Lee', role: 'Chronic Illness Specialist', image: '/assets/images/14.png' },
+      { name: 'Dr. Lisa Brown', role: 'Diabetes & Endocrinology', image: '/assets/images/15.png' },
+      { name: 'Dr. James Wilson', role: 'Kidney Health Specialist', image: '/assets/images/16.png' },
+    ].map((doctor, index) => (
+      <motion.div
+        key={doctor.name}
+        className="flex-shrink-0 w-72 md:w-80 overflow-hidden transition-all bg-teal-600/30 backdrop-blur-md rounded-2xl hover:shadow-2xl"
+        whileHover={{ scale: 1.05 }}
+      >
+        <img src={doctor.image} alt={doctor.name} className="object-cover w-full h-67" />
+        <div className="p-6">
+          <h3 className="mb-2 text-2xl font-semibold font-rubik text-white">{doctor.name}</h3>
+          <p className="text-teal-200 font-raleway">{doctor.role}</p>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-2 mt-4 text-white transition-colors rounded-full bg-emerald-500 hover:bg-emerald-600"
+          >
+            Connect Now
+          </motion.button>
         </div>
-        <motion.div 
-          ref={horizontalScrollRef}
-          style={{ x }}
-          className="flex space-x-8 cursor-grab active:cursor-grabbing"
-        >
-          {[
-            { name: 'Dr. Emily Chen', specialty: 'HIV Specialist', image: '/path-to-doctor1.jpg' },
-            { name: 'Dr. Michael Johnson', specialty: 'Pulmonologist', image: '/path-to-doctor2.jpg' },
-            { name: 'Dr. Sarah Thompson', specialty: 'Cardiologist', image: '/path-to-doctor3.jpg' },
-            { name: 'Dr. David Lee', specialty: 'Infectious Disease Expert', image: '/path-to-doctor4.jpg' },
-            { name: 'Dr. Lisa Brown', specialty: 'Endocrinologist', image: '/path-to-doctor5.jpg' },
-            { name: 'Dr. James Wilson', specialty: 'Nephrologist', image: '/path-to-doctor6.jpg' },
-          ].map((doctor, index) => (
-            <motion.div 
-              key={doctor.name}
-              className="flex-shrink-0 overflow-hidden transition-all w-80 bg-cyan-600/30 backdrop-blur-md rounded-2xl hover:shadow-2xl"
-              whileHover={{ scale: 1.05 }}
-            >
-              <img src={doctor.image} alt={doctor.name} className="object-cover w-full h-64" />
-              <div className="p-6">
-                <h3 className="mb-2 text-2xl font-semibold font-rubik">{doctor.name}</h3>
-                <p className="text-emerald-300 font-raleway">{doctor.specialty}</p>
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-2 mt-4 text-white transition-colors rounded-full bg-emerald-500 hover:bg-emerald-600"
-                >
-                  Book Consultation
-                </motion.button>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
+      </motion.div>
+    ))}
+  </motion.div>
+</section>
+
 
       <section id="about" className="px-6 py-24 bg-slate-900">
         <div className="container mx-auto">
@@ -251,7 +260,7 @@ const LandingPage = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <img src="/path-to-about-image.jpg" alt="HealthMaster Team" className="rounded-lg shadow-2xl" />
+              <Image src="/assets/images/background-2.webp" width={500} height={500} alt="HealthMaster Team" className="rounded-lg shadow-2xl about-image" />
             </motion.div>
           </div>
         </div>
