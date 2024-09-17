@@ -39,7 +39,17 @@ body {
   margin: 0 auto;
   padding: 0 20px;
   h1{
-    
+    font-family: $font-outfit !important;
+    @include for-phone-only{
+      font-size: 2.5rem !important;
+    }
+
+  }
+  p{
+    font-family: $font-kanit !important;
+    @include for-phone-only{
+      font-size: 1rem !important;
+    }
   }
   .items-center{
     img{

@@ -271,12 +271,12 @@ const LandingPage = () => {
           <h2 className="mb-16 text-4xl font-bold text-center font-kanit">Key Features</h2>
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
             {[
-              { icon: '/path-to-ai-icon.svg', title: 'AI-Powered Insights', description: 'Our advanced AI analyzes your health data to provide personalized recommendations and detect potential issues early.' },
-              { icon: '/path-to-wearable-icon.svg', title: 'Wearable Integration', description: 'Seamlessly connect your favorite health devices for real-time monitoring of vital signs and activity levels.' },
-              { icon: '/path-to-community-icon.svg', title: 'Supportive Community', description: 'Connect with others on similar health journeys, share experiences, and find motivation in our moderated forums.' },
-              { icon: '/path-to-diet-icon.svg', title: 'Personalized Nutrition', description: 'Receive tailored dietary advice and meal plans based on your specific health needs and preferences.' },
-              { icon: '/path-to-telemedicine-icon.svg', title: 'Telemedicine Services', description: 'Access virtual consultations with specialists from the comfort of your home, ensuring continuous care.' },
-              { icon: '/path-to-research-icon.svg', title: 'Clinical Trial Matching', description: 'Stay informed about relevant clinical trials and research opportunities that match your health profile.' },
+              { icon: '/assets/images/ai.png', title: 'AI-Powered Insights', description: 'Our advanced AI analyzes your health data to provide personalized recommendations and detect potential issues early.' },
+              { icon: '/assets/images/apple.png', title: 'Wearable Integration', description: 'Seamlessly connect your favorite health devices for real-time monitoring of vital signs and activity levels.' },
+              { icon: '/assets/images/c.png', title: 'Supportive Community', description: 'Connect with others on similar health journeys, share experiences, and find motivation in our moderated forums.' },
+              { icon: '/assets/images/f.png', title: 'Personalized Nutrition', description: 'Receive tailored dietary advice and meal plans based on your specific health needs and preferences.' },
+              { icon: '/assets/images/t.png', title: 'Telemedicine Services', description: 'Access virtual consultations with specialists from the comfort of your home, ensuring continuous care.' },
+              { icon: '/assets/images/cl.png', title: 'Clinical Trial Matching', description: 'Stay informed about relevant clinical trials and research opportunities that match your health profile.' },
             ].map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -299,9 +299,9 @@ const LandingPage = () => {
           <h2 className="mb-16 text-4xl font-bold text-center font-kanit text-emerald-500">What Our Users Say</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[
-              { name: 'Sarah M.', condition: 'Living with HIV', testimonial: 'HealthMaster has been a game-changer for me. The medication reminders and virtual consultations have made managing my condition so much easier.', image: '/path-to-patient1.jpg' },
-              { name: 'John D.', condition: 'TB Survivor', testimonial: 'The support I received through HealthMaster during my TB treatment was invaluable. The community feature helped me stay positive throughout my journey.', image: '/path-to-patient2.jpg' },
-              { name: 'Emily L.', condition: 'Hypertension Management', testimonial: 'I love how HealthMaster integrates with my blood pressure monitor. The personalized insights have helped me make lifestyle changes that have significantly improved my health.', image: '/path-to-patient3.jpg' },
+              { name: 'Sarah M.', condition: 'Living with HIV', testimonial: 'HealthMaster has been a game-changer for me. The medication reminders and virtual consultations have made managing my condition so much easier.', image: '/assets/images/89.jpg' },
+              { name: 'John D.', condition: 'TB Survivor', testimonial: 'The support I received through HealthMaster during my TB treatment was invaluable. The community feature helped me stay positive throughout my journey.', image: '/assets/images/54.jpg' },
+              { name: 'Emily L.', condition: 'Hypertension Management', testimonial: 'I love how HealthMaster integrates with my blood pressure monitor. The personalized insights have helped me make lifestyle changes that have significantly improved my health.', image: '/assets/images/36.jpg' },
             ].map((testimonial, index) => (
               <motion.div
                 key={testimonial.name}
@@ -325,9 +325,9 @@ const LandingPage = () => {
           <h2 className="mb-16 text-4xl font-bold text-center font-kanit text-emerald-500">Latest Health Insights</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: 'Breakthrough in HIV Treatment', image: '/path-to-hiv-article.jpg', category: 'HIV Research', date: 'June 15, 2024' },
-              { title: 'Managing Hypertension Through Diet', image: '/path-to-hypertension-article.jpg', category: 'Nutrition', date: 'June 10, 2024' },
-              { title: 'The Future of TB Diagnostics', image: '/path-to-tb-article.jpg', category: 'Tuberculosis', date: 'June 5, 2024' },
+              { title: 'Breakthrough in HIV Treatment', image: '/assets/images/lab.jpg', category: 'HIV Research', date: 'June 15, 2024' },
+              { title: 'Managing Hypertension Through Diet', image: '/assets/images/hyp.jpg', category: 'Nutrition', date: 'June 10, 2024' },
+              { title: 'The Future of TB Diagnostics', image: '/assets/images/tb.jpg', category: 'Tuberculosis', date: 'June 5, 2024' },
               { title: 'Mental Health and Chronic Diseases', image: '/path-to-mental-health-article.jpg', category: 'Mental Wellness', date: 'May 30, 2024' },
               { title: 'Advancements in Wearable Health Tech', image: '/path-to-wearable-article.jpg', category: 'Technology', date: 'May 25, 2024' },
               { title: 'Understanding Drug Interactions', image: '/path-to-drug-interaction-article.jpg', category: 'Medication', date: 'May 20, 2024' },
