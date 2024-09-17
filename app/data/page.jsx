@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';  // Import the router
 import PersonalInfo from '../../components/forms/PersonalInfo';
 import "../../sass/data.scss";
 import Image from 'next/image';
@@ -12,11 +13,17 @@ import ReactConfetti from 'react-confetti';
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const router = useRouter(); // Initialize the router
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsModalOpen(true);
     setShowConfetti(true);
+
+    // Redirect to /dashboard after a delay to show the confetti/modal
+    setTimeout(() => {
+      router.push('/dashboard'); // Redirect to the dashboard
+    }, 6000); // Adjust the delay as per your preference
   };
 
   useEffect(() => {

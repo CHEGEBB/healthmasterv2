@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import { User, FileText, AlertCircle, Pill, ChevronDown, Upload, X, Droplet } from 'lucide-react';
+import { User, FileText, AlertCircle, Pill, ChevronDown, Droplet } from 'lucide-react';
 
 export default function MedicalForm() {
   const [doctors, setDoctors] = useState([
-    { id: 1, name: "Dr. Adam Smith", specialty: "General Practice", image: "/assets/images/admin.png" },
-    { id: 2, name: "Dr. Emily Johnson", specialty: "Pediatrics", image: "/assets/images/1.png" },
+    { id: '60d5ecb74f421b2d803f7c55', name: "Dr. Adam Smith", specialty: "General Practice", image: "/assets/images/admin.png" },
+    { id: '60d5ecb74f421b2d803f7c56', name: "Dr. Emily Johnson", specialty: "Pediatrics", image: "/assets/images/1.png" },
   ]);
 
   const [formState, setFormState] = useState({
@@ -15,21 +15,8 @@ export default function MedicalForm() {
     bloodGroup: '',
     allergies: '',
     currentMedications: '',
-    familyHistory: '',
+    familyMedicalHistory: '',
     pastMedicalHistory: ''
-  });
-
-  const [medicines, setMedicines] = useState([]);
-  const [newMedicine, setNewMedicine] = useState({
-    name: '',
-    dosage: '',
-    image: null,
-    prescribedDate: '',
-    doctor: '',
-    status: 'pending',
-    frequency: 1,
-    disease: '',
-    sideEffects: ''
   });
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -60,48 +47,6 @@ export default function MedicalForm() {
     setIsDropdownOpen(false);
   };
 
-  const handleMedicineChange = (e) => {
-    const { name, value } = e.target;
-    setNewMedicine(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      try {
-        const response = await axios.post('/api/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        setNewMedicine(prev => ({ ...prev, image: response.data.fileId }));
-      } catch (error) {
-        console.error('Error uploading image:', error);
-        setError('Failed to upload image. Please try again.');
-      }
-    }
-  };
-
-  const addMedicine = () => {
-    setMedicines(prev => [...prev, newMedicine]);
-    setNewMedicine({
-      name: '',
-      dosage: '',
-      image: null,
-      prescribedDate: '',
-      doctor: '',
-      status: 'pending',
-      frequency: 1,
-      disease: '',
-      sideEffects: ''
-    });
-  };
-
-  const removeMedicine = (index) => {
-    setMedicines(prev => prev.filter((_, i) => i !== index));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -111,13 +56,12 @@ export default function MedicalForm() {
       const medicalInfo = {
         ...formState,
         primaryPhysician: formState.primaryPhysician ? formState.primaryPhysician.id : null,
-        medicines
       };
 
-      const response = await axios.post('/api/medical/save', medicalInfo);
+      const response = await axios.post('http://localhost:5000/api/medical-info/save', medicalInfo);
       console.log('Medical information saved:', response.data);
-      // Reset form or navigate to a success page
       setIsLoading(false);
+      alert('Medical information saved successfully!');
     } catch (error) {
       console.error('Error saving medical information:', error);
       setError('Failed to save medical information. Please try again.');
@@ -246,10 +190,10 @@ export default function MedicalForm() {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="familyHistory" className="block mb-1 text-sm font-medium text-white">Family Medical History</label>
+            <label htmlFor="familyMedicalHistory" className="block mb-1 text-sm font-medium text-white">Family Medical History</label>
             <textarea
-              id="familyHistory"
-              value={formState.familyHistory}
+              id="familyMedicalHistory"
+              value={formState.familyMedicalHistory}
               onChange={handleInputChange}
               className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
               rows="3"
@@ -270,126 +214,12 @@ export default function MedicalForm() {
         </div>
 
         <div>
-          <h3 className="mb-2 text-lg font-semibold">Current Medications</h3>
-          <div className="space-y-4">
-            {medicines.map((medicine, index) => (
-              <div key={index} className="relative p-4 rounded-lg bg-slate-800">
-                <button 
-                  type="button"
-                  onClick={() => removeMedicine(index)}
-                  className="absolute text-red-500 top-2 right-2 hover:text-red-700"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-                <div className="flex flex-col mb-2 sm:flex-row sm:items-center">
-                  {medicine.image && (
-                    <Image src={`/api/images/${medicine.image}`} alt={medicine.name} width={50} height={50} className="mb-2 rounded sm:mb-0 sm:mr-4" />
-                  )}
-                  <div>
-                    <h4 className="font-semibold">{medicine.name}</h4>
-                    <p className="text-sm text-gray-600">{medicine.dosage}</p>
-                  </div>
-                </div>
-                <p className="text-sm"><span className="font-medium">Prescribed by:</span> {medicine.doctor}</p>
-                <p className="text-sm"><span className="font-medium">Date:</span> {medicine.prescribedDate}</p>
-                <p className="text-sm"><span className="font-medium">Frequency:</span> {medicine.frequency} times per day</p>
-                <p className="text-sm"><span className="font-medium">Disease:</span> {medicine.disease}</p>
-                <p className="text-sm"><span className="font-medium">Side Effects:</span> {medicine.sideEffects}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="p-4 border-green-400 rounded-xl bg-slate-700">
-          <h4 className="mb-4 font-semibold">Add New Medicine</h4>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <input
-              type="text"
-              name="name"
-              value={newMedicine.name}
-              onChange={handleMedicineChange}
-              placeholder="Medicine Name"
-              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
-            />
-            <input
-              type="text"
-              name="dosage"
-              value={newMedicine.dosage}
-              onChange={handleMedicineChange}
-              placeholder="Dosage"
-              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
-            />
-            <input
-              type="date"
-              name="prescribedDate"
-              value={newMedicine.prescribedDate}
-              onChange={handleMedicineChange}
-              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
-            />
-            <input
-              type="text"
-              name="doctor"
-              value={newMedicine.doctor}
-              onChange={handleMedicineChange}
-              placeholder="Prescribing Doctor"
-              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
-            />
-            <input
-              type="number"
-              name="frequency"
-              value={newMedicine.frequency}
-              onChange={handleMedicineChange}
-              placeholder="Frequency per day"
-              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
-            />
-            <input
-              type="text"
-              name="disease"
-              value={newMedicine.disease}
-              onChange={handleMedicineChange}
-              placeholder="Disease"
-              className="w-full p-2 border border-green-400 rounded-2xl bg-slate-800"
-            />
-            <textarea
-              name="sideEffects"
-              value={newMedicine.sideEffects}
-              onChange={handleMedicineChange}
-              placeholder="Side Effects"
-              className="w-full col-span-1 p-2 border border-green-400 sm:col-span-2 rounded-2xl bg-slate-800"
-              rows="2"
-            ></textarea>
-            <div className="col-span-1 sm:col-span-2">
-              <input
-                type="file"
-                onChange={handleImageUpload}
-                accept="image/*"
-                className="hidden"
-                id="medicine-image-upload"
-              />
-              <label 
-                htmlFor="medicine-image-upload" 
-                className="flex items-center justify-center p-2 border border-green-400 cursor-pointer hover:bg-gray-500 rounded-2xl bg-slate-800"
-              >
-                <Upload className="mr-2" />
-                Upload Medicine Image
-              </label>
-            </div>
-          </div>
-          <button 
-            type="button" 
-            onClick={addMedicine} 
-            className="px-4 py-2 mt-4 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600"
-          >
-            Add Medicine
-          </button>
-        </div>
-
-        <div>
           <button 
             type="submit" 
             className="w-full px-4 py-2 text-white transition duration-300 bg-green-500 rounded-md hover:bg-green-600"
+            disabled={isLoading}
           >
-            Save Medical Information
+            {isLoading ? 'Saving...' : 'Save Medical Information'}
           </button>
         </div>
       </form>
