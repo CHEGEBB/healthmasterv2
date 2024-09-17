@@ -1,0 +1,31 @@
+@import "./colors";
+@import "./fonts";
+
+$primary-bg: #09090b;
+$secondary-bg: #2d3748;
+$accent-color: #48bb78;
+$font-color: #edf2f7;
+$card-bg: #4a5568;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $space-black;
+  font-family: $font-rubik !important;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  .items-center{
+    img{
+        width: 30px;
+        height: 30px;
+        border-radius: 11px;
+    }
+  }
+}

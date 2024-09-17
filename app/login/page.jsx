@@ -60,7 +60,7 @@ export default function Login() {
           </div>
         </form>
         <div className="form-group">
-          <p>Have no account? <a href="/">Sign up</a></p>
+          <p>Have no account? <a href="/signup">Sign up</a></p>
         </div>
         <div className="form-group">
           <p className="text-sm">
