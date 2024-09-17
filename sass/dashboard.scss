@@ -119,6 +119,13 @@ body {
         left: -100%;
         width: 100%;
       }
+      @include for-desktop-big{
+        width: 300px;
+        margin-top: 2px;
+        margin-left: -5px;
+
+
+      }
     }
 
     @include respond-to('mobile') {

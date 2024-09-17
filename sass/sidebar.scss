@@ -133,7 +133,7 @@ $backdrop-filter: blur(10px); // Blur effect for glassmorphism
 
   @include respond-to("large-desktop") {
     width: 300px; // Wider on large desktops
-    margin: 100px 25px;
+    margin: 200px 10px;
     border-radius: $border-radius;
   }
 }
