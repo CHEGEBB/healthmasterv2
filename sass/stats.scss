@@ -6,6 +6,20 @@ $secondary-bg: #2d3748;
 $accent-color: #48bb78;
 $font-color: #edf2f7;
 $card-bg: #4a6858;
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "desktop" {
+    @media (min-width: 1200px) and (max-width: 1399px) { @content; }
+  }
+  @if $breakpoint == "large-desktop" {
+    @media (min-width: 1400px) and (max-width: 1920px) { @content; }
+  }
+  @if $breakpoint == "tablet" {
+    @media (min-width: 768px) and (max-width: 1199px) { @content; }
+  }
+  @if $breakpoint == "mobile" {
+    @media (max-width: 767px) { @content; }
+  }
+}
 
 .health-stats-page {
   text-align: center;
@@ -47,13 +61,23 @@ $card-bg: #4a6858;
   }
 
   .content-wrapper {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: flex-start;
     min-height: 100vh;
+    @include respond-to('desktop') {
+      width: 85%;
+      margin-left: 200px;
+    }
+    @include respond-to('tablet') {
+      width: 85%;
+      margin-left: 100px;
+    }
+    @include respond-to('large-desktop') {
+      width: 85%;
+      margin-left: 270px;
+    }
+    
+  
 
-    .sidenav {
+    .side-nav {
       flex: 1;
       margin-top: -90px;
       transition: all 0.3s ease;
@@ -67,10 +91,17 @@ $card-bg: #4a6858;
       &.open {
         left: 0;
       }
-
+ 
       @media (max-width: 767px) {
         left: -100%;
         width: 100%;
+        position: absolute;
+        margin-top: -50px;
+      }
+      @include respond-to('mobile') {
+        left: -100%;
+        width: 100%;
+        margin-top: -50px !important;
       }
     }
 

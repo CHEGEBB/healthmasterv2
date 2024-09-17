@@ -82,7 +82,7 @@ function HealthStatsPage() {
       <div className="header-cont">
         <Header />
       </div>
-      <div className="flex">
+      <div className="flex ">
         <AnimatePresence>
           {sidebarOpen && (
             <motion.div
@@ -90,13 +90,14 @@ function HealthStatsPage() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 left-0 z-40 w-64 h-full sidenav"
+              className="fixed top-[-3rem] left-0 z-40 w-64 h-full side-nav"
+
             >
               <Sidebar />
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="flex-grow min-h-screen p-6 bg-zinc-950 md:p-10">
+        <div className="flex-grow min-h-screen p-6 bg-zinc-950 md:p-10 content-wrapper">
           <motion.div 
             className="p-8 mb-10 text-white welcome-stats bg-gradient-to-r from-stone-800 to-stone-950 rounded-3xl"
             initial={{ opacity: 0, y: -50 }}

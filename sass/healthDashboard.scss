@@ -100,8 +100,9 @@ $glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       gap: 0.8rem;
       @include for-desktop-up{
         top: 73%;
+        width: 30%;
         position: absolute;
-        left: 74%;
+        left: 78%;
       }
       @include for-tablet-landscape-up{
         top: 50%;

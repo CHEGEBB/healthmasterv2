@@ -54,6 +54,19 @@ body {
     width: 100%;
     align-items: flex-start;
     min-height: 100vh;
+    @include respond-to('desktop') {
+      width: 85%;
+      margin-left: 200px;
+    }
+    @include respond-to('tablet') {
+      width: 85%;
+      margin-left: 100px;
+    }
+    @include respond-to('large-desktop') {
+      width: 85%;
+      margin-left: 270px;
+    }
+    
 }
 
 
