@@ -4,7 +4,7 @@ import * as React from "react"
 import { OTPInput, OTPInputContext } from "input-otp"
 import { Dot } from "lucide-react"
 
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 
 const InputOTP = React.forwardRef<
   React.ElementRef<typeof OTPInput>,
@@ -49,8 +49,8 @@ const InputOTPSlot = React.forwardRef<
     >
       {char}
       {hasFakeCaret && (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-px h-4 duration-1000 animate-caret-blink bg-foreground" />
         </div>
       )}
     </div>
