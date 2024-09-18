@@ -167,7 +167,7 @@ body{
         label {
           position: absolute;
           left: 2.5rem;
-          top: 50%;
+          top: 40%;
           transform: translateY(-50%);
           transition: all 0.3s ease;
           pointer-events: none;
@@ -185,6 +185,9 @@ body{
             top: 50%;
             transform: translateY(-50%);
             color: #888;
+            @include for-phone-only{
+              left: -1rem;
+            }
           }
 
           input {
@@ -196,6 +199,16 @@ body{
             color: #52525b;
             transition: all 0.3s ease;
             font-family: $font-kanit !important;
+            @include for-phone-only{
+              width: 320px !important;
+              justify-content: center !important;
+              align-items: center !important;
+              margin: 0 auto !important;
+              margin-left: -30px !important;
+              margin-top: 15px !important;
+
+
+            }
 
 
             &:focus {
@@ -227,6 +240,15 @@ body{
         margin-top: 10px;
         
         .react-tel-input {
+          @include for-phone-only{
+            width: 290px !important;
+            justify-content: center !important;
+            align-items: center !important;
+            margin: 0 auto !important;
+            margin-left: -30px !important;
+            margin-top: 15px !important;
+
+          }
           .form-control {
             width: 100% !important;
             padding: 0.75rem 0.75rem 0.75rem 3.5rem;
