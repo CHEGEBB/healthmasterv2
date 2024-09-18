@@ -135,7 +135,7 @@ export default function SignUp() {
           <p>Welcome to HealthMaster, the all-in-one platform to help you stay healthy.</p>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className={`form-group ${focusedInput === 'name' ? 'focused' : ''}`}>
+          <div className={`form-group ${focusedInput === 'name' || formData.fullName ? 'focused' : ''}`}>
             <label htmlFor="fullName">Full Name</label>
             <div className="input-wrapper">
               <User className="input-icon" />
@@ -148,14 +148,14 @@ export default function SignUp() {
                 onChange={handleInputChange}
                 value={formData.fullName}
                 style={{
-                  backgroundColor: focusedInput === 'name' ? '#444' : 'transparent',
-                  color: focusedInput === 'name' ? '#fff' : 'inherit',
+                  backgroundColor: focusedInput === 'name' || formData.fullName ? '#444' : 'transparent',
+                  color: focusedInput === 'name' || formData.fullName ? '#fff' : 'inherit',
                   transition: 'background-color 0.3s, color 0.3s',
                 }}
               />
             </div>
           </div>
-          <div className={`form-group ${focusedInput === 'email' ? 'focused' : ''}`}>
+          <div className={`form-group ${focusedInput === 'email' || formData.email ? 'focused' : ''}`}>
             <label htmlFor="email">Email</label>
             <div className="input-wrapper">
               <Mail className="input-icon" />
@@ -168,14 +168,14 @@ export default function SignUp() {
                 onChange={handleInputChange}
                 value={formData.email}
                 style={{
-                  backgroundColor: focusedInput === 'email' ? '#444' : 'transparent',
-                  color: focusedInput === 'email' ? '#fff' : 'inherit',
+                  backgroundColor: focusedInput === 'email' || formData.email ? '#444' : 'transparent',
+                  color: focusedInput === 'email' || formData.email ? '#fff' : 'inherit',
                   transition: 'background-color 0.3s, color 0.3s',
                 }}
               />
             </div>
           </div>
-          <div className={`form-group ${focusedInput === 'phone' ? 'focused' : ''}`}>
+          <div className={`form-group ${focusedInput === 'phone' || phone ? 'focused' : ''}`}>
             <label htmlFor="phone">Phone Number</label>
             <div className="phone-input-wrapper">
               <PhoneInput
@@ -189,8 +189,8 @@ export default function SignUp() {
                   marginLeft: "30px",
                   borderRadius: "0.25rem",
                   border: "1px solid #444",
-                  backgroundColor: focusedInput === 'phone' ? '#444' : '#333',
-                  color: focusedInput === 'phone' ? '#fff' : 'inherit',
+                  backgroundColor: focusedInput === 'phone' || phone ? '#444' : '#333',
+                  color: focusedInput === 'phone' || phone ? '#fff' : 'inherit',
                   fontFamily: "Jost, sans-serif",
                   transition: 'background-color 0.3s, color 0.3s',
                 }}
@@ -207,7 +207,7 @@ export default function SignUp() {
               />
             </div>
           </div>
-          <div className={`form-group ${focusedInput === 'password' ? 'focused' : ''}`}>
+          <div className={`form-group ${focusedInput === 'password' || formData.password ? 'focused' : ''}`}>
             <label htmlFor="password">Password</label>
             <div className="input-wrapper">
               <Lock className="input-icon" />
@@ -220,8 +220,8 @@ export default function SignUp() {
                 onFocus={() => setFocusedInput('password')}
                 onBlur={() => setFocusedInput(null)}
                 style={{
-                  backgroundColor: focusedInput === 'password' ? '#444' : 'transparent',
-                  color: focusedInput === 'password' ? '#fff' : 'inherit',
+                  backgroundColor: focusedInput === 'password' || formData.password ? '#444' : 'transparent',
+                  color: focusedInput === 'password' || formData.password ? '#fff' : 'inherit',
                   transition: 'background-color 0.3s, color 0.3s',
                 }}
               />

@@ -32,8 +32,10 @@
   transition: all 0.5s ease;
   max-width: 1920px;
   margin: 0 auto;
-  @include for-desktop-up{
-    height: 200px !important;
+  @include for-phone-only{
+    height: 150px !important;
+    border-radius: 1rem !important;
+    width: 100% !important;
   }
 
   &.morning {
@@ -41,7 +43,7 @@
   }
 
   &.afternoon {
-    background: linear-gradient(135deg, #334155 0%, #a6c1ee 100%);
+    background: linear-gradient(135deg, #14b8a6 0%, #a6c1ee 100%);
   }
 
   &.evening {

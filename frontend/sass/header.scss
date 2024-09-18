@@ -31,22 +31,23 @@ body {
 }
 
 .header {
-  background: linear-gradient(to right, #0f172a, #334155);
+  background: linear-gradient(to right, #1e293b, #334155);
   color: #ffffff;
   padding: 1rem;
+  
   &__icons {
     display: flex;
     align-items: center;
     gap: 1rem;
     margin-left: 1rem;
-    position: relative; // Add this line
+    position: relative;
   }
   &__popup {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #ffffff;
-    color: #1e293b;
+    background-color: #475569;
+    color: #fff;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     padding: 1rem;

@@ -16,6 +16,7 @@
 }
 body{
   font-family: 'Raleway', sans-serif !important;
+  overflow-x:  hidden !important;
 }
 
 @mixin button-style {
@@ -275,41 +276,119 @@ body{
       color: #888;
     }
   }
-
   .container-image {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-
+  
     @include for-tablet-portrait-up {
       width: 120vw;
       height: 270px;
       margin-left: -50px;
       height: 500px;
+      animation: tablet-animation 10s infinite alternate ease-in-out;
     }
-
+  
     @include for-tablet-landscape-up {
       width: 100%;
       height: 100vh;
+      animation: landscape-animation 12s infinite alternate ease-in-out;
     }
-    @include for-phone-only{
+  
+    @include for-phone-only {
       width: 120vw;
-      height: 270px;
+      height: 290px;
       margin-left: -50px;
-    }@include for-desktop-up{
+      animation: mobile-animation 8s infinite alternate ease-in-out;
+    }
+  
+    @include for-desktop-up {
       width: 50vw;
       height: 100vh;
       margin-right: -70px;
+      animation: desktop-animation 15s infinite alternate ease-in-out;
     }
-
-
+  
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      animation: img-animation 20s infinite alternate ease-in-out;
     }
   }
-}
+  
+  @keyframes img-animation {
+    0% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    25% {
+      transform: scale(1.05) rotate(2deg);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scale(1.1) rotate(-2deg);
+      opacity: 0.8;
+    }
+    75% {
+      transform: scale(1.05) rotate(1deg);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes tablet-animation {
+    0% {
+      transform: translateX(0) scale(1);
+    }
+    50% {
+      transform: translateX(-20px) scale(1.08);
+    }
+    100% {
+      transform: translateX(0) scale(1);
+    }
+  }
+  
+  @keyframes landscape-animation {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-30px) rotate(5deg);
+    }
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+  
+  @keyframes mobile-animation {
+    0% {
+      transform: translateY(0) scale(1) rotate(0deg);
+    }
+    50% {
+      transform: translateY(0) scale(1.05) rotate(0deg);
+    }
+    100% {
+      transform: translateY(0) scale(1) rotate(0deg);
+    }
+  }
+  
+  @keyframes desktop-animation {
+    0% {
+      transform: scale(1) translateX(0) rotate(0deg);
+    }
+    50% {
+      transform: scale(1.1) translateX(0) rotate(0deg);
+    }
+    100% {
+      transform: scale(1) translateX(0) rotate(0deg);
+    }
+  }
+  
+  
 
 // Mobile-specific animations
 @include for-phone-only {
@@ -409,4 +488,5 @@ body{
       }
     }
   }
+}
 }

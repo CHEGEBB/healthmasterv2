@@ -66,7 +66,7 @@ const LandingPage = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="hidden px-6 py-2 text-white transition-colors rounded-full md:block bg-teal-700 hover:bg-emerald-600"
+            className="hidden px-6 py-2 text-white transition-colors bg-teal-700 rounded-full md:block hover:bg-emerald-600"
             onClick={() => window.location.href = '/signup'}
           >
           Sign up
@@ -193,7 +193,7 @@ const LandingPage = () => {
     <h2 className="mb-16 text-4xl font-bold text-center font-kanit text-emerald-500">
       Your Personalized Care Team
     </h2>
-    <p className="mb-10 text-lg text-center text-slate-300 max-w-2xl mx-auto">
+    <p className="max-w-2xl mx-auto mb-10 text-lg text-center text-slate-300">
       Our team of expert healthcare professionals is here to support your journey to better health. Connect with specialists who understand your unique needs and provide personalized care, all from the comfort of your home.
     </p>
   </div>
@@ -215,12 +215,12 @@ const LandingPage = () => {
     ].map((doctor, index) => (
       <motion.div
         key={doctor.name}
-        className="flex-shrink-0 w-72 md:w-80 overflow-hidden transition-all bg-teal-600/30 backdrop-blur-md rounded-2xl hover:shadow-2xl"
+        className="flex-shrink-0 overflow-hidden transition-all w-72 md:w-80 bg-teal-600/30 backdrop-blur-md rounded-2xl hover:shadow-2xl"
         whileHover={{ scale: 1.05 }}
       >
         <img src={doctor.image} alt={doctor.name} className="object-cover w-full h-67" />
         <div className="p-6">
-          <h3 className="mb-2 text-2xl font-semibold font-rubik text-white">{doctor.name}</h3>
+          <h3 className="mb-2 text-2xl font-semibold text-white font-rubik">{doctor.name}</h3>
           <p className="text-teal-200 font-raleway">{doctor.role}</p>
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -256,12 +256,27 @@ const LandingPage = () => {
               </motion.button>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Image src="/assets/images/background-2.webp" width={500} height={500} alt="HealthMaster Team" className="rounded-lg shadow-2xl about-image" />
-            </motion.div>
+      initial={{ opacity: 0, x: 50, scale: 1 }}
+      animate={{ 
+        opacity: [0.5, 1, 0.5], 
+        x: [0, 30, -30, 0], 
+        scale: [1, 1.05, 1] 
+      }}
+      transition={{ 
+        duration: 6, 
+        repeat: Infinity, 
+        repeatType: 'loop', 
+        ease: 'linear'
+      }}
+    >
+      <Image 
+        src="/assets/images/background-2.webp" 
+        width={500} 
+        height={500} 
+        alt="HealthMaster Team" 
+        className="rounded-lg shadow-2xl about-image" 
+      />
+    </motion.div>
           </div>
         </div>
       </section>

@@ -157,7 +157,7 @@ body {
     align-items: center;
     padding: 1rem;
     background-color: $primary-bg;
-    width: 100%;
+    width: 100% !important;
     box-sizing: border-box;
     position: sticky;
     top: 0;
