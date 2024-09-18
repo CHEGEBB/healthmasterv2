@@ -160,13 +160,14 @@ const LandingPage = () => {
                 placeholder="Search here..." 
                 className="w-full px-4 py-3 text-sm rounded-full sm:px-6 sm:py-4 sm:text-base text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white/20 backdrop-blur-sm search-in"
               />
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="absolute p-2 text-white transition-colors rounded-full right-2 top-2 bg-emerald-500 hover:bg-emerald-600 search-btn"
-              >
-                Search
-              </motion.button>
+             <motion.button 
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="absolute p-2 text-white transition-colors rounded-full right-2 top-0.5 mobile:top-[-20px] bg-emerald-500 hover:bg-emerald-600 search-btn"
+>
+  Search
+</motion.button>
+
             </div>
           </motion.div>
         </div>

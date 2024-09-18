@@ -246,5 +246,12 @@ nav {
       display: none;
     }
   }
+  @media (max-width: 768px) {
+    .mobile{
+      margin-top: -20px;
+      top: -10px;
+    }
+  }
+  
 }
 
