@@ -32,7 +32,7 @@ $backdrop-filter: blur(10px); // Blur effect for glassmorphism
   margin-top: 50px;
   height: 80vh;
   color: $text-color;
-  background: #083344;
+  background: #1e293b;
   transition: width 0.3s ease;
   border-radius: $border-radius;
   font-family: $font-outfit;
@@ -126,7 +126,7 @@ $backdrop-filter: blur(10px); // Blur effect for glassmorphism
   }
 
   @include respond-to("desktop") {
-    width: 220px;
+    width: 250px;
     margin: 120px 15px;
     border-radius: $border-radius; // Medium border-radius for desktop
   }

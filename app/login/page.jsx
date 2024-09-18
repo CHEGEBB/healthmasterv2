@@ -12,6 +12,7 @@ import "../../sass/auth.scss";
 
 export default function Login() {
   const [focusedInput, setFocusedInput] = useState(null);
+  const [userName, setUserName] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -41,7 +42,8 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    const { token, name } = response.data;
+    setUserName(name);
     try {
       const response = await axios.post("http://localhost:5000/api/auth/login", formData);
       const { token } = response.data;
@@ -74,6 +76,11 @@ export default function Login() {
       setIsLoading(false);
     }
   };
+  if (keepLoggedIn) {
+    localStorage.setItem("userName", name);
+  } else {
+    sessionStorage.setItem("userName", name);
+  }
 
   return (
     <div className="container">

@@ -34,6 +34,55 @@ body {
   background: linear-gradient(to right, #0f172a, #334155);
   color: #ffffff;
   padding: 1rem;
+  &__icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 1rem;
+    position: relative; // Add this line
+  }
+  &__popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    color: #1e293b;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1rem;
+    z-index: 10;
+    min-width: 250px;
+    max-width: 300px;
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__popup-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+
+      &:first-child {
+        font-weight: 500;
+      }
+
+      &:last-child {
+        color: #64748b;
+        font-size: 0.75rem;
+      }
+    }
+  }
 
   &_container {
     max-width: 100%;

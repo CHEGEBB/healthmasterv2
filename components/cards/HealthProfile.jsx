@@ -2,18 +2,38 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import "../../sass/healthprofile.scss"
 
-const Modal = ({ isOpen, onClose, title, children }) => {
+const BioModal = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>{title}</h2>
-          <button onClick={onClose}>&times;</button>
-        </div>
-        <div className="modal-body">
-          {children}
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto transition-opacity duration-300 bg-black bg-opacity-50 outline-none focus:outline-none" onClick={onClose}>
+      <div className="relative w-full max-w-md mx-auto my-6 md:max-w-lg lg:max-w-xl" onClick={e => e.stopPropagation()}>
+        <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
+          <div className="flex items-start justify-between p-5 border-b border-blue-200 border-solid rounded-t">
+            <h3 className="text-2xl font-semibold text-blue-800">{title}</h3>
+            <button
+              className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-gray-600 transition-colors duration-200 bg-transparent border-0 outline-none focus:outline-none hover:text-red-500"
+              onClick={onClose}
+            >
+              <span className="block w-6 h-6 text-2xl bg-transparent outline-none focus:outline-none">
+                ×
+              </span>
+            </button>
+          </div>
+          <div className="relative p-6 flex-auto overflow-y-auto max-h-[70vh]">
+            <div className="text-lg leading-relaxed text-gray-700">
+              {children}
+            </div>
+          </div>
+          <div className="flex items-center justify-end p-6 border-t border-blue-200 border-solid rounded-b">
+            <button
+              className="px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-500 rounded shadow outline-none hover:bg-blue-600 hover:shadow-lg focus:outline-none"
+              type="button"
+              onClick={onClose}
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -41,13 +61,13 @@ const OrganCard = ({ organ, status, imageSrc }) => {
           <p>Status: <span className={`status ${status.toLowerCase()}`}>{status}</span></p>
         </div>
       </div>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={`${organ} Health Information`}>
+      <BioModal isOpen={isOpen} onClose={() => setIsOpen(false)} title={`${organ} Health Information`}>
         <div className="organ-details">
-          <p>Status: {status}</p>
-          <p>Doctor Visits: 3</p>
-          <p>Underlying Conditions: None</p>
+          <p className="mb-2">Status: <span className={`font-semibold ${status.toLowerCase() === 'good' ? 'text-green-500' : 'text-yellow-500'}`}>{status}</span></p>
+          <p className="mb-2">Doctor Visits: <span className="font-semibold">3</span></p>
+          <p className="mb-2">Underlying Conditions: <span className="font-semibold">None</span></p>
         </div>
-      </Modal>
+      </BioModal>
     </div>
   );
 };

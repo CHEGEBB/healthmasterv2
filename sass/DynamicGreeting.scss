@@ -32,17 +32,20 @@
   transition: all 0.5s ease;
   max-width: 1920px;
   margin: 0 auto;
+  @include for-desktop-up{
+    height: 200px !important;
+  }
 
   &.morning {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    background: linear-gradient(135deg, #14b8a6 0%, #64748b 100%);
   }
 
   &.afternoon {
-    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    background: linear-gradient(135deg, #334155 0%, #a6c1ee 100%);
   }
 
   &.evening {
-    background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+    background: linear-gradient(135deg, #1e293b 0%, #10b981 100%);
   }
 
   .greeting-content {
