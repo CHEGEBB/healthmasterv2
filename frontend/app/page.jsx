@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useViewportScroll, useTransform, useSpring, useScroll, AnimatePresence } from 'framer-motion';
 import { ArrowUpCircle, Menu, X, Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
-import "../sass/landing.scss"
 import Image from 'next/image';
 
 const LandingPage = () => {
@@ -47,11 +46,11 @@ const LandingPage = () => {
     <div className="min-h-screen text-white bg-slate-900 font-outfit">
       <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/80 backdrop-blur-md' : 'bg-transparent'}`}>
         <div className="container flex items-center justify-between px-4 py-4 mx-auto sm:px-6">
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <Image src="/assets/icons/new.jpg" width={40} height={40}
             alt="HealthMaster logo" className="w-8 h-8 mr-2 sm:w-10 sm:h-10" />
             <span className="text-lg font-bold sm:text-xl font-kanit text-emerald-500">HealthMaster</span>
-          </div>
+          </div> */}
           <div className="hidden space-x-4 md:flex lg:space-x-6">
             {navItems.map((item) => (
               <a 
@@ -108,8 +107,17 @@ const LandingPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full px-6 py-2 text-left bg-emerald-500 hover:bg-emerald-600"
+                onClick={() => window.location.href = '/login'}
               >
                 Login
+              </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full px-6 py-2 mt-2 text-left bg-teal-700 hover:bg-teal-600"
+                onClick={() => window.location.href = '/signup'}
+              >
+                Sign up
               </motion.button>
             </motion.div>
           )}
@@ -146,16 +154,16 @@ const LandingPage = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="flex justify-center"
           >
-            <div className="relative w-full max-w-2xl">
+            <div className="relative w-full max-w-2xl search">
               <input 
                 type="text" 
-                placeholder="Search for health information..." 
-                className="w-full px-4 py-3 text-sm rounded-full sm:px-6 sm:py-4 sm:text-base text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white/20 backdrop-blur-sm"
+                placeholder="Search here..." 
+                className="w-full px-4 py-3 text-sm rounded-full sm:px-6 sm:py-4 sm:text-base text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white/20 backdrop-blur-sm search-in"
               />
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="absolute p-2 text-white transition-colors rounded-full right-2 top-2 bg-emerald-500 hover:bg-emerald-600"
+                className="absolute p-2 text-white transition-colors rounded-full right-2 top-2 bg-emerald-500 hover:bg-emerald-600 search-btn"
               >
                 Search
               </motion.button>
@@ -302,7 +310,7 @@ const LandingPage = () => {
                 transition={{ delay: index * 0.2, duration: 0.5 }}
                 className="p-6 transition-all sm:p-8 bg-white/20 backdrop-blur-sm rounded-2xl hover:shadow-xl hover:-translate-y-2"
               >
-                <Image src={feature.icon} width={400} height={400} alt={feature.title} className="w-12 h-12 mb-4 sm:w-16 sm:h-16 sm:mb-6 feat-image" />
+                <Image src={feature.icon} width={64} height={64} alt={feature.title} className="w-12 h-12 mb-4 sm:w-16 sm:h-16 sm:mb-6 feat-image" />
                 <h3 className="mb-2 text-xl font-semibold sm:text-2xl font-rubik">{feature.title}</h3>
                 <p className="text-sm sm:text-base text-slate-200 font-raleway">{feature.description}</p>
               </motion.div>
