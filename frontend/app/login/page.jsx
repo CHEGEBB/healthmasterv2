@@ -45,10 +45,9 @@ export default function Login() {
     const { token, name } = response.data;
     setUserName(name);
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", formData);
+      const response = await axios.post("https://healthmasterv2-2.onrender.com/api/auth/login", formData);
       const { token } = response.data;
 
-      // Store the token in localStorage or sessionStorage based on user preference
       if (keepLoggedIn) {
         localStorage.setItem("token", token);
       } else {

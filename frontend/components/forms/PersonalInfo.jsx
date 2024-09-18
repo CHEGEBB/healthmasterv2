@@ -139,7 +139,7 @@ const PersonalInfo = () => {
       setIsSubmitting(true);
       setError(null);
       try {
-        const response = await axios.post('http://localhost:5000/api/personal-info', formState);
+        const response = await axios.post('https://healthmasterv2-2.onrender.com/api/personal-info', formState);
         if (response.status === 201) {
           setShowSuccessModal(true);
           setFormState({

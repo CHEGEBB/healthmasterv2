@@ -58,7 +58,7 @@ export default function MedicalForm() {
         primaryPhysician: formState.primaryPhysician ? formState.primaryPhysician.id : null,
       };
 
-      const response = await axios.post('http://localhost:5000/api/medical-info/save', medicalInfo);
+      const response = await axios.post('https://healthmasterv2-2.onrender.com/api/medical-info/save', medicalInfo);
       console.log('Medical information saved:', response.data);
       setIsLoading(false);
       alert('Medical information saved successfully!');

@@ -14,7 +14,7 @@ const Header = () => {
   useEffect(() => {
     const fetchUserName = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/personal-info');
+        const response = await axios.get('https://healthmasterv2-2.onrender.com/api/personal-info');
         setUserName(response.data.name);
       } catch (error) {
         console.error('Error fetching user name:', error);

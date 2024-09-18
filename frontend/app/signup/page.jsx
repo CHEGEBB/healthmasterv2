@@ -27,13 +27,13 @@ function SignupSuccessModal({ isVisible, onClose }) {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <Confetti />
-      <div className="bg-slate-800 rounded-lg p-8 max-w-md w-full mx-4 transform transition-all ease-in-out duration-300 scale-100 opacity-100">
-        <h2 className="text-2xl font-bold mb-4 text-center text-green-600">
+      <div className="w-full max-w-md p-8 mx-4 transition-all duration-300 ease-in-out transform scale-100 rounded-lg opacity-100 bg-slate-800">
+        <h2 className="mb-4 text-2xl font-bold text-center text-green-600">
           Success!
         </h2>
-        <p className="text-lg text-center mb-6">
+        <p className="mb-6 text-lg text-center">
           You have successfully signed up with HealthMaster. You can now log in to your account.
         </p>
         <div className="text-center">
@@ -48,15 +48,15 @@ function ErrorModal({ isVisible, onClose, message }) {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-      <div className="bg-slate-800 rounded-lg p-8 max-w-md w-full mx-4 transform transition-all ease-in-out duration-300 scale-100 opacity-100">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="w-full max-w-md p-8 mx-4 transition-all duration-300 ease-in-out transform scale-100 rounded-lg opacity-100 bg-slate-800">
         <div className="flex items-center justify-center mb-4">
-          <AlertCircle className="text-red-500 w-8 h-8 mr-2" />
+          <AlertCircle className="w-8 h-8 mr-2 text-red-500" />
           <h2 className="text-2xl font-bold text-red-500">Error</h2>
         </div>
-        <p className="text-lg text-center mb-6 text-white">{message}</p>
+        <p className="mb-6 text-lg text-center text-white">{message}</p>
         <div className="text-center">
-          <Button onClick={onClose} className="bg-red-500 hover:bg-red-600 text-white">Close</Button>
+          <Button onClick={onClose} className="text-white bg-red-500 hover:bg-red-600">Close</Button>
         </div>
       </div>
     </div>
@@ -101,7 +101,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/signup', {
+      const response = await axios.post('https://healthmasterv2-2.onrender.com/api/auth/signup', {
         ...formData,
         phoneNumber: phone
       });
@@ -227,7 +227,7 @@ export default function SignUp() {
               />
             </div>
             {formData.password && (
-              <div className="password-strength mt-2">
+              <div className="mt-2 password-strength">
                 <div className="strength-bar">
                   {[...Array(4)].map((_, index) => (
                     <div
@@ -241,7 +241,7 @@ export default function SignUp() {
                     ></div>
                   ))}
                 </div>
-                <p className="text-sm mt-1">
+                <p className="mt-1 text-sm">
                   {['Weak', 'Fair', 'Good', 'Strong'][passwordStrength - 1] || 'Too weak'}
                 </p>
               </div>
