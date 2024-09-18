@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useUser } from '../../contexts/UserContext';
+import { useUser } from '../../contexts/userContext';
 import '../../sass/DynamicGreeting.scss';
 
 const DynamicGreeting = () => {
