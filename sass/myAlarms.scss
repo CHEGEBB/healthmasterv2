@@ -18,7 +18,7 @@
 
 .container-alarm {
   border-radius: 2rem;
-  background-color: $space-black;
+  background-color: #1e293b;
   padding: 2rem;
   color: $off-white;
   font-family: 'Poppins', sans-serif;
@@ -41,10 +41,10 @@
     padding: 1.5rem;
   }
   @include for-desktop-up {
-    max-width: calc(100% - 1px);
+    max-width: calc(100%);
     padding: 1.5rem;
     margin-left: -40px;
-    width: 300px;
+    width: 330px;
   }
   @include for-big-desktop-up {
     max-width: 1200px;

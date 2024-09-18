@@ -50,7 +50,7 @@ const Header = () => {
 
             <div className="header__profile">
               <Image src="/assets/images/3.jpg" alt={userName} width={32} height={32} className="header__avatar" />
-              <span className="header__name">{name || 'Loading...'}</span>
+              <span className="header__name">{userName || 'Loading...'}</span>
               <ChevronDown className="header__chevron" />
             </div>
           </div>
