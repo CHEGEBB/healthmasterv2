@@ -1,257 +1,256 @@
-@import "./colors";
-@import "./fonts";
+// @import "./colors";
+// @import "./fonts";
 
-// Variables
-$primary-bg: #09090b;
-$secondary-bg: #2d3748;
-$accent-color: #48bb78;
-$font-color: #edf2f7;
-$card-bg: #4a5568;
+// // Variables
+// $primary-bg: #09090b;
+// $secondary-bg: #2d3748;
+// $accent-color: #48bb78;
+// $font-color: #edf2f7;
+// $card-bg: #4a5568;
 
-// Breakpoints
-$breakpoint-xs: 320px;
-$breakpoint-sm: 480px;
-$breakpoint-md: 600px;
-$breakpoint-lg: 900px;
-$breakpoint-xl: 1200px;
-$breakpoint-xxl: 1400px;
-$breakpoint-uhd: 1920px;
+// // Breakpoints
+// $breakpoint-xs: 320px;
+// $breakpoint-sm: 480px;
+// $breakpoint-md: 600px;
+// $breakpoint-lg: 900px;
+// $breakpoint-xl: 1200px;
+// $breakpoint-xxl: 1400px;
+// $breakpoint-uhd: 1920px;
 
-// Mixins
-@mixin for-phone-only {
-  @media (max-width: #{$breakpoint-md - 1px}) { @content; }
-}
+// // Mixins
+// @mixin for-phone-only {
+//   @media (max-width: #{$breakpoint-md - 1px}) { @content; }
+// }
 
-@mixin for-small-phone-only {
-  @media (max-width: #{$breakpoint-xs - 1px}) { @content; }
-}
+// @mixin for-small-phone-only {
+//   @media (max-width: #{$breakpoint-xs - 1px}) { @content; }
+// }
 
-@mixin for-medium-phone-up {
-  @media (min-width: #{$breakpoint-xs}) and (max-width: #{$breakpoint-sm - 1px}) { @content; }
-}
+// @mixin for-medium-phone-up {
+//   @media (min-width: #{$breakpoint-xs}) and (max-width: #{$breakpoint-sm - 1px}) { @content; }
+// }
 
-@mixin for-large-phone-up {
-  @media (min-width: #{$breakpoint-sm}) and (max-width: #{$breakpoint-md - 1px}) { @content; }
-}
+// @mixin for-large-phone-up {
+//   @media (min-width: #{$breakpoint-sm}) and (max-width: #{$breakpoint-md - 1px}) { @content; }
+// }
 
-@mixin for-tablet-portrait-up {
-  @media (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1px}) { @content; }
-}
+// @mixin for-tablet-portrait-up {
+//   @media (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1px}) { @content; }
+// }
 
-@mixin for-tablet-landscape-up {
-  @media (min-width: #{$breakpoint-lg}) and (max-width: #{$breakpoint-xl - 1px}) { @content; }
-}
+// @mixin for-tablet-landscape-up {
+//   @media (min-width: #{$breakpoint-lg}) and (max-width: #{$breakpoint-xl - 1px}) { @content; }
+// }
 
-@mixin for-desktop-up {
-  @media (min-width: #{$breakpoint-xl}) and (max-width: #{$breakpoint-xxl - 1px}) { @content; }
-}
+// @mixin for-desktop-up {
+//   @media (min-width: #{$breakpoint-xl}) and (max-width: #{$breakpoint-xxl - 1px}) { @content; }
+// }
 
-@mixin for-big-desktop-up {
-  @media (min-width: #{$breakpoint-xxl}) and (max-width: #{$breakpoint-uhd - 1px}) { @content; }
-}
+// @mixin for-big-desktop-up {
+//   @media (min-width: #{$breakpoint-xxl}) and (max-width: #{$breakpoint-uhd - 1px}) { @content; }
+// }
 
-@mixin for-uhd-up {
-  @media (min-width: #{$breakpoint-uhd}) { @content; }
-}
+// @mixin for-uhd-up {
+//   @media (min-width: #{$breakpoint-uhd}) { @content; }
+// }
 
-// Reset and base styles
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
 
-body {
-  background-color: $space-black;
-  font-family: $font-rubik !important;
-  overflow-x: hidden !important;
-}
+// body {
+//   background-color: $space-black;
+//   font-family: $font-rubik !important;
+//   overflow-x: hidden !important;
+// }
 
-// Container styles
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+// .container {
+//   margin: 0 auto;
+//   padding: 0 20px;
+//   overflow-x: hidden !important;
+
  
 
-  @include for-small-phone-only {
-    padding: 0 10px;
-  }
+//   @include for-small-phone-only {
+//     padding: 0 10px;
+//   }
 
-  @include for-uhd-up {
-    max-width: 1600px;
-  }
+//   @include for-uhd-up {
+//     max-width: 1600px;
+//   }
 
-  h1 {
-    font-family: $font-outfit !important;
+//   h1 {
+//     font-family: $font-outfit !important;
 
-    @include for-small-phone-only {
-      font-size: 2rem !important;
-    }
+//     @include for-small-phone-only {
+//       font-size: 2rem !important;
+//     }
 
-    @include for-phone-only {
-      font-size: 2.5rem !important;
-    }
+//     @include for-phone-only {
+//       font-size: 2.5rem !important;
+//     }
 
-    @include for-tablet-portrait-up {
-      font-size: 3rem !important;
-    }
+//     @include for-tablet-portrait-up {
+//       font-size: 3rem !important;
+//     }
 
-    @include for-desktop-up {
-      font-size: 3.5rem !important;
-    }
-  }
+//     @include for-desktop-up {
+//       font-size: 3.5rem !important;
+//     }
+//   }
 
-  p {
-    font-family: $font-kanit !important;
+//   p {
+//     font-family: $font-kanit !important;
 
-    @include for-small-phone-only {
-      font-size: 0.875rem !important;
-    }
+//     @include for-small-phone-only {
+//       font-size: 0.875rem !important;
+//     }
 
-    @include for-phone-only {
-      font-size: 1rem !important;
-    }
+//     @include for-phone-only {
+//       font-size: 1rem !important;
+//     }
 
-    @include for-tablet-portrait-up {
-      font-size: 1.125rem !important;
-    }
-  }
+//     @include for-tablet-portrait-up {
+//       font-size: 1.125rem !important;
+//     }
+//   }
 
-  .items-center {
-    img {
-      width: 30px;
-      height: 30px;
-      border-radius: 11px;
-    }
+//   .items-center {
+//     img {
+//       width: 30px;
+//       height: 30px;
+//       border-radius: 11px;
+//     }
 
-    .about-image {
-      width: 500px;
-      height: 500px;
-      border-radius: 2rem;
-      border-left: 5px solid $vivid-green;
+//     .about-image {
+//       width: 500px;
+//       height: 500px;
+//       border-radius: 2rem;
+//       border-left: 5px solid $vivid-green;
 
-      @include for-small-phone-only {
-        width: 250px;
-        height: 250px;
-      }
+//       @include for-small-phone-only {
+//         width: 250px;
+//         height: 250px;
+//       }
 
-      @include for-phone-only {
-        width: 300px;
-        height: 300px;
-      }
+//       @include for-phone-only {
+//         width: 300px;
+//         height: 300px;
+//       }
 
-      @include for-tablet-portrait-up {
-        width: 400px;
-        height: 400px;
-      }
+//       @include for-tablet-portrait-up {
+//         width: 400px;
+//         height: 400px;
+//       }
 
-      @include for-big-desktop-up {
-        width: 600px;
-        height: 600px;
-      }
-    }
-  }
+//       @include for-big-desktop-up {
+//         width: 600px;
+//         height: 600px;
+//       }
+//     }
+//   }
 
-  .feats {
-    .feat-image {
-      width: 150px;
-      height: 150px;
-      border-radius: 2rem;
-      box-shadow: 0 0 1px 1px $starlight;
+//   .feats {
+//     .feat-image {
+//       width: 150px;
+//       height: 150px;
+//       border-radius: 2rem;
+//       box-shadow: 0 0 1px 1px $starlight;
 
-      @include for-small-phone-only {
-        width: 100px;
-        height: 100px;
-      }
+//       @include for-small-phone-only {
+//         width: 100px;
+//         height: 100px;
+//       }
 
-      @include for-phone-only {
-        width: 150px;
-        height: 150px;
-      }
+//       @include for-phone-only {
+//         width: 150px;
+//         height: 150px;
+//       }
 
-      @include for-tablet-landscape-up {
-        width: 180px;
-        height: 180px;
-      }
+//       @include for-tablet-landscape-up {
+//         width: 180px;
+//         height: 180px;
+//       }
 
-      @include for-big-desktop-up {
-        width: 200px;
-        height: 200px;
-      }
-    }
-  }
-}
+//       @include for-big-desktop-up {
+//         width: 200px;
+//         height: 200px;
+//       }
+//     }
+//   }
+// }
 
-// Responsive grid
-.grid {
-  display: grid;
-  gap: 1rem;
+// // Responsive grid
+// .grid {
+//   display: grid;
+//   gap: 1rem;
 
-  @include for-medium-phone-up {
-    gap: 1.5rem;
-  }
+//   @include for-medium-phone-up {
+//     gap: 1.5rem;
+//   }
 
-  @include for-tablet-portrait-up {
-    gap: 2rem;
-  }
+//   @include for-tablet-portrait-up {
+//     gap: 2rem;
+//   }
 
-  &.services, &.features {
-    grid-template-columns: 1fr;
+//   &.services, &.features {
+//     grid-template-columns: 1fr;
 
-    @include for-medium-phone-up {
-      grid-template-columns: repeat(2, 1fr);
-    }
+//     @include for-medium-phone-up {
+//       grid-template-columns: repeat(2, 1fr);
+//     }
 
-    @include for-tablet-landscape-up {
-      grid-template-columns: repeat(3, 1fr);
-    }
+//     @include for-tablet-landscape-up {
+//       grid-template-columns: repeat(3, 1fr);
+//     }
 
-    @include for-desktop-up {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-}
+//     @include for-desktop-up {
+//       grid-template-columns: repeat(4, 1fr);
+//     }
+//   }
+// }
 
-// Navigation responsive styles
-nav {
-  .container {
-    @include for-phone-only {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+// // Navigation responsive styles
+// nav {
+//   .container {
+//     @include for-phone-only {
+//       flex-direction: column;
+//       align-items: flex-start;
+//     }
 
-    @include for-tablet-portrait-up {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
+//     @include for-tablet-portrait-up {
+//       flex-direction: row;
+//       align-items: center;
+//     }
+//   }
 
-  .hidden {
-    @include for-phone-only {
-      display: none;
-    }
+//   .hidden {
+//     @include for-phone-only {
+//       display: none;
+//     }
 
-    @include for-tablet-portrait-up {
-      display: flex;
-    }
-  }
+//     @include for-tablet-portrait-up {
+//       display: flex;
+//     }
+//   }
 
-  .md\:hidden {
-    @include for-phone-only {
-      display: block;
-    }
+//   .md\:hidden {
+//     @include for-phone-only {
+//       display: block;
+//     }
 
-    @include for-tablet-portrait-up {
-      display: none;
-    }
-  }
-  @media (max-width: 768px) {
-    .mobile{
-      margin-top: -20px;
-      top: -10px;
-    }
-  }
+//     @include for-tablet-portrait-up {
+//       display: none;
+//     }
+//   }
+//   @media (max-width: 768px) {
+//     .mobile{
+//       margin-top: -20px;
+//       top: -10px;
+//     }
+//   }
   
-}
+// }
 

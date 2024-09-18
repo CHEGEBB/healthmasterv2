@@ -463,7 +463,7 @@ const LandingPage = () => {
           <div>
             <h4 className="mb-4 text-xl font-semibold font-rubik text-emerald-500">Newsletter</h4>
             <p className="mb-4 font-raleway">Stay updated with the latest health insights and HealthMaster news.</p>
-            <form className="flex">
+            {/* <form className="flex">
               <input type="email" placeholder="Enter your email" className="px-4 py-2 rounded-l-md bg-white/20 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
               <motion.button 
                 whileHover={{ scale: 1.05 }}
@@ -472,7 +472,7 @@ const LandingPage = () => {
               >
                 Subscribe
               </motion.button>
-            </form>
+            </form> */}
           </div>
         </div>
         <div className="pt-8 mt-8 text-center border-t border-slate-700">
@@ -480,7 +480,7 @@ const LandingPage = () => {
         </div>
       </footer>
 
-      {/* <motion.button
+      <motion.button
         className="fixed z-50 p-2 transition-colors rounded-full bottom-8 right-8 bg-emerald-500 hover:bg-emerald-600"
         onClick={scrollToTop}
         initial={{ opacity: 0 }}
@@ -489,7 +489,7 @@ const LandingPage = () => {
         whileTap={{ scale: 0.9 }}
       >
         <ArrowUpCircle className="w-6 h-6 text-white" />
-      </motion.button> */}
+      </motion.button>
     </div>
   );
 };
