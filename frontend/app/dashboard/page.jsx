@@ -5,10 +5,14 @@ import Sidenav from '../../components/layout/sidebar';
 import Header from "../../components/layout/header";
 import Cards from '../../components/cards/Cards';
 import { Menu, X } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const WelcomeModal = dynamic(() => import('../../components/cards/WelcomeModal'), { ssr: false });
 
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,7 +24,16 @@ export default function DashboardPage() {
 
     handleResize();
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    // Show modal after 2 seconds
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 2000);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timer);
+    };
   }, []);
 
   const toggleSidebar = () => {
@@ -45,6 +58,7 @@ export default function DashboardPage() {
           <Cards />
         </div>
       </div>
+      {showModal && <WelcomeModal onClose={() => setShowModal(false)} />}
     </div>
   );
 }
