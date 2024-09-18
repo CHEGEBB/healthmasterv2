@@ -1,15 +1,14 @@
-"use client"
-import React, { useState, useEffect } from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   LayoutDashboard, NotepadText, Pill, ActivitySquare,
-  Bell, FileText, Ambulance, MapPin, Settings, User,
-  ChevronLeft, ChevronRight,
-  HeartPulse
+  Bell, Settings, User, ChevronLeft, ChevronRight,
+  HeartPulse, LogOut
 } from "lucide-react";
 import "../../sass/sidebar.scss";
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const menuItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -18,12 +17,20 @@ const menuItems = [
   { href: "/health-stats", icon: ActivitySquare, label: "My Health Stats" },
   { href: "/reminders", icon: Bell, label: "Reminders" },
   { href: "/settings", icon: Settings, label: "Settings" },
-  { href: "/profile", icon: User, label: "Profile" },
+  { href: "/profile", icon: User, label: "Profile" }
 ];
 
 export default function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(true);
   const pathname = usePathname();
+  const router = useRouter();
+
+  // Simplified logout function
+  const handleLogout = () => {
+    // Redirect to login page directly
+    router.push('/login');
+  };
+
   return (
     <div className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
       <div className="sidebar-header">
@@ -42,23 +49,19 @@ export default function Sidebar() {
             </div>
           </Link>
         ))}
+        <div className="nav-item" onClick={handleLogout}>
+          <LogOut size={35} />
+          <span className="nav-text">Logout</span>
+        </div>
       </nav>
       <div className="special-link">
-      <Link href="/pharmasense">
+        <Link href="/pharmasense">
           <div className="ai-cont">
             <HeartPulse size={25} />
             <span className="ai-text">Pharmasense Ai</span>
           </div>
         </Link>
       </div>
-      {/* <div className="sidebar-footer">
-        <Link href="/emergency">
-          <div className="emergency-btn">
-            <Ambulance size={25} />
-            <span className="emergency-text">Emergency</span>
-          </div>
-        </Link>
-      </div> */}
     </div>
   );
 }

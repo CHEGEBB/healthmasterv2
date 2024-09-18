@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Search, Mic, ChevronDown, Calendar, Bell } from 'lucide-react';
 import Image from 'next/image';
 import '../../sass/header.scss';
 
 const Header = () => {
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/personal-info');
+        setUserName(response.data.name);
+      } catch (error) {
+        console.error('Error fetching user name:', error);
+        setUserName('Guest User');
+      }
+    };
+
+    fetchUserName();
+  }, []);
+
   return (
     <header className="header">
       <div className="header__container">
@@ -32,8 +49,8 @@ const Header = () => {
             </div>
 
             <div className="header__profile">
-              <Image src="/assets/images/3.jpg" alt="Sarah Ruth" width={32} height={32} className="header__avatar" />
-              <span className="header__name">Sarah Ruth</span>
+              <Image src="/assets/images/3.jpg" alt={userName} width={32} height={32} className="header__avatar" />
+              <span className="header__name">{name || 'Loading...'}</span>
               <ChevronDown className="header__chevron" />
             </div>
           </div>
