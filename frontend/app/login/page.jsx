@@ -12,7 +12,6 @@ import "../../sass/auth.scss";
 
 export default function Login() {
   const [focusedInput, setFocusedInput] = useState(null);
-  const [userName, setUserName] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,16 +19,6 @@ export default function Login() {
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
-  // Check if the user has logged in before
-  useEffect(() => {
-    const hasLoggedInBefore = localStorage.getItem("hasLoggedInBefore");
-
-    // If the user has logged in before, redirect them to the dashboard
-    if (hasLoggedInBefore === "true") {
-      router.push("/dashboard");
-    }
-  }, [router]);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -42,31 +31,28 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const { token, name } = response.data;
-    setUserName(name);
-    try {
-      const response = await axios.post("https://healthmasterv2-2.onrender.com/api/auth/login", formData);
-      const { token } = response.data;
 
+    try {
+      const response = await axios.post(
+        "https://healthmasterv2-2.onrender.com/api/auth/login",
+        formData
+      );
+      const { token, isNewUser } = response.data;
+
+      // Store the token in localStorage or sessionStorage based on user preference
       if (keepLoggedIn) {
         localStorage.setItem("token", token);
       } else {
         sessionStorage.setItem("token", token);
       }
 
-      // Check if this is the user's first login (i.e., if the flag exists)
-      const hasLoggedInBefore = localStorage.getItem("hasLoggedInBefore");
-
-      // Set the flag to indicate the user has logged in before
-      localStorage.setItem("hasLoggedInBefore", "true");
-
       toast.success("Login successful!");
 
-      // Redirect based on whether the user has logged in before
-      if (hasLoggedInBefore === "true") {
-        router.push("/dashboard"); // Redirect to dashboard for returning users
-      } else {
+      // Redirect based on whether the user is new or returning
+      if (isNewUser) {
         router.push("/data"); // Redirect to data page for new users
+      } else {
+        router.push("/dashboard"); // Redirect to dashboard for returning users
       }
     } catch (error) {
       console.error("Login error:", error.response?.data?.message || error.message);
@@ -75,11 +61,6 @@ export default function Login() {
       setIsLoading(false);
     }
   };
-  if (keepLoggedIn) {
-    localStorage.setItem("userName", name);
-  } else {
-    sessionStorage.setItem("userName", name);
-  }
 
   return (
     <div className="container">

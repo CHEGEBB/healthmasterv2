@@ -12,6 +12,7 @@ exports.signup = async (req, res) => {
 
     const newUser = new User({ fullName, email, phoneNumber, password });
     newUser.isVerified = true;
+    newUser.isNewUser = true; // Mark the user as new
 
     await newUser.save();
 
@@ -33,7 +34,16 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 
-    res.status(200).json({ token });
+    // Check if it's the user's first login
+    const isNewUser = user.isNewUser;
+
+    // After the first login, mark the user as no longer new
+    if (isNewUser) {
+      user.isNewUser = false;
+      await user.save();
+    }
+
+    res.status(200).json({ token, isNewUser });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Error logging in', error: error.message });
