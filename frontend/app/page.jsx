@@ -480,7 +480,7 @@ const LandingPage = () => {
         </div>
       </footer>
 
-      <motion.button
+      {/* <motion.button
         className="fixed z-50 p-2 transition-colors rounded-full bottom-8 right-8 bg-emerald-500 hover:bg-emerald-600"
         onClick={scrollToTop}
         initial={{ opacity: 0 }}
@@ -489,7 +489,7 @@ const LandingPage = () => {
         whileTap={{ scale: 0.9 }}
       >
         <ArrowUpCircle className="w-6 h-6 text-white" />
-      </motion.button>
+      </motion.button> */}
     </div>
   );
 };
