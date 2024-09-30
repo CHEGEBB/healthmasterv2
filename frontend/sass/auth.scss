@@ -306,7 +306,7 @@ body{
   
     @include for-desktop-up {
       width: 50vw;
-      height: 100vh;
+      height: 170vh;
       margin-right: -70px;
       animation: desktop-animation 15s infinite alternate ease-in-out;
     }
