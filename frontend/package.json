@@ -24,6 +24,7 @@
     "@react-three/drei": "^9.111.4",
     "@react-three/fiber": "^8.17.6",
     "apexcharts": "^3.52.0",
+    "appwrite": "^14.0.1",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
     "canvas-confetti": "^1.9.3",

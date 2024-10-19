@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import PhoneInput from "react-phone-input-2";
 import { User, Mail, Lock, AlertCircle } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { toast } from 'react-hot-toast';
 import Confetti from 'react-confetti';
+import { createUser } from "../appwrite";
 
 import "react-phone-input-2/lib/style.css";
 import "../../sass/auth.scss";
@@ -65,7 +65,6 @@ function ErrorModal({ isVisible, onClose, message }) {
 
 export default function SignUp() {
   const [focusedInput, setFocusedInput] = useState(null);
-  const [phone, setPhone] = useState("");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -74,6 +73,7 @@ export default function SignUp() {
     fullName: '',
     email: '',
     password: '',
+    phone: ''
   });
   const router = useRouter();
 
@@ -89,6 +89,13 @@ export default function SignUp() {
     }
   };
 
+  const handlePhoneChange = (value) => {
+    setFormData(prevState => ({
+      ...prevState,
+      phone: value
+    }));
+  };
+
   const checkPasswordStrength = (password) => {
     let strength = 0;
     if (password.length >= 8) strength++;
@@ -101,15 +108,29 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://healthmasterv2-2.onrender.com/api/auth/signup', {
-        ...formData,
-        phoneNumber: phone
-      });
-      setShowSuccessModal(true);
-      toast.success('Signup successful. You can now log in to your account.');
+      const newUser = await createUser(formData.email, formData.password, formData.fullName, formData.phone);
+      if (newUser) {
+        setShowSuccessModal(true);
+        setFormData({
+          fullName: '',
+          email: '',
+          password: '',
+          phone: ''
+        });
+      } else {
+        throw new Error('Failed to create user');
+      }
     } catch (error) {
-      console.error('Signup error:', error.response?.data?.message || error.message);
-      setErrorMessage(error.response?.data?.message || 'An error occurred during signup');
+      console.error('Signup error:', error);
+      let errorMessage = 'Failed to create account. Please try again.';
+      
+      if (error.message.includes('409')) {
+        errorMessage = 'An account with this email already exists.';
+      } else if (error.message.includes('400')) {
+        errorMessage = 'Invalid email or password format.';
+      }
+      
+      setErrorMessage(errorMessage);
       setShowErrorModal(true);
     }
   };
@@ -135,7 +156,7 @@ export default function SignUp() {
           <p>Welcome to HealthMaster, the all-in-one platform to help you stay healthy.</p>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className={`form-group ${focusedInput === 'name' || formData.fullName ? 'focused' : ''}`}>
+          <div className={`form-group ${focusedInput === 'fullName' || formData.fullName ? 'focused' : ''}`}>
             <label htmlFor="fullName">Full Name</label>
             <div className="input-wrapper">
               <User className="input-icon" />
@@ -143,13 +164,13 @@ export default function SignUp() {
                 type="text"
                 id="fullName"
                 required
-                onFocus={() => setFocusedInput('name')}
+                onFocus={() => setFocusedInput('fullName')}
                 onBlur={() => setFocusedInput(null)}
                 onChange={handleInputChange}
                 value={formData.fullName}
                 style={{
-                  backgroundColor: focusedInput === 'name' || formData.fullName ? '#444' : 'transparent',
-                  color: focusedInput === 'name' || formData.fullName ? '#fff' : 'inherit',
+                  backgroundColor: focusedInput === 'fullName' || formData.fullName ? '#444' : 'transparent',
+                  color: focusedInput === 'fullName' || formData.fullName ? '#fff' : 'inherit',
                   transition: 'background-color 0.3s, color 0.3s',
                 }}
               />
@@ -175,22 +196,25 @@ export default function SignUp() {
               />
             </div>
           </div>
-          <div className={`form-group ${focusedInput === 'phone' || phone ? 'focused' : ''}`}>
+          <div className={`form-group ${focusedInput === 'phone' || formData.phone ? 'focused' : ''}`}>
             <label htmlFor="phone">Phone Number</label>
             <div className="phone-input-wrapper">
               <PhoneInput
                 country="us"
-                value={phone}
-                required
-                onChange={(value) => setPhone(value)}
+                value={formData.phone}
+                onChange={handlePhoneChange}
+                inputProps={{
+                  id: 'phone',
+                  required: true,
+                }}
                 inputStyle={{
                   width: "100%",
                   padding: "25px",
                   marginLeft: "30px",
                   borderRadius: "0.25rem",
                   border: "1px solid #444",
-                  backgroundColor: focusedInput === 'phone' || phone ? '#444' : '#333',
-                  color: focusedInput === 'phone' || phone ? '#fff' : 'inherit',
+                  backgroundColor: focusedInput === 'phone' || formData.phone ? '#444' : '#333',
+                  color: focusedInput === 'phone' || formData.phone ? '#fff' : 'inherit',
                   fontFamily: "Jost, sans-serif",
                   transition: 'background-color 0.3s, color 0.3s',
                 }}
