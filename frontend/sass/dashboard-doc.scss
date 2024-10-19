@@ -523,3 +523,147 @@ body {
     }
   }
 }
+.analytics-section {
+  margin-top: 2rem;
+}
+
+.prediction-cards {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+
+  .card {
+    background-color: $secondary-bg;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+
+    h4 {
+      color: $accent-color;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.assessment {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+
+  &.normal {
+    background-color: #48bb78;
+    color: white;
+  }
+
+  &.risky {
+    background-color: #f6ad55;
+    color: white;
+  }
+
+  &.critical {
+    background-color: #f56565;
+    color: white;
+  }
+}
+
+.action-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1.5rem;
+
+  .call-btn, .appointment-btn {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #38a169;
+    }
+  }
+}
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: #f7fafc;
+}
+
+.form-card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.form-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #4a5568;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    background-color: #edf2f7;
+    transition: border-color 0.3s ease;
+    color: #2d3748;
+
+    &:focus {
+      border-color: #4299e1;
+      outline: none;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    height: 120px;
+  }
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #4299e1;
+  color: white;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #3182ce;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  }
+}

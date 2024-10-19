@@ -6,8 +6,14 @@ import { useRouter } from 'next/navigation';
 // Simulated alert data
 const alertsData = [
   { id: 1, name: "John Doe", time: "10:30 AM", description: "Blood pressure elevated", responded: false },
-  { id: 2, name: "Jane Smith", time: "9:00 AM", description: "Glucose levels low", responded: false },
+  { id: 3, name: "Michael Johnson", time: "11:00 AM", description: "Glucose levels high", responded: false },
+  { id: 5, name: "William Brown", time: "9:45 AM", description: "Critical blood pressure and glucose levels", responded: false },
+  { id: 9, name: "Ava Anderson", time: "8:15 AM", description: "Blood pressure elevated", responded: false },
+  { id: 12, name: "Mason Martin", time: "1:30 PM", description: "Blood pressure elevated", responded: false },
+  { id: 13, name: "Ethan Clark", time: "3:00 PM", description: "Glucose levels high", responded: false },
+  { id: 15, name: "Lucas Walker", time: "2:45 PM", description: "Critical blood pressure and glucose levels", responded: false }
 ];
+
 
 export default function AlertsPage() {
   const [alerts, setAlerts] = useState(alertsData);
