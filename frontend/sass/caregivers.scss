@@ -1,0 +1,185 @@
+$primary-color: #333;
+$secondary-color: #555;
+$background-color: #747e8b;
+$border-color: #334155;
+$box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+$highlight-color: #e0eaff;
+$hover-color: #e7f1ff;
+$transition-duration: 0.3s;
+$max-width: 900px;
+
+.container {
+  padding: 20px;
+  // max-width: $max-width;
+  // margin: 0 auto;
+  background-color: $background-color;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: $primary-color;
+}
+
+/* Caregiver Profile */
+.profileSection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: $background-color;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+
+  .caregiverAvatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+
+  .profileDetails {
+    h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: $primary-color;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: $secondary-color;
+    }
+  }
+}
+
+/* Search and Sort Bar */
+.searchSortSection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .searchBar {
+    position: relative;
+    width: 60%;
+
+    .searchIcon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: $primary-color;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 10px 10px 35px;
+      font-size: 1rem;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+    }
+  }
+
+  .sortDropdown {
+    display: flex;
+    align-items: center;
+
+    .sortIcon {
+      margin-right: 10px;
+      color: $primary-color;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+    }
+  }
+}
+
+/* Schedule List */
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.scheduleItem {
+  padding: 20px;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  background-color: $background-color;
+  box-shadow: $box-shadow;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: all $transition-duration ease;
+  overflow: hidden;
+
+  &:hover {
+    background-color: $hover-color;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .patientInfo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid $border-color;
+      transition: transform $transition-duration ease;
+    }
+
+    .avatar:hover {
+      transform: scale(1.1);
+    }
+
+  
+    .details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      p {
+        margin: 0;
+        font-size: 1.1rem;
+        color: $secondary-color;
+
+        strong {
+          color: $primary-color;
+        }
+
+        .icon {
+          margin-right: 5px;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .appointmentDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    p {
+      font-size: 1rem;
+      color: $primary-color;
+
+      strong {
+        color: $secondary-color;
+      }
+
+      .icon {
+        margin-right: 5px;
+        color: $primary-color;
+      }
+    }
+  }
+}
