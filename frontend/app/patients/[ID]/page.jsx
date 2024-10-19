@@ -109,7 +109,7 @@ export default function PatientDetailsPage({ params }) {
           {/* Action Buttons */}
           <div className="action-buttons">
             <button className="call-btn">Call Patient</button>
-            <button className="appointment-btn">Set Up Appointment</button>
+            <button className="appointment-btn" onClick={() =>router.push('/appointments/create')}>Set Up Appointment</button>
           </div>
         </div>
       </div>
