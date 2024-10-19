@@ -230,7 +230,7 @@ body {
     margin-top: 1rem;
 
     .card {
-      background-color: red;
+      background-color: #3f3f3f;
       padding: 1rem;
       border-radius: 1rem;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -489,6 +489,37 @@ body {
     &:disabled {
       background-color: #a0aec0;
       cursor: not-allowed;
+    }
+  }
+}
+.patient-details {
+  background-color: $secondary-bg;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+
+  p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: $font-color;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  .back-btn {
+    background-color: #e2e8f0;
+    color: #2d3748;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #cbd5e0;
     }
   }
 }
