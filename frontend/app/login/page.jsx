@@ -7,6 +7,7 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Mail, Lock } from "lucide-react";
 import { toast } from "react-hot-toast";
+import {signIn} from "../appwrite"
 
 import "../../sass/auth.scss";
 
@@ -16,6 +17,9 @@ export default function Login() {
     email: "",
     password: "",
   });
+
+
+
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -28,39 +32,29 @@ export default function Login() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e)=>{
     e.preventDefault();
-    setIsLoading(true);
-
+    console.log(formData.email);
+    console.log(formData.password);
     try {
-      const response = await axios.post(
-        "https://healthmasterv2-2.onrender.com/api/auth/login",
-        formData
-      );
-      const { token, isNewUser } = response.data;
-
-      // Store the token in localStorage or sessionStorage based on user preference
-      if (keepLoggedIn) {
-        localStorage.setItem("token", token);
+      setIsLoading(true);
+      const response = await signIn(formData.email, formData.password)
+      console.log(response);
+      if (response.$id) {
+        toast.success("Logged in successfully");
+        setIsLoading(false);
+        router.push("/dashboard");
       } else {
-        sessionStorage.setItem("token", token);
-      }
-
-      toast.success("Login successful!");
-
-      // Redirect based on whether the user is new or returning
-      if (isNewUser) {
-        router.push("/data"); // Redirect to data page for new users
-      } else {
-        router.push("/dashboard"); // Redirect to dashboard for returning users
+        toast.error("Failed to log in. Please check your credentials");
+        setIsLoading(false);
       }
     } catch (error) {
-      console.error("Login error:", error.response?.data?.message || error.message);
-      toast.error(error.response?.data?.message || "An error occurred during login");
-    } finally {
-      setIsLoading(false);
+      console.log(error);
+      
     }
+    
   };
+
 
   return (
     <div className="container">
