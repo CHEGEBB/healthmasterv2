@@ -11,7 +11,7 @@ const schedules = [
     time: '10:00 AM',
     patient: 'John Doe',
     location: '123 Main St',
-    avatar: '/avatars/john.png',
+    avatar: './assets/images/3.jpg',
     condition: 'Hypertension',
     area: 'Cardiology',
     status: 'Scheduled',
@@ -24,7 +24,7 @@ const schedules = [
     time: '2:00 PM',
     patient: 'Jane Smith',
     location: '456 Oak Ave',
-    avatar: '/avatars/jane.png',
+    avatar: './assets/images/2.png',
     condition: 'Diabetes',
     area: 'Endocrinology',
     status: 'Confirmed',
@@ -37,14 +37,106 @@ const schedules = [
     time: '11:00 AM',
     patient: 'Mike Johnson',
     location: '789 Pine Rd',
-    avatar: '/avatars/mike.png',
+    avatar: './assets/images/1.png',
     condition: 'Heart Disease',
     area: 'Cardiology',
     status: 'Pending Confirmation',
     contact: '+1 456 789 012',
     duration: '2 hours'
   },
+  {
+    id: 4,
+    date: '2024-10-23',
+    time: '9:00 AM',
+    patient: 'Emily Davis',
+    location: '101 Elm St',
+    avatar: './assets/images/4.jpg',
+    condition: 'Asthma',
+    area: 'Pulmonology',
+    status: 'Scheduled',
+    contact: '+1 567 890 123',
+    duration: '1 hour'
+  },
+  {
+    id: 5,
+    date: '2024-10-24',
+    time: '3:00 PM',
+    patient: 'Robert Wilson',
+    location: '234 Cedar Ln',
+    avatar: './assets/images/5.png',
+    condition: 'Arthritis',
+    area: 'Rheumatology',
+    status: 'Confirmed',
+    contact: '+1 678 901 234',
+    duration: '1.5 hours'
+  },
+  {
+    id: 6,
+    date: '2024-10-25',
+    time: '8:00 AM',
+    patient: 'Sarah Brown',
+    location: '345 Maple St',
+    avatar: './assets/images/6.jpg',
+    condition: 'Diabetes',
+    area: 'Endocrinology',
+    status: 'Pending Confirmation',
+    contact: '+1 789 012 345',
+    duration: '2 hours'
+  },
+  {
+    id: 7,
+    date: '2024-10-26',
+    time: '1:00 PM',
+    patient: 'James Miller',
+    location: '456 Spruce Blvd',
+    avatar: './assets/images/7.png',
+    condition: 'COPD',
+    area: 'Pulmonology',
+    status: 'Scheduled',
+    contact: '+1 890 123 456',
+    duration: '1 hour'
+  },
+  {
+    id: 8,
+    date: '2024-10-27',
+    time: '10:30 AM',
+    patient: 'Patricia Taylor',
+    location: '567 Birch Rd',
+    avatar: './assets/images/8.png',
+    condition: 'Hypertension',
+    area: 'Cardiology',
+    status: 'Confirmed',
+    contact: '+1 901 234 567',
+    duration: '1.5 hours'
+  },
+  {
+    id: 9,
+    date: '2024-10-28',
+    time: '4:00 PM',
+    patient: 'David Anderson',
+    location: '678 Willow Dr',
+    avatar: './assets/images/9.png',
+    condition: 'Heart Disease',
+    area: 'Cardiology',
+    status: 'Pending Confirmation',
+    contact: '+1 012 345 678',
+    duration: '2 hours'
+  },
+  {
+    id: 10,
+    date: '2024-10-29',
+    time: '12:00 PM',
+    patient: 'Lisa Martinez',
+    location: '789 Cherry St',
+    avatar: './assets/images/11.png',
+    condition: 'Kidney Disease',
+    area: 'Nephrology',
+    status: 'Scheduled',
+    contact: '+1 123 456 789',
+    duration: '1 hour'
+  }
 ];
+
 
 const Schedule = () => {
   const [filteredSchedules, setFilteredSchedules] = useState(schedules);
@@ -76,7 +168,7 @@ const Schedule = () => {
     <div className="container">
       {/* Caregiver Profile */}
       <div className="profileSection">
-        <img src="/avatars/caregiver.png" alt="Caregiver Avatar" className="caregiverAvatar" />
+        <img src="./assets/images/7.png" alt="Caregiver Avatar" className="caregiverAvatar" />
         <div className="profileDetails">
           <h2>Caregiver: Mary Johnson</h2>
           <p><FaPhoneAlt /> Contact: +1 123 456 7890</p>
