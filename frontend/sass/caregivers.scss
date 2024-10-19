@@ -1,13 +1,17 @@
-$primary-color: #333;
-$secondary-color: #555;
-$background-color: #747e8b;
+$primary-color: #24AE7C;
+$secondary-color: #cccccc;
+$background-color: #1B2735;
 $border-color: #334155;
 $box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-$highlight-color: #e0eaff;
-$hover-color: #e7f1ff;
+$highlight-color: #2ECC71;
+$hover-color: #008080;
 $transition-duration: 0.3s;
 $max-width: 900px;
 
+
+body {
+  background-color: $border-color ;
+}
 .container {
   padding: 20px;
   // max-width: $max-width;
