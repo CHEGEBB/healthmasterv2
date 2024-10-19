@@ -25,7 +25,7 @@ export default function Login() {
   const router = useRouter();
 
   const handleInputChange = (e) => {
-    const { id, value } = e.target;
+    const { id,value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [id]: value,
