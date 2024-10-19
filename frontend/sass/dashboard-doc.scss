@@ -326,11 +326,13 @@ body {
 }
 
 .search-bar {
-  padding: 0.5rem;
-  margin: 0.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid #ccc;
-  width: 300px;
+  flex: 1;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
 }
 
 .call-btn, .text-btn, .appointment-btn {
@@ -376,5 +378,77 @@ body {
   @include respond-to("tablet") {
     width: auto;
     margin-right: 1rem; /* Space between buttons on tablet */
+  }
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: $primary-bg;
+  width: 100% !important;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .search-bar {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+
+    &:focus {
+      border-color: $accent-color; /* Highlight border on focus */
+      box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.5); /* Green focus ring */
+    }
+
+    @include respond-to("mobile") {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .header-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem; /* Space between buttons */
+
+    @include respond-to("mobile") {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  .appointments-btn, .alerts-btn {
+    background-color: #e2e8f0; /* Light grey */
+    color: #2d3748; /* Dark grey text */
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-family: $font-raleway;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background-color: #cbd5e0; /* Slightly darker grey on hover */
+      transform: scale(1.05); /* Slight scale on hover */
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.5); /* Green focus ring */
+    }
+
+    @include respond-to("mobile") {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
   }
 }
