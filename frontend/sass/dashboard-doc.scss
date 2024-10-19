@@ -523,3 +523,67 @@ body {
     }
   }
 }
+.analytics-section {
+  margin-top: 2rem;
+}
+
+.prediction-cards {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+
+  .card {
+    background-color: $secondary-bg;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+
+    h4 {
+      color: $accent-color;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.assessment {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+
+  &.normal {
+    background-color: #48bb78;
+    color: white;
+  }
+
+  &.risky {
+    background-color: #f6ad55;
+    color: white;
+  }
+
+  &.critical {
+    background-color: #f56565;
+    color: white;
+  }
+}
+
+.action-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1.5rem;
+
+  .call-btn, .appointment-btn {
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #38a169;
+    }
+  }
+}
