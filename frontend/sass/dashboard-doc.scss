@@ -452,3 +452,43 @@ body {
     }
   }
 }
+.alerts-table, .appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #cbd5e0;
+  }
+
+  th {
+    background-color: $secondary-bg;
+    color: white;
+  }
+
+  .responded-row, .rescheduled-row {
+    background-color: #f7fafc; /* Light grey background for responded/rescheduled rows */
+  }
+
+  .respond-btn, .reschedule-btn {
+    background-color: #e2e8f0;
+    color: #2d3748;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: #cbd5e0;
+      transform: scale(1.05);
+    }
+
+    &:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+    }
+  }
+}

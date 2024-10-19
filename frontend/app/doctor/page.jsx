@@ -60,10 +60,10 @@ export default function DashboardPage() {
 
         {/* Buttons in the center */}
         <div className="header-buttons">
-          <button className="appointments-btn" onClick={() => router.push('/appointments')}>
+          <button className="appointments-btn" onClick={() => router.push('/doctor/appointments')}>
             View Appointments
           </button>
-          <button className="alerts-btn" onClick={() => router.push('/alerts')}>
+          <button className="alerts-btn" onClick={() => router.push('/doctor/alerts')}>
             View Alerts
           </button>
         </div>
