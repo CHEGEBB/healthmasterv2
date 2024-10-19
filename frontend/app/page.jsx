@@ -64,6 +64,14 @@ const LandingPage = () => {
           </div>
           <div className="hidden md:flex md:space-x-2">
             <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-4 py-2 text-sm text-white transition-colors bg-teal-700 rounded-full lg:px-6 lg:py-2 hover:bg-emerald-600"
+                onClick={() => window.location.href = '/doctor'}
+              >
+              Doctor's portal
+              </motion.button>
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-4 py-2 text-sm text-white transition-colors bg-teal-700 rounded-full lg:px-6 lg:py-2 hover:bg-emerald-600"
