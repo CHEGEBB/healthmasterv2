@@ -8,10 +8,21 @@ import { Input } from "@/components/ui/input";
 import { Mail, Lock } from "lucide-react";
 import { toast } from "react-hot-toast";
 import {signIn} from "@/appwrite"
+import appwriteAuth from '@/appwrite/appwriteAuth';
 
 import "@/sass/auth.scss";
 
 export default function Login() {
+  const router = useRouter();
+
+  useEffect(() => {
+    (appwriteAuth.isLoggedIn()).then((isLoggedIn) => {
+      if (isLoggedIn) {
+        router.push("/dashboard");
+      }
+    })
+  }, [])
+
   const [focusedInput, setFocusedInput] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
@@ -22,7 +33,6 @@ export default function Login() {
 
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const handleInputChange = (e) => {
     const { id,value } = e.target;
@@ -34,12 +44,9 @@ export default function Login() {
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
-    console.log(formData.email);
-    console.log(formData.password);
     try {
       setIsLoading(true);
-      const response = await signIn(formData.email, formData.password)
-      console.log(response);
+      const response = await appwriteAuth.login(formData)
       if (response.$id) {
         toast.success("Logged in successfully");
         setIsLoading(false);

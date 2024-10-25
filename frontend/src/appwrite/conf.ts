@@ -1,4 +1,6 @@
-const config = {
+import { Client } from "appwrite";
+
+export const config = {
   endpoint: process.env.NEXT_PUBLIC_APPWRITE_URL!,
   projectId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!,
   databaseId: process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
@@ -10,4 +12,4 @@ const config = {
   avatarId : process.env.NEXT_PUBLIC_APPWRITE_AVATAR_ID!,
 };
 
-export default config
+export const appwriteClient = new Client().setEndpoint(config.endpoint).setProject(config.projectId)

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from 'react-hot-toast';
 import Confetti from 'react-confetti';
-import { createUser } from "@/appwrite";
+import appwriteAuth from '@/appwrite/appwriteAuth';
 
 import "react-phone-input-2/lib/style.css";
 import "@/sass/auth.scss";
@@ -64,6 +64,14 @@ function ErrorModal({ isVisible, onClose, message }) {
 }
 
 export default function SignUp() {
+  const router = useRouter();
+  useEffect(() => {
+    (appwriteAuth.isLoggedIn()).then((isLoggedIn) => {
+      if (isLoggedIn) {
+        router.push("/dashboard");
+      }
+    })
+  }, [])
   const [focusedInput, setFocusedInput] = useState(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -75,7 +83,6 @@ export default function SignUp() {
     password: '',
     phone: ''
   });
-  const router = useRouter();
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -108,7 +115,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const newUser = await createUser(formData.email, formData.password, formData.fullName, formData.phone);
+      const newUser = await appwriteAuth.createUser(formData);
       if (newUser) {
         setShowSuccessModal(true);
         setFormData({
@@ -122,22 +129,24 @@ export default function SignUp() {
       }
     } catch (error) {
       console.error('Signup error:', error);
-      let errorMessage = 'Failed to create account. Please try again.';
-      
-      if (error.message.includes('409')) {
-        errorMessage = 'An account with this email already exists.';
-      } else if (error.message.includes('400')) {
-        errorMessage = 'Invalid email or password format.';
-      }
-      
-      setErrorMessage(errorMessage);
-      setShowErrorModal(true);
+    let errorMessage = 'Failed to create account. Please try again.';
+    
+    if (error.message.includes("email")) {
+      errorMessage = 'An account with this email already exists.';
+    } else if (error.message.includes('passowrd')) {
+      errorMessage = 'Invalid email or password format.';
+    } else if (error.message.includes('phone')) {
+      errorMessage = 'An account with this phone number already exists.';
     }
+    
+    setErrorMessage(errorMessage);
+    setShowErrorModal(true);
+  }  
   };
 
   const handleSuccessModalClose = () => {
     setShowSuccessModal(false);
-    router.push('/login');
+    router.replace('/dashboard');
   };
 
   const handleErrorModalClose = () => {
@@ -148,7 +157,7 @@ export default function SignUp() {
     <div className="container">
       <div className="form-container">
         <div className="form-logo">
-          <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
+            <Image src="/assets/icons/new.jpg" alt="HealthMaster logo" width={100} height={100} />
           <h2>Health master</h2>
         </div>
         <div className="form-title">

@@ -9,6 +9,7 @@ import {
 import "@/sass/sidebar.scss";
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import appwriteAuth from '@/appwrite/appwriteAuth'
 
 const menuItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -26,8 +27,9 @@ export default function Sidebar() {
   const router = useRouter();
 
   // Simplified logout function
-  const handleLogout = () => {
+  const handleLogout = async () => {
     // Redirect to login page directly
+    await appwriteAuth.logout()
     router.push('/login');
   };
 
