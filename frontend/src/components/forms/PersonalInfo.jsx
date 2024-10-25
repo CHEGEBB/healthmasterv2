@@ -168,7 +168,7 @@ const PersonalInfo = () => {
         //     emergencyPhone: null
         //   });
         // }
-        toast.sucess("Updated successfully")
+        toast.success("Updated successfully")
       } catch (error) {
         console.error('Error submitting form:', error);
         setError('An error occurred while submitting the form. Please try again.');
