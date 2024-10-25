@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Briefcase, CalendarDays, Home, Mail, Phone, User2, AlertTriangle, X } from "lucide-react";
 import confetti from 'canvas-confetti';
+import appwriteInfo from '@/appwrite/appwriteInfo'
+import { toast } from 'react-hot-toast';
 
 const SuccessModal = ({ isOpen, onClose, name }) => {
   const [showModal, setShowModal] = useState(isOpen);
@@ -139,32 +141,34 @@ const PersonalInfo = () => {
       setIsSubmitting(true);
       setError(null);
       try {
-        const response = await axios.post('https://healthmasterv2-2.onrender.com/api/personal-info', formState);
-        if (response.status === 201) {
-          setShowSuccessModal(true);
-          setFormState({
-            name: "",
-            email: "",
-            phone: "",
-            dob: "",
-            gender: "",
-            address: "",
-            occupation: "",
-            emergencyContact: "",
-            emergencyPhone: ""
-          });
-          setValidationState({
-            name: null,
-            email: null,
-            phone: null,
-            dob: null,
-            gender: null,
-            address: null,
-            occupation: null,
-            emergencyContact: null,
-            emergencyPhone: null
-          });
-        }
+        await appwriteInfo.updateInfo(formState)
+        // const response = await axios.post('https://healthmasterv2-2.onrender.com/api/personal-info', formState);
+        // if (response.status === 201) {
+        //   setShowSuccessModal(true);
+        //   setFormState({
+        //     name: "",
+        //     email: "",
+        //     phone: "",
+        //     dob: "",
+        //     gender: "",
+        //     address: "",
+        //     occupation: "",
+        //     emergencyContact: "",
+        //     emergencyPhone: ""
+        //   });
+        //   setValidationState({
+        //     name: null,
+        //     email: null,
+        //     phone: null,
+        //     dob: null,
+        //     gender: null,
+        //     address: null,
+        //     occupation: null,
+        //     emergencyContact: null,
+        //     emergencyPhone: null
+        //   });
+        // }
+        toast.sucess("Updated successfully")
       } catch (error) {
         console.error('Error submitting form:', error);
         setError('An error occurred while submitting the form. Please try again.');
@@ -175,6 +179,31 @@ const PersonalInfo = () => {
       setError("Please fill all fields correctly before submitting.");
     }
   };
+
+  useEffect(() => {
+    const fetchApwriteInfo = () => {
+    appwriteInfo.getInfo().then((info) => {
+      const formData = {
+        name: info.username || '',
+        email: info.email || '',
+        phone: info.phone || '',
+        dob: info.dob || '',
+        gender: info.gender || '',
+        address: info.address || '',
+        occupation: info.occupation || '',
+        emergencyContact: info.emergencyContact || '',
+        emergencyPhone: info.emergencyPhone || ''
+      }
+      setFormState(formData)
+      for (const field in formData) {
+        if (formData[field] != '') validateField(field, formData[field])
+      }
+    })
+  }
+
+  fetchApwriteInfo()
+
+}, [])
 
   return (
     <div className="p-6 mx-auto text-white rounded-lg shadow-lg max-w-7xl">

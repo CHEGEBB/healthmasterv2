@@ -2,12 +2,10 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, Lock } from "lucide-react";
 import { toast } from "react-hot-toast";
-import {signIn} from "@/appwrite"
 import appwriteAuth from '@/appwrite/appwriteAuth';
 
 import "@/sass/auth.scss";
@@ -53,11 +51,11 @@ export default function Login() {
         router.push("/dashboard");
       } else {
         toast.error("Failed to log in. Please check your credentials");
-        setIsLoading(false);
       }
     } catch (error) {
-      console.log(error);
-      
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
     
   };
