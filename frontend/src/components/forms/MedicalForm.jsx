@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
+import appwriteInfo from '@/appwrite/info'
 import { User, FileText, AlertCircle, Pill, ChevronDown, Droplet } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 export default function MedicalForm() {
   const [doctors, setDoctors] = useState([
@@ -37,6 +39,15 @@ export default function MedicalForm() {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchApwriteInfo = () => {
+      appwriteInfo.getMedicalInfo().then((info) => {
+        setFormState((prev) => ({...prev, ...info}))
+      })
+    }
+  
+    fetchApwriteInfo()
+  }, [])
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormState(prev => ({ ...prev, [id]: value }));
@@ -57,16 +68,15 @@ export default function MedicalForm() {
         ...formState,
         primaryPhysician: formState.primaryPhysician ? formState.primaryPhysician.id : null,
       };
-
-      const response = await axios.post('https://healthmasterv2-2.onrender.com/api/medical-info/save', medicalInfo);
-      console.log('Medical information saved:', response.data);
-      setIsLoading(false);
-      alert('Medical information saved successfully!');
+      await appwriteInfo.updateMedicalInfo(medicalInfo)
+        toast.success("Updated successfully")
     } catch (error) {
       console.error('Error saving medical information:', error);
       setError('Failed to save medical information. Please try again.');
+    } finally {
       setIsLoading(false);
     }
+    
   };
 
   return (

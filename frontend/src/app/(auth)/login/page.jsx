@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, Lock } from "lucide-react";
 import { toast } from "react-hot-toast";
-import appwriteAuth from '@/appwrite/appwriteAuth';
+import appwriteAuth from '@/appwrite/auth';
 
 import "@/sass/auth.scss";
 

@@ -9,7 +9,7 @@ import {
 import "@/sass/sidebar.scss";
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import appwriteAuth from '@/appwrite/appwriteAuth'
+import appwriteAuth from '@/appwrite/auth'
 
 const menuItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
