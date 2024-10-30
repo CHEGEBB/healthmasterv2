@@ -8,6 +8,7 @@ export const config = {
   appoinmentsCollectionId: process.env.NEXT_PUBLIC_APPWRITE_APPOINTMENTS_COLLECTION_ID!,
   medicationCollectionId: process.env.NEXT_PUBLIC_APPWRITE_MEDICATIONS_COLLECTION_ID!,
   remindersCollectionId: process.env.NEXT_PUBLIC_APPWRITE_REMINDERS_COLLECTION_ID!,
+  doctorsCollectionId: process.env.NEXT_PUBLIC_APPWRITE_DOCTORS_COLLECTION_ID!,
   storageId: process.env.NEXT_PUBLIC_APPWRITE_STORAGE_ID!,
   avatarId : process.env.NEXT_PUBLIC_APPWRITE_AVATAR_ID!,
 };

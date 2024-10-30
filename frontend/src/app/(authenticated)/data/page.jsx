@@ -10,20 +10,30 @@ import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
 import ReactConfetti from 'react-confetti';
 
+import appwriteInfo from '@/appwrite/info'
+
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const router = useRouter(); // Initialize the router
 
+  const [identyInfo, setIdentyInfo] = useState({
+    identificationType: '',
+    identificationNumber: '',
+    documentURL: '',
+    document: null
+  })
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsModalOpen(true);
     setShowConfetti(true);
+    appwriteInfo.updateIdentification(identyInfo).then(() => router.push('/dashboard'))
 
     // Redirect to /dashboard after a delay to show the confetti/modal
-    setTimeout(() => {
-      router.push('/dashboard'); // Redirect to the dashboard
-    }, 6000); // Adjust the delay as per your preference
+    // setTimeout(() => {
+    //   router.push('/dashboard'); // Redirect to the dashboard
+    // }, 6000); // Adjust the delay as per your preference
   };
 
   useEffect(() => {
@@ -49,7 +59,7 @@ export default function Page() {
         <div className="personal-info">
           <h2>Personal Information</h2>
           <p>Please fill out your personal information below</p>
-          <PersonalInfo />
+          <PersonalInfo setIdentyInfo={setIdentyInfo} />
         </div>
         <div className="medical-info">
           <h2>Medical Information</h2>
@@ -65,7 +75,7 @@ export default function Page() {
             Please provide your identification so we can verify your identity and access your healthcare records.
             This information will be used to help you find the best healthcare providers and resources.
           </p>
-          <IdentificationForm/>
+          <IdentificationForm data={identyInfo} setData={setIdentyInfo}/>
         </div>
         <div className="terms-and-conditions">
           <h2>Consent and Privacy</h2>

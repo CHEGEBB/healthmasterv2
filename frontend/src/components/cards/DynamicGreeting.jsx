@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useUser } from '@/contexts/userContext';
+import useUser from '@/contexts/useUser';
 import '@/sass/DynamicGreeting.scss';
 
 const DynamicGreeting = () => {
-  const { userName } = useUser();
+  const { user } = useUser();
   const [greeting, setGreeting] = useState('');
   const [timePhase, setTimePhase] = useState('');
 
@@ -31,7 +31,7 @@ const DynamicGreeting = () => {
   return (
     <div className={`greeting-container ${timePhase}`}>
       <div className="greeting-content">
-        <h1 className="greeting-text">{greeting}, {userName || 'User'}!</h1>
+        <h1 className="greeting-text">{greeting}, {user?.username || 'User'}!</h1>
         <p className="welcome-message">Welcome to your health dashboard. Let us make today a great day for your well-being!</p>
       </div>
       <div className="illustration">

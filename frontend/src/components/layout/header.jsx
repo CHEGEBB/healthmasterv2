@@ -4,25 +4,16 @@ import { Search, Mic, ChevronDown, Calendar, Bell } from 'lucide-react';
 import Image from 'next/image';
 import '@/sass/header.scss';
 
+import appwriteInfo from '@/appwrite/info'
+import useUser from '@/contexts/useUser';
 const Header = () => {
-  const [userName, setUserName] = useState('');
+  const { user } = useUser();
   const [showAppointments, setShowAppointments] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const appointmentsRef = useRef(null);
   const notificationsRef = useRef(null);
 
   useEffect(() => {
-    const fetchUserName = async () => {
-      try {
-        const response = await axios.get('https://healthmasterv2-2.onrender.com/api/personal-info');
-        setUserName(response.data.name);
-      } catch (error) {
-        console.error('Error fetching user name:', error);
-        setUserName('Guest User');
-      }
-    };
-
-    fetchUserName();
 
     const handleClickOutside = (event) => {
       if (appointmentsRef.current && !appointmentsRef.current.contains(event.target)) {
@@ -119,8 +110,8 @@ const Header = () => {
             </div>
 
             <div className="header__profile">
-              <Image src="/assets/images/3.jpg" alt={userName} width={32} height={32} className="header__avatar" />
-              <span className="header__name">{userName || 'Loading...'}</span>
+              <Image src={user?.avatar || null} alt={user?.username || ''} width={32} height={32} className="header__avatar" />
+              <span className="header__name">{user?.username || 'Loading...'}</span>
               <ChevronDown className="header__chevron" />
             </div>
           </div>

@@ -10,6 +10,8 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import "@/sass/stats.scss"
 
+import appwriteInfo from "@/appwrite/info"
+
 const organs = [
   { name: 'Heart', health: 85, image: '/assets/images/heart.png' },
   { name: 'Lungs', health: 90, image: '/assets/images/lungs.png' },
@@ -46,7 +48,7 @@ function HealthStatsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [overallHealth, setOverallHealth] = useState(0);
-
+  const [user, setUser] = useState({})
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -63,6 +65,13 @@ function HealthStatsPage() {
     const timer = setTimeout(() => {
       setOverallHealth(80);
     }, 500);
+
+    const getUser = async () => {
+      const user = await appwriteInfo.getPersonalInfo()
+    setUser(user)
+    }
+
+    getUser()
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -128,14 +137,14 @@ function HealthStatsPage() {
             >
               <div className="flex items-center mb-4">
                 <Image
-                  src="/assets/images/3.jpg"
+                  src={user.avatar || null}
                   alt="User Avatar"
                   width={80}
                   height={80}
                   className="mr-4 rounded-full"
                 />
                 <div>
-                  <h2 className="text-2xl font-semibold text-white">User</h2>
+                  <h2 className="text-2xl font-semibold text-white">{user.username || "User"}</h2>
                   <p className="text-gray-400">Age: 35 | Height: 180cm | Weight: 75kg</p>
                 </div>
               </div>

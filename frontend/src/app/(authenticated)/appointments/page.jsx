@@ -8,44 +8,47 @@ import Sidebar from "@/components/layout/sidebar";
 import Header from '@/components/layout/header';
 import "@/sass/Appointments.scss";
 
-const doctors = [
-  { id: 1, name: "Dr. Smith", specialty: "Cardiologist", image: "/assets/images/1.png" },
-  { id: 2, name: "Dr. Johnson", specialty: "Pediatrician", image: "/assets/images/2.png" },
-  { id: 3, name: "Dr. Williams", specialty: "Dermatologist", image: "/assets/images/3.png" },
-];
+import appwriteAppiontments from '@/appwrite/appiontment';
+import appwriteDoctors from '@/appwrite/doctors';
 
-const defaultAppointments = [
-  {
-    id: 1,
-    status: "pending",
-    doctor: doctors[0],
-    profession: "Cardiologist",
-    date: "2024-09-15",
-    time: "10:00 AM",
-    medications: ["Aspirin", "Lisinopril"],
-    conditions: ["Hypertension", "High cholesterol"],
-  },
-  {
-    id: 2,
-    status: "approved",
-    doctor: doctors[1],
-    profession: "Pediatrician",
-    date: "2024-09-16",
-    time: "2:30 PM",
-    medications: ["Amoxicillin"],
-    conditions: ["Ear infection"],
-  },
-  {
-    id: 3,
-    status: "cancelled",
-    doctor: doctors[2],
-    profession: "Dermatologist",
-    date: "2024-09-17",
-    time: "11:15 AM",
-    medications: ["Tretinoin cream"],
-    conditions: ["Acne"],
-  },
-];
+// const doctors = [
+//   { id: 1, name: "Dr. Smith", specialty: "Cardiologist", image: "/assets/images/1.png" },
+//   { id: 2, name: "Dr. Johnson", specialty: "Pediatrician", image: "/assets/images/2.png" },
+//   { id: 3, name: "Dr. Williams", specialty: "Dermatologist", image: "/assets/images/3.png" },
+// ];
+
+// const defaultAppointments = [
+//   {
+//     id: 1,
+//     status: "pending",
+//     doctor: doctors[0],
+//     profession: "Cardiologist",
+//     date: "2024-09-15",
+//     time: "10:00 AM",
+//     medications: ["Aspirin", "Lisinopril"],
+//     conditions: ["Hypertension", "High cholesterol"],
+//   },
+//   {
+//     id: 2,
+//     status: "approved",
+//     doctor: doctors[1],
+//     profession: "Pediatrician",
+//     date: "2024-09-16",
+//     time: "2:30 PM",
+//     medications: ["Amoxicillin"],
+//     conditions: ["Ear infection"],
+//   },
+//   {
+//     id: 3,
+//     status: "cancelled",
+//     doctor: doctors[2],
+//     profession: "Dermatologist",
+//     date: "2024-09-17",
+//     time: "11:15 AM",
+//     medications: ["Tretinoin cream"],
+//     conditions: ["Acne"],
+//   },
+// ];
 
 const pastVisits = [
   { id: 1, date: "2024-08-01", doctor: "Dr. Smith", reason: "Annual checkup" },
@@ -54,20 +57,36 @@ const pastVisits = [
 ];
 
 function AppointmentsPage() {
+  const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState('');
+  const [appointments, setAppointments] = useState([]);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [reason, setReason] = useState('');
   const [conditions, setConditions] = useState('');
   const [medications, setMedications] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
-  const [appointments, setAppointments] = useState(defaultAppointments);
-  const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const getDoctors = () => {
+      appwriteDoctors.getDoctors().then((response) => {
+        setDoctors(response)
+      })
+    }
+    
+    const getAppiontments = () => {
+      appwriteAppiontments.getAppointments().then((response) => {
+        setAppointments(response)
+      })
+      
+    }
+    getDoctors()
+    getAppiontments()
+
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
       if (window.innerWidth >= 768) {
@@ -86,28 +105,52 @@ function AppointmentsPage() {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const newAppointment = {
+  //     id: appointments.length + 1,
+  //     status: "pending",
+  //     doctor: doctors.find(d => d.id === parseInt(selectedDoctor)),
+  //     profession: doctors.find(d => d.id === parseInt(selectedDoctor)).specialty,
+  //     date,
+  //     time,
+  //     medications: medications.split(',').map(med => med.trim()),
+  //     conditions: conditions.split(',').map(condition => condition.trim()),
+  //   };
+  //   if (isEditing) {
+  //     setAppointments(appointments.map(app => app.id === selectedAppointment.id ? { ...newAppointment, id: app.id } : app));
+  //     setIsEditing(false);
+  //   } else {
+  //     setAppointments([newAppointment, ...appointments]);
+  //   }
+  //   setShowSuccess(true);
+  //   resetForm();
+  //   setTimeout(() => setShowSuccess(false), 8000);
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newAppointment = {
-      id: appointments.length + 1,
-      status: "pending",
-      doctor: doctors.find(d => d.id === parseInt(selectedDoctor)),
-      profession: doctors.find(d => d.id === parseInt(selectedDoctor)).specialty,
+      doctorId: selectedDoctor,
       date,
       time,
       medications: medications.split(',').map(med => med.trim()),
       conditions: conditions.split(',').map(condition => condition.trim()),
+      reason
     };
     if (isEditing) {
-      setAppointments(appointments.map(app => app.id === selectedAppointment.id ? { ...newAppointment, id: app.id } : app));
+      const response = await appwriteAppiontments.updateAppointment({id: selectedAppointment.$id, ...newAppointment})
+      setAppointments(appointments.map(app => app.$id === selectedAppointment.$id ? { ...response, $id: app.$id } : app));
       setIsEditing(false);
     } else {
-      setAppointments([newAppointment, ...appointments]);
-    }
-    setShowSuccess(true);
-    resetForm();
-    setTimeout(() => setShowSuccess(false), 8000);
-  };
+          const response = await appwriteAppiontments.createAppointment(newAppointment)
+          setAppointments([response, ...appointments]);
+        }
+        setShowSuccess(true);
+        resetForm();
+        setTimeout(() => setShowSuccess(false), 8000);
+        
+  }
 
   const resetForm = () => {
     setSelectedDoctor('');
@@ -121,59 +164,63 @@ function AppointmentsPage() {
 
   const handleEdit = (appointment) => {
     setSelectedAppointment(appointment);
-    setSelectedDoctor(appointment.doctor.id.toString());
+    setSelectedDoctor(appointment.doctorId);
     setDate(appointment.date);
     setTime(appointment.time);
-    setReason('');
+    setReason(appointment.reason);
     setConditions(appointment.conditions.join(', '));
     setMedications(appointment.medications.join(', '));
     setIsEditing(true);
   };
 
-  const handleDelete = (id) => {
-    setAppointments(appointments.filter(app => app.id !== id));
+  const handleDelete = async (id) => {
+    await appwriteAppiontments.deleteAppointment(id)
+    setAppointments(appointments.filter(app => app.$id !== id));
   };
 
-  const AppointmentCard = ({ id, status, doctor, profession, date, time, medications, conditions }) => (
-    <motion.div 
-      className={`appointment-card ${status}`}
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="doctor-info">
-        <Image src={doctor.image} alt={doctor.name} width={60} height={60} className="doctor-image" />
-        <div>
-          <h3>{doctor.name}</h3>
-          <p>{profession}</p>
+  const AppointmentCard = ({ $id, status, doctorId, profession, date, time, medications, conditions, reason }) => {
+    const doctor = doctors.find((d) => d.$id === doctorId)
+    return (
+      <motion.div 
+        className={`appointment-card ${status}`}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="doctor-info">
+          <Image src={doctor?.imageURL} alt={doctor?.name} width={60} height={60} className="doctor-image" />
+          <div>
+            <h3>{doctor?.name}</h3>
+            <p>{doctor?.specialty}</p>
+          </div>
         </div>
-      </div>
-      <div className="appointment-details">
-        <p><Calendar size={16} /> {date}</p>
-        <p><Clock size={16} /> {time}</p>
-      </div>
-      <div className="medications">
-        <h4><Pill size={16} /> Medications:</h4>
-        {medications.map((med, index) => (
-          <span key={index} className="medication-bubble">{med}</span>
-        ))}
-      </div>
-      <div className="conditions">
-        <h4><Heart size={16} /> Conditions:</h4>
-        <p>{conditions.join(', ')}</p>
-      </div>
-      <div className={`status ${status}`}>
-        {status === 'pending' && <AlertCircle size={20} />}
-        {status === 'approved' && <CheckCircle size={20} />}
-        {status === 'cancelled' && <XCircle size={20} />}
-        {status.charAt(0).toUpperCase() + status.slice(1)}
-      </div>
-      <div className="appointment-actions">
-        <button onClick={() => handleEdit({ id, status, doctor, profession, date, time, medications, conditions })}><Edit size={16} /></button>
-        <button onClick={() => handleDelete(id)}><Trash2 size={16} /></button>
-      </div>
-    </motion.div>
-  );
+        <div className="appointment-details">
+          <p><Calendar size={16} /> {date}</p>
+          <p><Clock size={16} /> {time}</p>
+        </div>
+        <div className="medications">
+          <h4><Pill size={16} /> Medications:</h4>
+          {medications.map((med, index) => (
+            <span key={index} className="medication-bubble">{med}</span>
+          ))}
+        </div>
+        <div className="conditions">
+          <h4><Heart size={16} /> Conditions:</h4>
+          <p>{conditions.join(', ')}</p>
+        </div>
+        <div className={`status ${status}`}>
+          {status === 'pending' && <AlertCircle size={20} />}
+          {status === 'approved' && <CheckCircle size={20} />}
+          {status === 'cancelled' && <XCircle size={20} />}
+          {status.charAt(0).toUpperCase() + status.slice(1)}
+        </div>
+        <div className="appointment-actions">
+          <button onClick={() => handleEdit({ $id, status, doctorId, profession, date, time, medications, conditions, reason })}><Edit size={16} /></button>
+          <button onClick={() => handleDelete($id)}><Trash2 size={16} /></button>
+        </div>
+      </motion.div>
+    )
+  };
 
   return (
     <div className={`appointments-page ${sidebarOpen ? 'sidebar-open' : ''}`}>
@@ -216,8 +263,8 @@ function AppointmentsPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            {appointments.map((appointment) => (
-              <AppointmentCard key={appointment.id} {...appointment} />
+            {appointments.length > 0 && appointments.map((appointment) => (
+              <AppointmentCard key={appointment.$id} {...appointment} />
             ))}
           </motion.div>
 
@@ -236,8 +283,8 @@ function AppointmentsPage() {
                   required
                 >
                   <option value="">Select a Doctor</option>
-                  {doctors.map(doctor => (
-                    <option key={doctor.id} value={doctor.id}>
+                  {doctors?.map(doctor => (
+                    <option key={doctor.$id} value={doctor.$id}>
                       {doctor.name} - {doctor.specialty}
                     </option>
                   ))}
@@ -245,7 +292,7 @@ function AppointmentsPage() {
                 <label>Doctor</label>
                 {selectedDoctor && (
                   <Image 
-                    src={doctors.find(d => d.id === parseInt(selectedDoctor)).image} 
+                    src={doctors.find(d => d.$id === selectedDoctor)?.imageURL || null} 
                     alt="Doctor" 
                     width={40}
                     height={40}

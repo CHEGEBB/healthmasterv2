@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Briefcase, CalendarDays, Home, Mail, Phone, User2, AlertTriangle, X } from "lucide-react";
 import confetti from 'canvas-confetti';
-import appwriteInfo from '@/appwrite/appwriteInfo'
+import appwriteInfo from '@/appwrite/info'
 import { toast } from 'react-hot-toast';
 
 const SuccessModal = ({ isOpen, onClose, name }) => {
@@ -64,12 +64,12 @@ const SuccessModal = ({ isOpen, onClose, name }) => {
   );
 };
 
-const PersonalInfo = () => {
+const PersonalInfo = ({setIdentyInfo}) => {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
     phone: "",
-    dob: "",
+    dateofbirth: "",
     gender: "",
     address: "",
     occupation: "",
@@ -81,7 +81,7 @@ const PersonalInfo = () => {
     name: null,
     email: null,
     phone: null,
-    dob: null,
+    dateofbirth: null,
     gender: null,
     address: null,
     occupation: null,
@@ -117,7 +117,7 @@ const PersonalInfo = () => {
       case "emergencyPhone":
         isValid = /^\d{10}$/.test(value);
         break;
-      case "dob":
+      case "dateofbirth":
         isValid = value !== "";
         break;
       case "gender":
@@ -141,7 +141,8 @@ const PersonalInfo = () => {
       setIsSubmitting(true);
       setError(null);
       try {
-        await appwriteInfo.updateInfo(formState)
+        await appwriteInfo.updatePersonalInfo(formState)
+        toast.success("Updated successfully")
         // const response = await axios.post('https://healthmasterv2-2.onrender.com/api/personal-info', formState);
         // if (response.status === 201) {
         //   setShowSuccessModal(true);
@@ -149,7 +150,7 @@ const PersonalInfo = () => {
         //     name: "",
         //     email: "",
         //     phone: "",
-        //     dob: "",
+        //     dateofbirth: "",
         //     gender: "",
         //     address: "",
         //     occupation: "",
@@ -160,7 +161,7 @@ const PersonalInfo = () => {
         //     name: null,
         //     email: null,
         //     phone: null,
-        //     dob: null,
+        //     dateofbirth: null,
         //     gender: null,
         //     address: null,
         //     occupation: null,
@@ -168,7 +169,6 @@ const PersonalInfo = () => {
         //     emergencyPhone: null
         //   });
         // }
-        toast.success("Updated successfully")
       } catch (error) {
         console.error('Error submitting form:', error);
         setError('An error occurred while submitting the form. Please try again.');
@@ -182,18 +182,24 @@ const PersonalInfo = () => {
 
   useEffect(() => {
     const fetchApwriteInfo = () => {
-    appwriteInfo.getInfo().then((info) => {
+    appwriteInfo.getPersonalInfo().then((info) => {
       const formData = {
         name: info.username || '',
         email: info.email || '',
         phone: info.phone || '',
-        dob: info.dob || '',
+        dateofbirth: info.dateofbirth || '',
         gender: info.gender || '',
         address: info.address || '',
         occupation: info.occupation || '',
         emergencyContact: info.emergencyContact || '',
         emergencyPhone: info.emergencyPhone || ''
       }
+      setIdentyInfo({
+        identificationType: info.identificationType || '',
+        identificationNumber: info.identificationNumber || '',
+        documentURL: info.identificationDocument,
+        document: null
+      })
       setFormState(formData)
       for (const field in formData) {
         if (formData[field] != '') validateField(field, formData[field])
@@ -282,15 +288,15 @@ const PersonalInfo = () => {
             <input
               type="date"
               className={`w-full bg-gray-800 border-2 border-gray-700 rounded-xl py-3 px-4 pl-10 focus:outline-none focus:border-green-500 transition-colors ${
-                validationState.dob === false ? 'border-red-500' : ''
-              } ${validationState.dob === true ? 'border-green-500' : ''}`}
-              id="dob"
-              value={formState.dob}
+                validationState.dateofbirth === false ? 'border-red-500' : ''
+              } ${validationState.dateofbirth === true ? 'border-green-500' : ''}`}
+              id="dateofbirth"
+              value={formState.dateofbirth}
               onChange={handleInputChange}
               required
             />
             <CalendarDays className="absolute left-3 top-3.5 text-gray-400 w-5 h-5" />
-            {validationState.dob === false && <p className="mt-1 text-sm text-red-500">Please enter a valid date of birth.</p>}
+            {validationState.dateofbirth === false && <p className="mt-1 text-sm text-red-500">Please enter a valid date of birth.</p>}
           </div>
 
           <div className="relative">
