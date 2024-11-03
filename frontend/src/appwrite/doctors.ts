@@ -24,7 +24,6 @@ class AppwriteDoctors {
         config.doctorsCollectionId,
         doctorId,
       );
-      console.log(data);
       return data;
     } catch (error) {
       console.error('Error getting doctor:', error);

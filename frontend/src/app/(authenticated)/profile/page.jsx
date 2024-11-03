@@ -9,36 +9,44 @@ import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import styles from '@/sass/Profile.scss';
 
+import useUser from '@/contexts/useUser';
+import appwriteAppiontment from '@/appwrite/appiontment'
+import appwriteDoctor from '@/appwrite/doctors'
+import appwriteInfo from '@/appwrite/info'
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const ProfilePage = () => {
-  const [patientData, setPatientData] = useState({
-    name: 'John Doe',
-    age: 35,
-    gender: 'Male',
-    dob: '1988-05-15',
-    bloodGroup: 'A+',
-    height: '175 cm',
-    weight: '70 kg',
-    bmi: '22.9',
-    conditions: ['Hypertension', 'Type 2 Diabetes'],
-    allergies: ['Peanuts', 'Penicillin'],
-    medications: [
-      { name: 'Lisinopril', dosage: '10mg', frequency: 'Once daily' },
-      { name: 'Metformin', dosage: '500mg', frequency: 'Twice daily' },
-    ],
-    doctor: 'Dr. Jane Smith',
-    emergencyContact: 'Sarah Doe (Wife) - +1 234 567 8900',
-    profileImage: '/assets/images/3.jpg',
-    doctorImage: '/assets/images/1.png',
-  });
+  //  const [patientData, setPatientData] = useState({
+  //   name: 'John Doe',
+  //   age: 35,
+  //   gender: 'Male',
+  //   dob: '1988-05-15',
+  //   bloodGroup: 'A+',
+  //   height: '175 cm',
+  //   weight: '70 kg',
+  //   bmi: '22.9',
+  //   conditions: ['Hypertension', 'Type 2 Diabetes'],
+  //   allergies: ['Peanuts', 'Penicillin'],
+  //   medications: [
+  //     { name: 'Lisinopril', dosage: '10mg', frequency: 'Once daily' },
+  //     { name: 'Metformin', dosage: '500mg', frequency: 'Twice daily' },
+  //   ],
+  //   doctor: 'Dr. Jane Smith',
+  //   emergencyContact: 'Sarah Doe (Wife) - +1 234 567 8900',
+  //   profileImage: '/assets/images/3.jpg',
+  //   doctorImage: '/assets/images/1.png',
+  // });
 
+  const { user } = useUser()
+  const [patientData, setPatientData] = useState(user)
+  const [medicals, setMedicals] = useState({})
   const [isEditing, setIsEditing] = useState(false);
   const [expandedSections, setExpandedSections] = useState({});
 
   const [appointments, setAppointments] = useState([
-    { id: 1, date: '2024-09-20', time: '10:00 AM', doctor: 'Dr. Jane Smith', purpose: 'Regular Checkup' },
-    { id: 2, date: '2024-10-05', time: '2:30 PM', doctor: 'Dr. Mark Johnson', purpose: 'Diabetes Follow-up' },
+    { id: 1, date: '2024-09-20', time: '10:00 AM', doctor: 'Dr. Jane Smith', reason: 'Regular Checkup' },
+    { id: 2, date: '2024-10-05', time: '2:30 PM', doctor: 'Dr. Mark Johnson', reason: 'Diabetes Follow-up' },
   ]);
 
   const [medicalHistory, setMedicalHistory] = useState([
@@ -48,12 +56,20 @@ const ProfilePage = () => {
   ]);
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log('Patient data loaded');
-    }, 1000);
+    appwriteAppiontment.getMostRecentAppiontment(2).then((response) => {
+      response.forEach((appiontment) => {appwriteDoctor.getDoctorById(appiontment.doctorId).then((doctor) => {
+        appiontment.doctor = doctor.name
+      })})
+      setAppointments(response)
+    })
+    appwriteInfo.getMedicalInfo().then((response) => {
+      console.log(response)
+      setMedicals(response)
+    })
   }, []);
 
   const handleEditToggle = () => {
+    appwriteInfo.updatePersonalInfo(personalData)
     setIsEditing(!isEditing);
   };
 
@@ -129,7 +145,7 @@ const ProfilePage = () => {
           >
             <div className="relative mb-4">
               <Image
-                src={patientData.profileImage}
+                src={patientData?.profileImage}
                 alt="Patient"
                 width={200}
                 height={200}
@@ -146,14 +162,14 @@ const ProfilePage = () => {
                 />
               </label>
             </div>
-            <h2 className="mb-4 text-xl font-semibold text-center sm:text-2xl">{patientData.name}</h2>
+            <h2 className="mb-4 text-xl font-semibold text-center sm:text-2xl">{patientData?.name}</h2>
             <div className="space-y-2 text-sm text-left sm:text-base">
-              <p>Age: {patientData.age}</p>
-              <p>Gender: {patientData.gender}</p>
-              <p>Date of Birth: {patientData.dob}</p>
-              <p>Height: {patientData.height}</p>
-              <p>Weight: {patientData.weight}</p>
-              <p>BMI: {patientData.bmi}</p>
+              <p>Age: {patientData?.age}</p>
+              <p>Gender: {patientData?.gender}</p>
+              <p>Date of Birth: {patientData?.dateofbirth}</p>
+              <p>Height: {patientData?.height}</p>
+              <p>Weight: {patientData?.weight}</p>
+              <p>BMI: {patientData?.bmi}</p>
             </div>
           </motion.section>
 
@@ -166,14 +182,14 @@ const ProfilePage = () => {
             <h2 className="mb-4 text-xl font-semibold sm:text-2xl">Medical Information</h2>
             <div className="space-y-4 text-sm sm:text-base">
               <p className="flex items-center">
-                <Droplet className="mr-2 text-red-500" /> Blood Group: {patientData.bloodGroup}
+                <Droplet className="mr-2 text-red-500" /> Blood Group: {medicals?.bloodGroup}
               </p>
               <div>
                 <h3 className="flex items-center font-semibold">
                   <Activity className="mr-2 text-blue-500" /> Conditions:
                 </h3>
                 <ul className="ml-6 list-disc list-inside">
-                  {patientData.conditions.map((condition, index) => (
+                  {medicals?.conditions?.map((condition, index) => (
                     <li key={index}>{condition}</li>
                   ))}
                 </ul>
@@ -183,7 +199,7 @@ const ProfilePage = () => {
                   <AlertTriangle className="mr-2 text-yellow-500" /> Allergies:
                 </h3>
                 <ul className="ml-6 list-disc list-inside">
-                  {patientData.allergies.map((allergy, index) => (
+                  {medicals?.allergies?.map((allergy, index) => (
                     <li key={index}>{allergy}</li>
                   ))}
                 </ul>
@@ -193,8 +209,8 @@ const ProfilePage = () => {
                   <Pill className="mr-2 text-green-500" /> Medications:
                 </h3>
                 <ul className="ml-6 list-disc list-inside">
-                  {patientData.medications.map((medication, index) => (
-                    <li key={index}>{medication.name} - {medication.dosage}, {medication.frequency}</li>
+                  {medicals?.medications?.map((medication, index) => (
+                    <li key={index}>{medication?.name} - {medication?.dosage}, {medication?.frequency}</li>
                   ))}
                 </ul>
               </div>
@@ -210,14 +226,14 @@ const ProfilePage = () => {
             <h2 className="mb-4 text-xl font-semibold sm:text-2xl">Primary Doctor</h2>
             <div className="flex items-center">
               <Image
-                src={patientData.doctorImage}
+                src={patientData?.doctorImage}
                 alt="Doctor"
                 width={80}
                 height={80}
                 className="object-cover w-16 h-16 mr-4 rounded-full sm:w-20 sm:h-20"
               />
               <div>
-                <h3 className="text-sm font-semibold sm:text-base">{patientData.doctor}</h3>
+                <h3 className="text-sm font-semibold sm:text-base">{patientData?.doctor}</h3>
                 <p className="text-sm">Specialization: Cardiology</p>
               </div>
             </div>
@@ -231,13 +247,13 @@ const ProfilePage = () => {
           >
             <h2 className="mb-4 text-xl font-semibold sm:text-2xl">Upcoming Appointments</h2>
             <ul className="space-y-4">
-              {appointments.map((appointment) => (
+              {appointments?.map((appointment) => (
                 <li key={appointment.id} className="p-3 rounded-lg sm:p-4 bg-zinc-800">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div className="mb-2 sm:mb-0">
-                      <p className="text-sm font-semibold sm:text-base">{appointment.date} at {appointment.time}</p>
-                      <p className="text-sm">{appointment.doctor}</p>
-                      <p className="text-xs text-gray-400 sm:text-sm">{appointment.purpose}</p>
+                      <p className="text-sm font-semibold sm:text-base">{appointment?.date} at {appointment?.time}</p>
+                      <p className="text-sm">{appointment?.doctor}</p>
+                      <p className="text-xs text-gray-400 sm:text-sm">{appointment?.reason}</p>
                     </div>
                     <button className="px-3 py-1 text-sm text-white bg-blue-600 rounded sm:px-4 sm:py-2 hover:bg-blue-700">
                       Reschedule
@@ -313,7 +329,7 @@ const ProfilePage = () => {
                     type="text"
                     id="name"
                     name="name"
-                    value={patientData.name}
+                    value={patientData?.name}
                     onChange={handleInputChange}
                     className="w-full p-2 text-sm rounded bg-zinc-800"
                   />
@@ -324,7 +340,7 @@ const ProfilePage = () => {
                     type="number"
                     id="age"
                     name="age"
-                    value={patientData.age}
+                    value={patientData?.age}
                     onChange={handleInputChange}
                     className="w-full p-2 text-sm rounded bg-zinc-800"
                   />
@@ -334,7 +350,7 @@ const ProfilePage = () => {
                   <select
                     id="gender"
                     name="gender"
-                    value={patientData.gender}
+                    value={patientData?.gender}
                     onChange={handleInputChange}
                     className="w-full p-2 text-sm rounded bg-zinc-800"
                   >
@@ -348,8 +364,8 @@ const ProfilePage = () => {
                   <input
                     type="date"
                     id="dob"
-                    name="dob"
-                    value={patientData.dob}
+                    name="dateofbirth"
+                    value={patientData?.dateofbirth}
                     onChange={handleInputChange}
                     className="w-full p-2 text-sm rounded bg-zinc-800"
                   />
@@ -360,7 +376,7 @@ const ProfilePage = () => {
                     type="text"
                     id="height"
                     name="height"
-                    value={patientData.height}
+                    value={patientData?.height}
                     onChange={handleInputChange}
                     className="w-full p-2 text-sm rounded bg-zinc-800"
                   />
@@ -371,7 +387,7 @@ const ProfilePage = () => {
                     type="text"
                     id="weight"
                     name="weight"
-                    value={patientData.weight}
+                    value={patientData?.weight}
                     onChange={handleInputChange}
                     className="w-full p-2 text-sm rounded bg-zinc-800"
                   />
@@ -382,7 +398,7 @@ const ProfilePage = () => {
                     type="text"
                     id="emergencyContact"
                     name="emergencyContact"
-                    value={patientData.emergencyContact}
+                    value={patientData?.emergencyContact}
                     onChange={handleInputChange}
                     className="w-full p-2 text-sm rounded bg-zinc-800"
                   />

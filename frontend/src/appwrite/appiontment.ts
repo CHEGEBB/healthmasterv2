@@ -20,6 +20,21 @@ class AppwriteAppiontments {
     }
   }
 
+  async getMostRecentAppiontment(limit=1) {
+    try {
+      const user = await appwriteAuth.getCurrentUser();
+      const data = await databases.listDocuments(
+        config.databaseId,
+        config.appoinmentsCollectionId,
+        [Query.equal('patientId', user?.$id || ''), Query.orderDesc('$createdAt'), Query.limit(limit)],
+      );
+      return [...data.documents];
+    } catch (error) {
+      console.error('Error getting user appiontments:', error);
+      throw error;
+    }
+  }
+
   async createAppointment({
     date,
     doctorId,

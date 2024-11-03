@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useViewportScroll, useTransform, useSpring, useScroll, AnimatePresence } from 'framer-motion';
+import { motion, useTransform, useSpring, useScroll, AnimatePresence } from 'framer-motion';
 import { ArrowUpCircle, Menu, X, Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import Image from 'next/image';
 
@@ -8,7 +8,7 @@ const LandingPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const { scrollYProgress } = useViewportScroll();
+  const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
   
